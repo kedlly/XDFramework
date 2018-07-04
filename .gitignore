@@ -4,3 +4,9 @@
 /Temp
 /Packages
 /Library
+
+ /.vs
+*.csproj
+*.sln
+/obj
+/.vscode
