@@ -1,4 +1,6 @@
 ﻿
+using UnityEngine;
+
 namespace Framework.Library.XMLStateMachine
 {
 
@@ -23,6 +25,24 @@ namespace Framework.Library.XMLStateMachine
 		public StateMachine(string name) : this ()
 		{
 			executor = FSMExecutorFactory<T>.CreateExecutorInPreloads(name);
+		}
+
+		public static void PreLoadConfigure(string name, string xml)
+		{
+			FSMExecutorFactory<T>.Preload(name, xml);
+		}
+
+		public StateMachine(T owner, TextAsset textAsset)
+		{
+			if (textAsset != null)
+			{
+				if (!FSMExecutorFactory<T>.Contains(textAsset.name))
+				{
+					PreLoadConfigure(textAsset.name, textAsset.text);
+				}
+				executor = FSMExecutorFactory<T>.CreateExecutorInPreloads(textAsset.name);
+				(this as IStateMachine).SetTargetObject(owner);
+			}
 		}
 
 		public StateMachine(T owner, string name) : this(name)

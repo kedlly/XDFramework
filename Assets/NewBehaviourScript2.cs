@@ -26,33 +26,7 @@ public class NewBehaviourScript2 : MonoBehaviour {
 
 	public Action AAAAA;
 
-	class FSM
-	{
-		private static FSMExecutor<NewBehaviourScript2> executor = null;
-		static FSM()
-		{
-			TextAsset ta = Resources.Load("test3") as TextAsset;
-			//TextAsset tb = Resources.Load("test2") as TextAsset;
-			executor = FSMExecutor<NewBehaviourScript2>.LoadFromXML( ta.text);
-			//executor2 = FSMExecutor<NewBehaviourScript2>.LoadXML("test3", tb.text);
-		}
-
-
-		public FSMExecutor<NewBehaviourScript2> objExecutor = executor;
-		//public FSMExecutor<NewBehaviourScript2> objExecutor2 = executor2;
-
-		public FSM(NewBehaviourScript2 owner)
-		{
-			objExecutor.SetTargetObject(owner);
-			//objExecutor2.SetTargetObject(owner);
-		}
-
-		public void pushEvent(string ev)
-		{
-			objExecutor.PushEvent(ev);
-			//objExecutor2.PushEvent(ev);
-		}
-	}
+	
 
 	bool test5()
 	{
@@ -81,17 +55,18 @@ public class NewBehaviourScript2 : MonoBehaviour {
 
 	FlipFlopNormal f = new FlipFlopNormal(5);
 
-	IStateMachine fSM = null;
 	public AnimationCurve cur;
 
 	Delay d = new Delay(3);
 
+	FSMComponent fSM;
+
 	void Awake()
 	{
-		TextAsset ta = Resources.Load("test3") as TextAsset;
-		FSMExecutorFactory<NewBehaviourScript2>.Preload("hello", ta.text);
-		fSM = new StateMachine<NewBehaviourScript2>(this, "hello");
+		
 		Type t = typeof(NewBehaviourScript2);
+		fSM = GetComponent<FSMComponent>();
+		fSM.LoadFSM(this);
 		//var mi = t.GetMember("test5", BindingFlags.Instance | BindingFlags.NonPublic | BindingFlags.Public);
 		FieldInfo fi = t.GetField("test4", BindingFlags.Instance | BindingFlags.NonPublic | BindingFlags.Public);
 		Debug.Log(fi);
@@ -116,7 +91,7 @@ public class NewBehaviourScript2 : MonoBehaviour {
 	}
 
 	void Start () {
-		//
+		
 	}
 
 	// Update is called once per frame
@@ -134,35 +109,35 @@ public class NewBehaviourScript2 : MonoBehaviour {
 
 	void OnGUI()
 	{
-		GUI.Label(new Rect(50, 10, 200, 20), fSM.CurrentStateName);
+		GUI.Label(new Rect(50, 10, 200, 20), fSM.StateName);
 		GUI.Label(new Rect(50, 30, 200, 20), test1 + '/' + test2 + "|||" + test3 + '/' + test4 );
 		if (GUI.Button(new Rect(50, 50, 200, 20), "Play"))
 		{
-			//fSM.PushEvent("watch.start");
-			tl.Play();
+			fSM.PushEvent("watch.start"); 
+			//tl.Play();
 			//d.Execute();
 		
 		}
 		if (GUI.Button(new Rect(50, 100, 200, 20), "PlayFromStart"))
 		{
-			//fSM.PushEvent("watch.split");
-			tl.PlayFromStart();
+			fSM.PushEvent("watch.split");
+			//tl.PlayFromStart();
 		}
 		if (GUI.Button(new Rect(50, 150, 200, 20), "stop"))
 		{
-			//fSM.PushEvent("watch.stop");
-			tl.Stop();
+			fSM.PushEvent("watch.stop");
+			//tl.Stop();
 		}
 		if (GUI.Button(new Rect(50, 200, 200, 20), "Reverse"))
 		{
-			//fSM.PushEvent("watch.unsplit");
-			//get = true;
-			tl.Reverse();
+			fSM.PushEvent("watch.unsplit");
+			get = true;
+			//tl.Reverse();
 		}
 		if (GUI.Button(new Rect(50, 250, 200, 20), "ReverseFromEnd"))
 		{
-			//fSM.PushEvent("watch.reset");
-			tl.ReverseFromEnd();
+			fSM.PushEvent("watch.reset");
+			//tl.ReverseFromEnd();
 		}
 
 		if(GUI.Button(new Rect(50, 300, 200, 20), "set new time"))

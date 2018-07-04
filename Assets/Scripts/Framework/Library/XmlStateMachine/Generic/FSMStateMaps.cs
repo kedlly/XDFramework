@@ -93,7 +93,7 @@ namespace Framework.Library.XMLStateMachine
 			dictionary.Clear();
 		}
 
-		public static bool Find(string name)
+		public static bool Contains(string name)
 		{
 			return dictionary.ContainsKey(name);
 		}

@@ -15,13 +15,19 @@ namespace Framework.Core.FlowControl
 
 		public void Play()
 		{
-			Direction = TimeDirection.Forward;
-			IndexEvent = 0;
-			EnableTick();
+			if (Direction ==  TimeDirection.Stopped)
+			{
+				Direction = TimeDirection.Forward;
+				if(CurrenTime != timeDestination)
+				{
+					EnableTick();
+				}
+			}
 		}
 		public void PlayFromStart()
 		{
 			CurrenTime = 0.0f;
+			IndexEvent = 0;
 			Play();
 		}
 		public void Stop()
@@ -85,29 +91,29 @@ namespace Framework.Core.FlowControl
 					OnUpdate();
 				}
 				CheckAndFireTimeEvent(CurrenTime);
-				if(CurrenTime == timeDestination)
+			}
+			else
+			{
+				if(!IsLoop)
 				{
-					if (!IsLoop)
+					Stop();
+					if(OnFinished != null)
 					{
-						Stop();
-						if(OnFinished != null)
-						{
-							OnFinished();
-						}
+						OnFinished();
 					}
-					else
+				}
+				else
+				{
+					switch(Direction)
 					{
-						switch(Direction)
-						{
-							case TimeDirection.Backword:
-								ReverseFromEnd();
-								break;
-							case TimeDirection.Forward:
-								PlayFromStart();
-								break;
-							default:
-								break;
-						}
+						case TimeDirection.Backword:
+							ReverseFromEnd();
+							break;
+						case TimeDirection.Forward:
+							PlayFromStart();
+							break;
+						default:
+							break;
 					}
 				}
 			}
