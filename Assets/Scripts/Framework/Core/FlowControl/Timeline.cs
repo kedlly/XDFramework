@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 
 namespace Framework.Core.FlowControl
 {
@@ -13,22 +14,40 @@ namespace Framework.Core.FlowControl
 	
 		public bool IsLoop { get; set; }
 
+		public bool IsInTimelineStartPoint
+		{
+			get
+			{
+				return CurrenTime == 0;
+			}
+		}
+
+		public bool IsInTimelineEndPoint
+		{
+			get
+			{
+				return CurrenTime == TimeLength;
+			}
+		}
+
 		public void Play()
 		{
-			if (Direction ==  TimeDirection.Stopped)
+			if (IsInTimelineStartPoint || IsInTimelineEndPoint)
+			{
+				PlayFromStart();
+			}
+			else
 			{
 				Direction = TimeDirection.Forward;
-				if(CurrenTime != timeDestination)
-				{
-					EnableTick();
-				}
+				EnableTick();
 			}
 		}
 		public void PlayFromStart()
 		{
 			CurrenTime = 0.0f;
 			IndexEvent = 0;
-			Play();
+			Direction = TimeDirection.Forward;
+			EnableTick();
 		}
 		public void Stop()
 		{
@@ -37,14 +56,22 @@ namespace Framework.Core.FlowControl
 		}
 		public void Reverse()
 		{
-			Direction = TimeDirection.Backword;
-			IndexEvent = timeLineEvents.Count - 1;
-			EnableTick();
+			if (IsInTimelineStartPoint || IsInTimelineEndPoint)
+			{
+				ReverseFromEnd();
+			}
+			else
+			{
+				Direction = TimeDirection.Backword;
+				EnableTick();
+			}
 		}
 		public void ReverseFromEnd()
 		{
 			CurrenTime = TimeLength;
-			Reverse();
+			IndexEvent = timeLineEvents.Count - 1;
+			Direction = TimeDirection.Backword;
+			EnableTick();
 		}
 		public void SetNewTime(float time, bool fireEvent, bool fireUpdate)
 		{
@@ -81,16 +108,22 @@ namespace Framework.Core.FlowControl
 			}
 		}
 
+		protected void TimeTick(float timeDelta)
+		{
+			float lastTime = CurrenTime;
+			CurrenTime += timeDelta;
+			CheckAndFireTimeEvent(lastTime, CurrenTime);
+		}
+
 		protected override void OnTick(float timeDelta)
 		{
 			if(CurrenTime != timeDestination)
 			{
-				CurrenTime += timeDelta;
+				TimeTick(timeDelta);
 				if(OnUpdate != null)
 				{
 					OnUpdate();
 				}
-				CheckAndFireTimeEvent(CurrenTime);
 			}
 			else
 			{
@@ -132,8 +165,8 @@ namespace Framework.Core.FlowControl
 			}
 		}
 
-		private float ClampTime(float value)
-		{
+		private float ClampTime(float value) 
+		{ 
 			return value < 0f ? 0f : value > TimeLength ? TimeLength : value;
 		}
 
@@ -160,41 +193,23 @@ namespace Framework.Core.FlowControl
 			timeLineEvents.Sort();
 		}
 
-		private int IndexEvent = 0;
-		public void CheckAndFireTimeEvent(float time)
+		private bool isInFireTimeRange(float testTime, float lastTime, float currentTime)
 		{
-			if (IndexEvent < 0 || IndexEvent > timeLineEvents.Count-1 || Direction == TimeDirection.Stopped)
-			{
-				return;
-			}
-			var test = timeLineEvents[IndexEvent];
-			if(Direction == TimeDirection.Forward)
-			{
-				if(time >= test.timeStart)
-				{
-					if(test.eventAction != null)
-					{
-						test.eventAction();
-					}
-					IndexEvent++;
-					CheckAndFireTimeEvent(time);
-				}
-			}
-			else if(Direction == TimeDirection.Backword)
-			{
-				if(time <= test.timeStart)
-				{
-					if(test.eventAction != null)
-					{
-						test.eventAction();
-					}
-					IndexEvent --;
-					CheckAndFireTimeEvent(time);
-				}
-			}
-			else
-			{
+			return lastTime < currentTime ? 
+						testTime < lastTime && testTime >= currentTime :
+						lastTime > currentTime ?
+							testTime <= lastTime && testTime > currentTime :
+							false;
 
+		}
+		private void CheckAndFireTimeEvent(float lastTime, float current)
+		{
+			foreach (var item in timeLineEvents)
+			{
+				if(isInFireTimeRange(item.timeStart, lastTime, current) && item.eventAction != null)
+				{
+					item.eventAction();
+				}
 			}
 		}
 
