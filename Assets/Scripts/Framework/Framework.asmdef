@@ -1,0 +1,8 @@
+{
+    "name": "Game.Framework",
+    "references": [],
+    "optionalUnityReferences": [],
+    "includePlatforms": [],
+    "excludePlatforms": [],
+    "allowUnsafeCode": false
+}

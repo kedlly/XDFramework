@@ -1,0 +1,71 @@
+<scxml
+	version="1.0"
+	initialstate="reset"> 
+	<state id="reset"> 
+		<transition event="watch.start"   target="running"/> 
+	</state> 
+	<state id="running"> 
+		<transition event="watch.split"   target="paused"/> 
+		<transition event="watch.stop"    target="stopped"/> 
+	</state> 
+	<state id="paused"> 
+		<transition event="watch.unsplit" target="running"/> 
+		<transition event="watch.stop"    target="stopped"/> 
+	</state>
+	<state id="pause2d">
+		<state id="entry">
+			<entry target ="A"/>
+		</state>
+		<state id="A">
+			<transition event="watch.unsplit" target="B"/>
+		</state>
+		<state id="B">
+			<transition event="watch.unsplit" target="C"/>
+		</state>
+		<state id="C">
+			<transition event="watch.unsplit" target="D"/>
+		</state>
+		<state id="D">
+			<transition event="watch.unsplit" target="E"/>
+		</state>
+		<state id="exit">
+			<exit />
+		</state>
+		<transition event="watch.unsplit" target="reset"/>
+	</state>
+	<state id="stopped" script="">
+		<state id="exit">
+			<exit />
+		</state>
+		<transition event="watch.reset"   target="reset"/>
+		<onEntry>
+			<data/>
+			<passign property="HP" value="0" />
+			<assign property="test3" value="adfasfa" />
+			<assign property="test4" value="111" />
+			<add arg1="" arg2="" data="" />
+			<if condition="{HP} > v:3">
+			<elseif condition="">
+				<invoke method="Die">
+					<params>
+						<int value="3"/>
+						<float value="1.2"/>
+						<object value="null"/>
+					</params>
+				</invoke>
+			</elseif>
+			<elseif condition=""/>
+			<else />
+			</if>
+		</onEntry>
+		<onExit>
+			<switch property="">
+				<case value="1">
+				</case>
+			</switch>
+		</onExit>
+	</state> 
+</scxml>
+
+<!-- 赋值 assign -->
+<!-- 表达式 expr -->
