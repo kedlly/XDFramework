@@ -13,22 +13,40 @@ namespace Framework.Core.FlowControl
 	
 		public bool IsLoop { get; set; }
 
+		public bool IsInTimelineStartPoint
+		{
+			get
+			{
+				return CurrenTime == 0;
+			}
+		}
+
+		public bool IsInTimelineEndPoint
+		{
+			get
+			{
+				return CurrenTime == TimeLength;
+			}
+		}
+
 		public void Play()
 		{
-			if (Direction ==  TimeDirection.Stopped)
+			if (IsInTimelineStartPoint || IsInTimelineEndPoint)
+			{
+				PlayFromStart();
+			}
+			else
 			{
 				Direction = TimeDirection.Forward;
-				if(CurrenTime != timeDestination)
-				{
-					EnableTick();
-				}
+				EnableTick();
 			}
 		}
 		public void PlayFromStart()
 		{
 			CurrenTime = 0.0f;
 			IndexEvent = 0;
-			Play();
+			Direction = TimeDirection.Forward;
+			EnableTick();
 		}
 		public void Stop()
 		{
@@ -37,14 +55,21 @@ namespace Framework.Core.FlowControl
 		}
 		public void Reverse()
 		{
-			Direction = TimeDirection.Backword;
-			IndexEvent = timeLineEvents.Count - 1;
-			EnableTick();
+			if(Direction != TimeDirection.Backword)
+			{
+				Direction = TimeDirection.Backword;
+				if(CurrenTime != timeDestination)
+				{
+					EnableTick();
+				}
+			}
 		}
 		public void ReverseFromEnd()
 		{
 			CurrenTime = TimeLength;
-			Reverse();
+			IndexEvent = timeLineEvents.Count - 1;
+			Direction = TimeDirection.Backword;
+			EnableTick();
 		}
 		public void SetNewTime(float time, bool fireEvent, bool fireUpdate)
 		{
