@@ -1487,7 +1487,7 @@ MonoBehaviour:
       rotation: {x: 0, y: 89.13, z: 0}
       scale: {x: 0.99, y: 1, z: 2.36}
     - type: 1
-      center: {x: 1.0667515, y: 0.06538095, z: -0.0547135}
+      center: {x: 1.7950655, y: 0.06538067, z: -0.054713223}
       rotation: {x: 10.730059, y: 180, z: 0}
       scale: {x: 0.99, y: 1, z: 2.36}
 --- !u!65 &1941754810
@@ -1551,7 +1551,7 @@ Transform:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1941754808}
   m_LocalRotation: {x: -0.09363982, y: -0.3699302, z: -0.052314255, w: 0.922847}
-  m_LocalPosition: {x: 10.71, y: 0.58, z: 10.08}
+  m_LocalPosition: {x: 8.402, y: 0.58, z: -6.513}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}

@@ -29,6 +29,7 @@ namespace Framework.Editor
     public static string Extension  = ".x.ios";
     public static BuildTarget Target = BuildTarget.iOS;
     public static string ASSETBUNDLE_PATH = Application.dataPath + "/../IosResources/StreamingAssets";
+		public static string FULL_ASSETBUNDLE_PATH = ASSETBUNDLE_PATH + "/" + m_destFileName;
 #else
 		public static string PlatformExtension = ".win";
 		public static string Extension = ".x.win";
