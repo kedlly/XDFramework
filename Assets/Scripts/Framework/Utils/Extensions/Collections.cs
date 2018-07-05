@@ -273,6 +273,25 @@ namespace Framework.Utils.Extensions
 			dictE.Dispose();
 		}
 
+
+		public static void RemoveAll<TKey, TValue>(this Dictionary<TKey, TValue> dict, Predicate<KeyValuePair<TKey, TValue>> predicate)
+		{
+			List<TKey> targetKeys = new List<TKey>();
+			var dictE = dict.GetEnumerator();
+
+			while(dictE.MoveNext())
+			{
+				var current = dictE.Current;
+				if(predicate(current))
+				{
+					targetKeys.Add(current.Key);
+				}
+			}
+			dictE.Dispose();
+
+			targetKeys.ForEach(key => dict.Remove(key));
+		}
+
 		#endregion
 
 	}

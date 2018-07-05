@@ -3,7 +3,7 @@ using System;
 
 namespace Framework.Library.XMLStateMachine
 {
-	public class FSMExecutor<T> where T : class
+	internal class FSMExecutor<T> where T : class
 	{
 		public string Name { get; private set; }
 		internal State<T>[] states { get; private set; }
@@ -69,12 +69,13 @@ namespace Framework.Library.XMLStateMachine
 			}
 		}
 
+		/*
 		public static FSMExecutor<T> LoadFromXML(string xml)
 		{
 			return new FSMExecutor<T>(FSMExecutorFactory<T>.LoadFromXML(xml));
 		}
+		*/
 
-		
 	}
 
 }

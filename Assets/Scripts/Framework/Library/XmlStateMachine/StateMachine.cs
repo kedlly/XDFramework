@@ -12,24 +12,50 @@ namespace Framework.Library.XMLStateMachine
 		void Update();
 
 		void PushEvent(string firedEvent);
+
 	}
 
 	public sealed class StateMachine<T> : IStateMachine where T : class
 	{
-		FSMExecutor<T> executor = null;
+		private FSMExecutor<T> executor = null;
+
+		string mapName = "";
+
 		public StateMachine()
 		{
 
 		}
 
+		public bool IsValidated { get { return executor != null; } }
+
 		public StateMachine(string name) : this ()
 		{
 			executor = FSMExecutorFactory<T>.CreateExecutorInPreloads(name);
+			mapName = name;
 		}
 
 		public static void PreLoadConfigure(string name, string xml)
 		{
 			FSMExecutorFactory<T>.Preload(name, xml);
+		}
+
+		public static void Release(string name)
+		{
+			FSMExecutorFactory<T>.ClearStateMap(name);
+		}
+
+		public static bool ContainsStateMap(string name)
+		{
+			return FSMExecutorFactory<T>.Contains(name);
+		}
+
+		public static void Release(TextAsset textAsset)
+		{
+			if (textAsset != null)
+			{
+				FSMExecutorFactory<T>.ClearStateMap(textAsset.name);
+			}
+			FSMExecutorFactory<T>.ClearMemory();
 		}
 
 		public StateMachine(T owner, TextAsset textAsset)
@@ -41,6 +67,7 @@ namespace Framework.Library.XMLStateMachine
 					PreLoadConfigure(textAsset.name, textAsset.text);
 				}
 				executor = FSMExecutorFactory<T>.CreateExecutorInPreloads(textAsset.name);
+				mapName = textAsset.name;
 				(this as IStateMachine).SetTargetObject(owner);
 			}
 		}

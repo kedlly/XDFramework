@@ -1,4 +1,5 @@
 ﻿
+using Framework.Utils.Extensions;
 using System.Collections.Generic;
 using System.Linq;
 using System.Xml;
@@ -19,7 +20,21 @@ namespace Framework.Library.XMLStateMachine
 			Entry = entryState != null ? entryState.AbsoluteRuleState : null;
 			var exitState = this.StateSet.FirstOrDefault(k => k.IsExit);
 			Exit = exitState != null && exitState.Parent != null ? exitState.Parent.AbsoluteRuleState : null;
+			refCount = 0;
 		}
+		
+		public void AddReference() 
+		{
+			refCount++;
+		}
+		public void Release()
+		{
+			refCount--;
+		}
+
+		int refCount = 0;
+
+		public int ReferenceCount { get { return refCount; } }
 	}
 
 	public static class FSMExecutorFactory<T> where T : class
@@ -70,14 +85,16 @@ namespace Framework.Library.XMLStateMachine
 			dictionary[name] = LoadFromXML(xml);
 		}
 
-		public static FSMExecutor<T> CreateExecutorInPreloads(string name)
+		internal static FSMExecutor<T> CreateExecutorInPreloads(string name)
 		{
 			if(!dictionary.ContainsKey(name))
 			{
 				Debug.LogError(string.Format("name : {0} is not in dictionary, call Preload and try again !", name));
 				return null;
 			}
-			return new FSMExecutor<T>(dictionary[name]);
+			var stateMap = dictionary[name];
+			stateMap.AddReference();
+			return new FSMExecutor<T>(stateMap);
 		}
 
 		public static void DropStateMap(string name)
@@ -90,12 +107,30 @@ namespace Framework.Library.XMLStateMachine
 
 		public static void ClearStateMap(string name)
 		{
-			dictionary.Clear();
+			if(!dictionary.ContainsKey(name))
+			{
+				return;
+			}
+			var stateMap = dictionary[name];
+			stateMap.Release();
+		}
+
+		public static void ClearMemory()
+		{
+			dictionary.RemoveAll(it => it.Value.ReferenceCount <= 0);
 		}
 
 		public static bool Contains(string name)
 		{
 			return dictionary.ContainsKey(name);
+		}
+		public static int RefCount(string name)
+		{
+			if (string.IsNullOrEmpty(name) || !Contains(name))
+			{
+				return -1;
+			}
+			return dictionary[name].ReferenceCount;
 		}
 	}
 }

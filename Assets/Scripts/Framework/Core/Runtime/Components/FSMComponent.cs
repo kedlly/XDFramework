@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using Framework.Library.XMLStateMachine;
 using Framework.Core.Attributes;
+using System;
 
 [AddComponentMenu("Framework/Component/FSM")]
 public class FSMComponent : MonoBehaviour 
@@ -13,10 +14,24 @@ public class FSMComponent : MonoBehaviour
 
 	[ShowOnly] public string StateName;
 
+	private Action FreeMemory;
+
 	public void LoadFSM<T>(T Owner) where T : Component
 	{
-		ism = new StateMachine<T>(Owner, StateMachineDescription);
+		var fsm = new StateMachine<T>(Owner, StateMachineDescription);
+		ism = fsm;
 		StateName = ism.CurrentStateName;
+		if (fsm.IsValidated)
+		{
+			FreeMemory = () =>
+			{
+				if(StateMachineDescription != null)
+				{
+					StateMachine<T>.Release(StateMachineDescription);
+				}
+			};
+		}
+		
 	}
 
 	public void PushEvent(string @event)
@@ -34,6 +49,14 @@ public class FSMComponent : MonoBehaviour
 		if (ism != null)
 		{
 			ism.Update();
+		}
+	}
+
+	private void OnDestroy()
+	{
+		if (FreeMemory != null)
+		{
+			FreeMemory();
 		}
 	}
 }

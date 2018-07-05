@@ -333,6 +333,8 @@ GameObject:
   - component: {fileID: 280881829}
   - component: {fileID: 280881828}
   - component: {fileID: 280881827}
+  - component: {fileID: 280881832}
+  - component: {fileID: 280881831}
   m_Layer: 0
   m_Name: Land
   m_TagString: Untagged
@@ -407,6 +409,44 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 7
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &280881831
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 280881826}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6a66c33193ed4d4458644040621e9db2, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  bindingArray:
+  - keyCode: 102
+    functions:
+    - instance
+  - keyCode: 103
+    functions:
+    - output
+  - keyCode: 104
+    functions:
+    - clean
+  - keyCode: 116
+    functions:
+    - gc
+--- !u!114 &280881832
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 280881826}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b9e5ccf97f6bdcb409569666447e783f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  parent: {fileID: 0}
+  obj: {fileID: 0}
+  target: {fileID: 1942146395}
 --- !u!1 &289878034
 GameObject:
   m_ObjectHideFlags: 0
@@ -1414,7 +1454,6 @@ GameObject:
   - component: {fileID: 1941754811}
   - component: {fileID: 1941754810}
   - component: {fileID: 1941754809}
-  - component: {fileID: 1941754814}
   m_Layer: 0
   m_Name: Cube (2)
   m_TagString: Untagged
@@ -1435,23 +1474,22 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   fieldDefinition:
   - data:
-    - type: 0
-      center: {x: 0.8500015, y: -1.1870644, z: 2.261226}
-      rotation: {x: 0, y: 0, z: 0}
-      scale: {x: 1.2589321, y: 1.2589321, z: 1.2589321}
     - type: 1
-      center: {x: 2.3628519, y: -0.0000002616746, z: 0.00000042766828}
+      center: {x: -1.0534562, y: -0.0000013820936, z: -0.0035583484}
       rotation: {x: 0, y: 0, z: 0}
-      scale: {x: 2.3689623, y: 2.3689623, z: 2.3689623}
-  - data:
+      scale: {x: 0.99, y: 1, z: 2.36}
     - type: 1
-      center: {x: 2.1200004, y: 0.046742722, z: 0.00000042914638}
-      rotation: {x: 0, y: 0, z: 0}
-      scale: {x: 1, y: 1, z: 1}
-    - type: 0
-      center: {x: 0.42000166, y: -1.1164963, z: 1.463847}
-      rotation: {x: 0, y: 0, z: 0}
-      scale: {x: 3, y: 3, z: 3}
+      center: {x: 0.11235305, y: -0.0000018080889, z: -1.0603243}
+      rotation: {x: 0, y: 269.3, z: 0}
+      scale: {x: 0.99, y: 1, z: 2.36}
+    - type: 1
+      center: {x: -0.31, y: -0.0000013820936, z: 1.09}
+      rotation: {x: 0, y: 89.13, z: 0}
+      scale: {x: 0.99, y: 1, z: 2.36}
+    - type: 1
+      center: {x: 1.0667515, y: 0.06538095, z: -0.0547135}
+      rotation: {x: 10.730059, y: 180, z: 0}
+      scale: {x: 0.99, y: 1, z: 2.36}
 --- !u!65 &1941754810
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -1513,26 +1551,12 @@ Transform:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1941754808}
   m_LocalRotation: {x: -0.09363982, y: -0.3699302, z: -0.052314255, w: 0.922847}
-  m_LocalPosition: {x: 10.71, y: 0.58, z: 10.23}
+  m_LocalPosition: {x: 10.71, y: 0.58, z: 10.08}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
   m_RootOrder: 8
   m_LocalEulerAnglesHint: {x: -12.212001, y: -43.516003, z: -1.5990001}
---- !u!114 &1941754814
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 1941754808}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 5a8100befbf47a642a467ca15a6073d0, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  StateMachineDefinition: {fileID: 4900000, guid: 20d0db8868146d1488421f187a45c7db,
-    type: 3}
-  currentStateName: 
 --- !u!1 &1942146395
 GameObject:
   m_ObjectHideFlags: 0
@@ -1564,9 +1588,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5a8100befbf47a642a467ca15a6073d0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  StateMachineDefinition: {fileID: 4900000, guid: 20d0db8868146d1488421f187a45c7db,
-    type: 3}
-  currentStateName: 
+  StateMachineDescription: {fileID: 0}
+  StateName: 
 --- !u!136 &1942146397
 CapsuleCollider:
   m_ObjectHideFlags: 0
@@ -1783,7 +1806,8 @@ Prefab:
       propertyPath: m_RootOrder
       value: 0
       objectReference: {fileID: 0}
-    m_RemovedComponents: []
+    m_RemovedComponents:
+    - {fileID: 114813473778181218, guid: afdb28a02ad477749b16bbdfe395e60f, type: 2}
   m_ParentPrefab: {fileID: 100100000, guid: afdb28a02ad477749b16bbdfe395e60f, type: 2}
   m_IsPrefabParent: 0
 --- !u!1 &2119338785
