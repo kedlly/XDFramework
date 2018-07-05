@@ -56,6 +56,7 @@ namespace Framework.Core.FlowControl
 		}
 		public void Reverse()
 		{
+<<<<<<< HEAD
 			if (IsInTimelineStartPoint || IsInTimelineEndPoint)
 			{
 				ReverseFromEnd();
@@ -64,6 +65,15 @@ namespace Framework.Core.FlowControl
 			{
 				Direction = TimeDirection.Backword;
 				EnableTick();
+=======
+			if(Direction != TimeDirection.Backword)
+			{
+				Direction = TimeDirection.Backword;
+				if(CurrenTime != timeDestination)
+				{
+					EnableTick();
+				}
+>>>>>>> 3620a07f41594353005a2f04e8038981068129a3
 			}
 		}
 		public void ReverseFromEnd()
