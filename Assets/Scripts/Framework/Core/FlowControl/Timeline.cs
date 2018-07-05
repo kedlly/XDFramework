@@ -6,7 +6,7 @@ namespace Framework.Core.FlowControl
 {
 	public class Timeline : ATickable
 	{
-
+		const float MIN_STEP = 0.0001f;
 		protected override void EnterFlow()
 		{
 
@@ -45,7 +45,6 @@ namespace Framework.Core.FlowControl
 		public void PlayFromStart()
 		{
 			CurrenTime = 0.0f;
-			IndexEvent = 0;
 			Direction = TimeDirection.Forward;
 			EnableTick();
 		}
@@ -56,8 +55,7 @@ namespace Framework.Core.FlowControl
 		}
 		public void Reverse()
 		{
-<<<<<<< HEAD
-			if (IsInTimelineStartPoint || IsInTimelineEndPoint)
+			if(IsInTimelineStartPoint || IsInTimelineEndPoint)
 			{
 				ReverseFromEnd();
 			}
@@ -65,21 +63,11 @@ namespace Framework.Core.FlowControl
 			{
 				Direction = TimeDirection.Backword;
 				EnableTick();
-=======
-			if(Direction != TimeDirection.Backword)
-			{
-				Direction = TimeDirection.Backword;
-				if(CurrenTime != timeDestination)
-				{
-					EnableTick();
-				}
->>>>>>> 3620a07f41594353005a2f04e8038981068129a3
 			}
 		}
 		public void ReverseFromEnd()
 		{
 			CurrenTime = TimeLength;
-			IndexEvent = timeLineEvents.Count - 1;
 			Direction = TimeDirection.Backword;
 			EnableTick();
 		}
@@ -88,7 +76,7 @@ namespace Framework.Core.FlowControl
 			CurrenTime = time;
 			if (fireEvent)
 			{
-				CheckAndFireTimeEvent(CurrenTime);
+				TimeTick(MIN_STEP);
 			}
 			if (fireUpdate && OnUpdate != null)
 			{
@@ -205,10 +193,10 @@ namespace Framework.Core.FlowControl
 
 		private bool isInFireTimeRange(float testTime, float lastTime, float currentTime)
 		{
-			return lastTime < currentTime ? 
-						testTime < lastTime && testTime >= currentTime :
+			return lastTime < currentTime ?
+						lastTime <= testTime && testTime < currentTime :
 						lastTime > currentTime ?
-							testTime <= lastTime && testTime > currentTime :
+							 lastTime > testTime && testTime >= currentTime :
 							false;
 
 		}

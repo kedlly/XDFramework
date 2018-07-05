@@ -54,7 +54,7 @@ namespace Framework.Library.XMLStateMachine
 		{
 			get
 			{
-				return executor.CurrentStateName;
+				return executor != null ? executor.CurrentStateName : "";
 			}
 		}
 

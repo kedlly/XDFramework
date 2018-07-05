@@ -10,3 +10,4 @@
 *.sln
 /obj
 /.vscode
+/Game.Framework.ini
