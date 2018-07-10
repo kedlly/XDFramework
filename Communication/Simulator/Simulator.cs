@@ -1,7 +1,6 @@
 ﻿
 
 using System;
-using Proto;
 using UnityEngine;
 
 namespace Assets.CommunicationSystem.Simulator
@@ -19,7 +18,7 @@ namespace Assets.CommunicationSystem.Simulator
 
 		protected override void disconnect()
 		{
-			NetWorkInstance.Instance.LeaveNetwork();
+			
 		}
 
 
@@ -27,18 +26,6 @@ namespace Assets.CommunicationSystem.Simulator
 		{
 			string ipAddr = IPADDR;
 			int port = PORT;
-
-			ipAddr = GameInstance.Instance.ipAddress;
-			port = GameInstance.Instance.port;
-
-			if (string.IsNullOrEmpty(ipAddr))
-			{
-				ipAddr = GameInstance.Instance.exIpAddress;
-				port = GameInstance.Instance.exPort;
-			}
-
-			NetWorkInstance.Instance.CreateConnector(ConnectorMode.NM_C_INTRANET, ipAddr, port);
-			triggerConnectionEvent(0);
 		}
 
 		protected override void asyncConnect()

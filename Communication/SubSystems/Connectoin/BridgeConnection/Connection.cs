@@ -1,5 +1,5 @@
 ﻿
-namespace Assets.CommunicationSystem.SubSystems.Connection
+namespace Framework.System.Communication.Connection
 {
 
 	#region command

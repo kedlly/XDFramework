@@ -6,7 +6,7 @@ using System.Collections.Generic;
 namespace Framework.Core.Runtime
 {
 
-	public enum FieldStyle
+	public enum VolumeStyle
 	{
 		Sphere,			//球形场
 		Cuboid,			//长方体
@@ -14,9 +14,9 @@ namespace Framework.Core.Runtime
 	}
 
 	[Serializable]
-	public class FieldData
+	public class VolumeData
 	{
-		public FieldStyle type;
+		public VolumeStyle type;
 		public Vector3 center = Vector3.zero;
 		public Vector3 rotation = Vector3.zero;
 		public Vector3 scale = Vector3.one;
@@ -34,7 +34,7 @@ namespace Framework.Core.Runtime
 	[Serializable]
 	public class FieldDefinition
 	{
-		public FieldData[] data;
+		public VolumeData[] data;
 	}
 
 
@@ -79,24 +79,24 @@ namespace Framework.Core.Runtime
 			return isInField;
 		}
 
-		bool TestInShape(Vector3 worldPosition, FieldData data)
+		bool TestInShape(Vector3 worldPosition, VolumeData data)
 		{
 			var target2World = transform.localToWorldMatrix;
 			Matrix4x4 mat2Target = Matrix4x4.TRS(data.center, Quaternion.Euler(data.rotation), data.scale);
 			Matrix4x4 mat2World = target2World * mat2Target;
 			var modePosition = mat2World.inverse.MultiplyPoint(worldPosition);
-			if (data.type == FieldStyle.Sphere)
+			if (data.type == VolumeStyle.Sphere)
 			{
 				return modePosition.sqrMagnitude <= 0.5f * 0.5f;
 			}
-			else if (data.type == FieldStyle.Cuboid)
+			else if (data.type == VolumeStyle.Cuboid)
 			{
 				return -0.5f <= modePosition.x && modePosition.x <= 0.5f &&
 					-0.5f <= modePosition.y && modePosition.y <= 0.5f &&
 					-0.5f <= modePosition.z && modePosition.z <= 0.5f;
 
 			}
-			else if (data.type == FieldStyle.Cylinder)
+			else if (data.type == VolumeStyle.Cylinder)
 			{
 				var vecRadius = new Vector2(modePosition.x, modePosition.y);
 				var zPos = modePosition.z;
@@ -108,105 +108,22 @@ namespace Framework.Core.Runtime
 
 #if UNITY_EDITOR
 
-		public static Color SphereColor = new Color(1f, 0f, 0f, 0.1f);
-		public static Color CuboidColor = new Color(0f, 1f, 0, 0.1f);
-		public static Color CylinderColor = new Color(1f, 1f, 0f, 0.1f);
-
-		public static Color GetColor(Color color, int Level)
-		{
-			color.a *= Level;
-			return color;
-		}
-
 		private void OnDrawGizmos()
 		{
 			if (fieldDefinition == null || fieldDefinition.Length == 0)
 			{
 				return;
 			}
-			Gizmos.matrix = transform.localToWorldMatrix;
-			ClearMatrixStack();
+			VolumeGizmosHelper.InitGizmosMatrix(transform.localToWorldMatrix);
 			int levels = fieldDefinition.Length;
 			int level = 1;
 			foreach(var fd in fieldDefinition)
 			{
 				if(fd.data != null && fd.data.Length > 0)
 				{
-					DrawFields(fd.data, level ++);
+					VolumeGizmosHelper.DrawVolumes(fd.data, level ++);
 				}
 			}
-		}
-
-
-		void DrawFields(FieldData[] data, int colorLevel)
-		{
-			foreach(var p in data)
-			{
-				if(p.type == FieldStyle.Sphere)
-				{
-					DrawSphereField(p, GetColor(SphereColor, colorLevel));
-				}
-				if(p.type == FieldStyle.Cuboid)
-				{
-					DrawCuboidField(p, GetColor(CuboidColor, colorLevel));
-				}
-				if(p.type == FieldStyle.Cylinder)
-				{
-					DrawCylinderField(p, GetColor(CylinderColor, colorLevel));
-				}
-			}
-		}
-
-		void ClearMatrixStack()
-		{
-			saved.Clear();
-		}
-
-		Stack<Matrix4x4> saved = new Stack<Matrix4x4>();
-		void PushMatrix()
-		{
-			saved.Push(Gizmos.matrix);
-		}
-
-		void PopMatrix()
-		{
-			Gizmos.matrix = saved.Pop();
-		}
-
-		void DrawSphereField(FieldData data, Color32 color)
-		{
-			Color oldColor = Gizmos.color;
-			Gizmos.color = color;
-			PushMatrix();
-			Gizmos.color = color;
-			Gizmos.matrix = Gizmos.matrix * data.matrix;
-			Gizmos.DrawSphere(Vector3.zero, 0.5f);
-			PopMatrix();
-			Gizmos.color = oldColor;
-			
-		}
-
-		void DrawCuboidField(FieldData data, Color cuboidColor)
-		{
-			Color oldColor = Gizmos.color;
-			Gizmos.color = cuboidColor;
-			PushMatrix();
-			Gizmos.matrix = Gizmos.matrix * data.matrix;
-			Gizmos.DrawCube(Vector3.zero, Vector3.one);
-			PopMatrix();
-			Gizmos.color = oldColor;
-		}
-
-		void DrawCylinderField(FieldData data, Color color)
-		{
-			Color oldColor = Gizmos.color;
-			Gizmos.color = color;
-			PushMatrix();
-			Gizmos.color = color;
-			Gizmos.matrix = Gizmos.matrix * data.matrix;
-			Gizmos.DrawCube(Vector3.zero, Vector3.one);
-			PopMatrix();
-			Gizmos.color = oldColor;
 		}
 #endif
 	}

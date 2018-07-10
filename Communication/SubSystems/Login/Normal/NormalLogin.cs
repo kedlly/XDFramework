@@ -1,7 +1,7 @@
 ﻿
 using TargetLoginRequest = Assets.CommunicationSystem.Simulator.LoginRequestSimualtor;
 
-namespace Assets.CommunicationSystem.SubSystems.Login
+namespace Framework.System.Communication.SubSystems.Login
 {
 
 	public class NormalLoginSubSystem : ALoginSubSystem

@@ -4,7 +4,7 @@
 
 using System;
 
-namespace Assets.CommunicationSystem.SubSystems.Login
+namespace Framework.System.Communication.Login
 {
 	public interface ILoginSubSystem
 	{

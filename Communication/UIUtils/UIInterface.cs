@@ -1,6 +1,5 @@
 ﻿
-using Proto;
-using Assets.CommunicationSystem;
+using Framework.System.Communication;
 
 namespace Assets.LoginSystem.UIUtils
 {
@@ -23,6 +22,6 @@ namespace Assets.LoginSystem.UIUtils
 	public interface ISetUserInfoUI
 	{
 		string userName { set; }
-		PlayerSex userSex { set; }
+		//PlayerSex userSex { set; }
 	}
 }

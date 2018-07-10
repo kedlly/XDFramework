@@ -1,5 +1,5 @@
 ﻿
-namespace Assets.CommunicationSystem
+namespace Framework.System.Communication
 {
 
 	public delegate void SetUserRoleInfoRespond(int errorCode);

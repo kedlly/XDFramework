@@ -4,7 +4,7 @@
 using System;
 using UnityEngine;
 
-namespace Assets.CommunicationSystem
+namespace Framework.System.Communication
 {
 	public abstract class AGatewayServerAuthenticate : IGatewayServerAuthenticate
 	{

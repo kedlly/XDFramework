@@ -1,18 +1,16 @@
-﻿using System;
+﻿
 using System.Collections.Generic;
-using System.Linq;
+
 using System.Text;
-using Framework.Utils.Extensions;
+
+using System.IO;
 
 namespace Framework.Editor
 {
 	//#if UNITY_5_MODE
 	using UnityEngine;
 	using UnityEditor;
-	using System.Collections.Generic;
-	using UnityEditor.SceneManagement;
-	using UnityEngine.SceneManagement;
-	using System.IO;
+	
 
 	public class BuildAssetbundle
 	{
@@ -504,7 +502,7 @@ namespace Framework.Editor
 			string path = FULL_ASSETBUNDLE_PATH + "/assets";
 			path = path.Replace("/", "\\");
 			Debug.Log(path);
-			System.Diagnostics.Process.Start("explorer.exe", "/select," + path);
+			global::System.Diagnostics.Process.Start("explorer.exe", "/select," + path);
 		}
 		#endregion
 	}
@@ -828,7 +826,7 @@ namespace Framework.Editor
 			try
 			{
 				FileStream file = new FileStream(fileName, FileMode.Open);
-				System.Security.Cryptography.MD5 md5 = new System.Security.Cryptography.MD5CryptoServiceProvider();
+				global::System.Security.Cryptography.MD5 md5 = new global::System.Security.Cryptography.MD5CryptoServiceProvider();
 				byte[] retVal = md5.ComputeHash(file);
 				file.Close();
 
@@ -839,9 +837,9 @@ namespace Framework.Editor
 				}
 				return sb.ToString();
 			}
-			catch(System.Exception ex)
+			catch(global::System.Exception ex)
 			{
-				throw new System.Exception("GetMD5HashFromFile() fail, error:" + ex.Message);
+				throw new global::System.Exception("GetMD5HashFromFile() fail, error:" + ex.Message);
 			}
 		}
 

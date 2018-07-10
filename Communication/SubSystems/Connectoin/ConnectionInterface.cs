@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace Assets.CommunicationSystem.SubSystems.Connection
+namespace Framework.System.Communication.Connection
 {
 	public delegate void ConnectGameServerResult();
 	public interface IConnectionSubsystem

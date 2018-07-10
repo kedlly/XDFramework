@@ -8,33 +8,25 @@ namespace Framework.Editor
 
 #if UNITY_EDITOR
 
-	[CustomEditor(typeof(FieldComponent))]
-	public class FieldComponentDrawer : UnityEditor.Editor
+	[CustomEditor(typeof(VolumeComponent))]
+	public class VolumeComponentDrawer : UnityEditor.Editor
 	{
 		EditorVolumeHelper helper = new EditorVolumeHelper();
 		void OnSceneGUI()
 		{
-			var script = (FieldComponent)target;
+			var script = (VolumeComponent)target;
 			using (var scop = new Handles.DrawingScope())
 			{
-				if (script.fieldDefinition == null)
+				if (script.Data == null)
 				{
 					return;
 				}
 				var last = Handles.zTest;
 				Handles.zTest = UnityEngine.Rendering.CompareFunction.Less;
 				EditorVolumeHelper.InitMatrix(script.transform.localToWorldMatrix);
-				int levels = script.fieldDefinition.Length;
-				int level = 1;
+				int level = script.colorLevel;
 				helper.GetKeyCommands();
-				foreach (var fd in script.fieldDefinition)
-				{
-					if (fd.data != null && fd.data.Length > 0)
-					{
-						helper.DrawVolumes(fd.data, level++);
-					}
-				}
-
+				helper.DrawVolume(script.Data, level++);
 				Handles.zTest = last;
 			}
 

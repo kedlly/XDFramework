@@ -1,8 +1,8 @@
 ﻿using Assets.CommunicationSystem.SubSystems.Connection;
-using Assets.CommunicationSystem.SubSystems.Login;
+using Framework.System.Communication.Login;
 
 
-namespace Assets.CommunicationSystem
+namespace Framework.System.Communication
 {
 	public class CommunicationSystem : ToSingleton<CommunicationSystem>
 	{
