@@ -1,0 +1,191 @@
+﻿<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<BuildSettings>
+  <PlayerSettings>
+    <companyName Type="System.String">DefaultCompany</companyName>
+    <productName Type="System.String">New Unity Project</productName>
+    <showUnitySplashScreen Type="System.Boolean">True</showUnitySplashScreen>
+    <splashScreenStyle Type="UnityEditor.SplashScreenStyle">Dark</splashScreenStyle>
+    <productGUID Type="System.Guid">92790453-473a-498d-bf6b-1ae2951dab7c</productGUID>
+    <colorSpace Type="UnityEngine.ColorSpace">Gamma</colorSpace>
+    <defaultScreenWidth Type="System.Int32">1024</defaultScreenWidth>
+    <defaultScreenHeight Type="System.Int32">768</defaultScreenHeight>
+    <defaultWebScreenWidth Type="System.Int32">960</defaultWebScreenWidth>
+    <defaultWebScreenHeight Type="System.Int32">600</defaultWebScreenHeight>
+    <displayResolutionDialog Type="UnityEditor.ResolutionDialogSetting">Enabled</displayResolutionDialog>
+    <defaultIsFullScreen Type="System.Boolean">True</defaultIsFullScreen>
+    <defaultIsNativeResolution Type="System.Boolean">True</defaultIsNativeResolution>
+    <macRetinaSupport Type="System.Boolean">True</macRetinaSupport>
+    <enableMetalAPIValidation Type="System.Boolean">True</enableMetalAPIValidation>
+    <runInBackground Type="System.Boolean">False</runInBackground>
+    <captureSingleScreen Type="System.Boolean">False</captureSingleScreen>
+    <usePlayerLog Type="System.Boolean">True</usePlayerLog>
+    <resizableWindow Type="System.Boolean">False</resizableWindow>
+    <bakeCollisionMeshes Type="System.Boolean">False</bakeCollisionMeshes>
+    <useMacAppStoreValidation Type="System.Boolean">False</useMacAppStoreValidation>
+    <macFullscreenMode Type="UnityEditor.MacFullscreenMode">FullscreenWindowWithDockAndMenuBar</macFullscreenMode>
+    <d3d9FullscreenMode Type="UnityEditor.D3D9FullscreenMode">FullscreenWindow</d3d9FullscreenMode>
+    <d3d11FullscreenMode Type="UnityEditor.D3D11FullscreenMode">FullscreenWindow</d3d11FullscreenMode>
+    <fullScreenMode Type="UnityEngine.FullScreenMode">FullScreenWindow</fullScreenMode>
+    <singlePassStereoRendering Type="System.Boolean">False</singlePassStereoRendering>
+    <stereoRenderingPath Type="UnityEditor.StereoRenderingPath">MultiPass</stereoRenderingPath>
+    <protectGraphicsMemory Type="System.Boolean">False</protectGraphicsMemory>
+    <useHDRDisplay Type="System.Boolean">False</useHDRDisplay>
+    <visibleInBackground Type="System.Boolean">True</visibleInBackground>
+    <allowFullscreenSwitch Type="System.Boolean">True</allowFullscreenSwitch>
+    <forceSingleInstance Type="System.Boolean">False</forceSingleInstance>
+    <openGLRequireES31 Type="System.Boolean">False</openGLRequireES31>
+    <openGLRequireES31AEP Type="System.Boolean">False</openGLRequireES31AEP>
+    <resolutionDialogBanner Type="null" />
+    <scriptingRuntimeVersion Type="UnityEditor.ScriptingRuntimeVersion">Legacy</scriptingRuntimeVersion>
+    <allowUnsafeCode Type="System.Boolean">False</allowUnsafeCode>
+    <keystorePass Type="System.String">
+    </keystorePass>
+    <keyaliasPass Type="System.String">
+    </keyaliasPass>
+    <gpuSkinning Type="System.Boolean">False</gpuSkinning>
+    <graphicsJobs Type="System.Boolean">False</graphicsJobs>
+    <graphicsJobMode Type="UnityEditor.GraphicsJobMode">Native</graphicsJobMode>
+    <enableInternalProfiler Type="System.Boolean">False</enableInternalProfiler>
+    <actionOnDotNetUnhandledException Type="UnityEditor.ActionOnDotNetUnhandledException">Crash</actionOnDotNetUnhandledException>
+    <logObjCUncaughtExceptions Type="System.Boolean">True</logObjCUncaughtExceptions>
+    <enableCrashReportAPI Type="System.Boolean">False</enableCrashReportAPI>
+    <applicationIdentifier Type="System.String">com.Company.ProductName</applicationIdentifier>
+    <bundleVersion Type="System.String">1.0</bundleVersion>
+    <statusBarHidden Type="System.Boolean">True</statusBarHidden>
+    <strippingLevel Type="UnityEditor.StrippingLevel">Disabled</strippingLevel>
+    <stripEngineCode Type="System.Boolean">True</stripEngineCode>
+    <defaultInterfaceOrientation Type="UnityEditor.UIOrientation">AutoRotation</defaultInterfaceOrientation>
+    <allowedAutorotateToPortrait Type="System.Boolean">True</allowedAutorotateToPortrait>
+    <allowedAutorotateToPortraitUpsideDown Type="System.Boolean">True</allowedAutorotateToPortraitUpsideDown>
+    <allowedAutorotateToLandscapeRight Type="System.Boolean">True</allowedAutorotateToLandscapeRight>
+    <allowedAutorotateToLandscapeLeft Type="System.Boolean">True</allowedAutorotateToLandscapeLeft>
+    <useAnimatedAutorotation Type="System.Boolean">True</useAnimatedAutorotation>
+    <use32BitDisplayBuffer Type="System.Boolean">True</use32BitDisplayBuffer>
+    <preserveFramebufferAlpha Type="System.Boolean">False</preserveFramebufferAlpha>
+    <apiCompatibilityLevel Type="UnityEditor.ApiCompatibilityLevel">NET_2_0_Subset</apiCompatibilityLevel>
+    <stripUnusedMeshComponents Type="System.Boolean">False</stripUnusedMeshComponents>
+    <advancedLicense Type="System.Boolean">True</advancedLicense>
+    <aotOptions Type="System.String">
+    </aotOptions>
+    <defaultCursor Type="null" />
+    <cursorHotspot Type="UnityEngine.Vector2">(0.0, 0.0)</cursorHotspot>
+    <accelerometerFrequency Type="System.Int32">60</accelerometerFrequency>
+    <MTRendering Type="System.Boolean">True</MTRendering>
+    <useDirect3D11 Type="System.Boolean">True</useDirect3D11>
+    <stereoscopic3D Type="System.Boolean">False</stereoscopic3D>
+    <muteOtherAudioSources Type="System.Boolean">False</muteOtherAudioSources>
+    <enable360StereoCapture Type="System.Boolean">False</enable360StereoCapture>
+    <alwaysDisplayWatermark Type="System.Boolean">False</alwaysDisplayWatermark>
+    <firstStreamedLevelWithResources Type="System.Int32">0</firstStreamedLevelWithResources>
+    <targetGlesGraphics Type="UnityEditor.TargetGlesGraphics">Automatic</targetGlesGraphics>
+    <targetIOSGraphics Type="UnityEditor.TargetIOSGraphics">Automatic</targetIOSGraphics>
+    <locationUsageDescription Type="System.String">
+    </locationUsageDescription>
+    <renderingPath Type="UnityEngine.RenderingPath">Forward</renderingPath>
+    <mobileRenderingPath Type="UnityEngine.RenderingPath">Forward</mobileRenderingPath>
+  </PlayerSettings>
+  <PlayerSettings.Android>
+    <disableDepthAndStencilBuffers Type="System.Boolean">False</disableDepthAndStencilBuffers>
+    <use24BitDepthBuffer Type="System.Boolean">True</use24BitDepthBuffer>
+    <bundleVersionCode Type="System.Int32">1</bundleVersionCode>
+    <minSdkVersion Type="UnityEditor.AndroidSdkVersions">AndroidApiLevel16</minSdkVersion>
+    <targetSdkVersion Type="UnityEditor.AndroidSdkVersions">AndroidApiLevelAuto</targetSdkVersion>
+    <preferredInstallLocation Type="UnityEditor.AndroidPreferredInstallLocation">PreferExternal</preferredInstallLocation>
+    <forceInternetPermission Type="System.Boolean">False</forceInternetPermission>
+    <forceSDCardPermission Type="System.Boolean">False</forceSDCardPermission>
+    <androidTVCompatibility Type="System.Boolean">True</androidTVCompatibility>
+    <androidIsGame Type="System.Boolean">True</androidIsGame>
+    <targetArchitectures Type="UnityEditor.AndroidArchitecture">ARMv7, X86</targetArchitectures>
+    <splashScreenScale Type="UnityEditor.AndroidSplashScreenScale">Center</splashScreenScale>
+    <keystoreName Type="System.String">
+    </keystoreName>
+    <keystorePass Type="System.String">
+    </keystorePass>
+    <keyaliasName Type="System.String">
+    </keyaliasName>
+    <keyaliasPass Type="System.String">
+    </keyaliasPass>
+    <licenseVerification Type="System.Boolean">False</licenseVerification>
+    <useAPKExpansionFiles Type="System.Boolean">False</useAPKExpansionFiles>
+    <showActivityIndicatorOnLoading Type="UnityEditor.AndroidShowActivityIndicatorOnLoading">DontShow</showActivityIndicatorOnLoading>
+    <blitType Type="UnityEditor.AndroidBlitType">Always</blitType>
+    <maxAspectRatio Type="System.Single">2.1</maxAspectRatio>
+    <targetDevice Type="UnityEditor.AndroidTargetDevice">FAT</targetDevice>
+  </PlayerSettings.Android>
+  <PlayerSettings.iOS>
+    <exitOnSuspend Type="System.Boolean">False</exitOnSuspend>
+    <targetResolution Type="UnityEditor.iOSTargetResolution">Native</targetResolution>
+    <overrideIPodMusic Type="System.Boolean">False</overrideIPodMusic>
+    <applicationDisplayName Type="System.String">New Unity Project</applicationDisplayName>
+    <buildNumber Type="System.String">0</buildNumber>
+    <disableDepthAndStencilBuffers Type="System.Boolean">False</disableDepthAndStencilBuffers>
+    <scriptCallOptimization Type="UnityEditor.ScriptCallOptimizationLevel">SlowAndSafe</scriptCallOptimization>
+    <sdkVersion Type="UnityEditor.iOSSdkVersion">DeviceSDK</sdkVersion>
+    <targetOSVersion Type="UnityEditor.iOSTargetOSVersion">iOS_8_0</targetOSVersion>
+    <targetOSVersionString Type="System.String">8.0</targetOSVersionString>
+    <targetDevice Type="UnityEditor.iOSTargetDevice">iPhoneAndiPad</targetDevice>
+    <prerenderedIcon Type="System.Boolean">False</prerenderedIcon>
+    <requiresPersistentWiFi Type="System.Boolean">False</requiresPersistentWiFi>
+    <requiresFullScreen Type="System.Boolean">True</requiresFullScreen>
+    <statusBarStyle Type="UnityEditor.iOSStatusBarStyle">Default</statusBarStyle>
+    <deferSystemGesturesMode Type="UnityEngine.iOS.SystemGestureDeferMode">None</deferSystemGesturesMode>
+    <hideHomeButton Type="System.Boolean">False</hideHomeButton>
+    <appInBackgroundBehavior Type="UnityEditor.iOSAppInBackgroundBehavior">Suspend</appInBackgroundBehavior>
+    <backgroundModes Type="UnityEditor.iOSBackgroundMode">None</backgroundModes>
+    <forceHardShadowsOnMetal Type="System.Boolean">False</forceHardShadowsOnMetal>
+    <allowHTTPDownload Type="System.Boolean">True</allowHTTPDownload>
+    <appleDeveloperTeamID Type="System.String">
+    </appleDeveloperTeamID>
+    <iOSManualProvisioningProfileID Type="System.String">
+    </iOSManualProvisioningProfileID>
+    <tvOSManualProvisioningProfileID Type="System.String">
+    </tvOSManualProvisioningProfileID>
+    <tvOSManualProvisioningProfileType Type="UnityEditor.ProvisioningProfileType">Automatic</tvOSManualProvisioningProfileType>
+    <iOSManualProvisioningProfileType Type="UnityEditor.ProvisioningProfileType">Automatic</iOSManualProvisioningProfileType>
+    <appleEnableAutomaticSigning Type="System.Boolean">True</appleEnableAutomaticSigning>
+    <cameraUsageDescription Type="System.String">
+    </cameraUsageDescription>
+    <locationUsageDescription Type="System.String">
+    </locationUsageDescription>
+    <microphoneUsageDescription Type="System.String">
+    </microphoneUsageDescription>
+    <showActivityIndicatorOnLoading Type="UnityEditor.iOSShowActivityIndicatorOnLoading">DontShow</showActivityIndicatorOnLoading>
+    <useOnDemandResources Type="System.Boolean">False</useOnDemandResources>
+  </PlayerSettings.iOS>
+  <PSEXInfo AdditionalIl2CppArgs="">
+    <ApiCompatibilityLevel Type="UnityEditor.ApiCompatibilityLevel">
+      <Android>NET_2_0_Subset</Android>
+      <iOS>NET_2_0_Subset</iOS>
+    </ApiCompatibilityLevel>
+    <ApplicationIdentifier Type="System.String">
+      <Android>com.Company.ProductName</Android>
+      <iOS>com.Company.ProductName</iOS>
+    </ApplicationIdentifier>
+    <Architecture Type="System.Int32">
+      <Android>0</Android>
+      <iOS>2</iOS>
+    </Architecture>
+    <IncrementalIl2CppBuild Type="System.Boolean">
+      <Android>False</Android>
+      <iOS>False</iOS>
+    </IncrementalIl2CppBuild>
+    <GraphicsAPIs Type="UnityEngine.Rendering.GraphicsDeviceType[]">
+      <Android>OpenGLES3|OpenGLES2</Android>
+      <iOS>Metal|OpenGLES2</iOS>
+    </GraphicsAPIs>
+    <ScriptingBackend Type="UnityEditor.ScriptingImplementation">
+      <Android>Mono2x</Android>
+      <iOS>IL2CPP</iOS>
+    </ScriptingBackend>
+    <ScriptingDefineSymbolsForGroup Type="System.String">
+      <Android>
+      </Android>
+      <iOS>
+      </iOS>
+    </ScriptingDefineSymbolsForGroup>
+    <UseDefaultGraphicsAPIs Type="System.Boolean">
+      <Android>True</Android>
+      <iOS>True</iOS>
+    </UseDefaultGraphicsAPIs>
+  </PSEXInfo>
+</BuildSettings>
