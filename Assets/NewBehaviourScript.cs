@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using Framework.Library.Log;
 using Assets;
-using Framework.Core.Runtime;
+using Framework.Core.Runtime.ECS;
 using System;
 
 [Serializable]
@@ -16,7 +16,7 @@ class RotateEntity : IEntity
 }
 
 
-class NewBehaviourScript : EntityWapper<RotateEntity>
-{
+// class NewBehaviourScript : EntityWapper<RotateEntity, NewBehaviourScript>
+// {
 
-}
+//}

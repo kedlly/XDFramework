@@ -42,7 +42,7 @@ namespace Framework.Core
 
 		List<GameObject> objs = new List<GameObject>();
 
-		public void Initlize()
+		public void Initalize()
 		{
 			
 		}

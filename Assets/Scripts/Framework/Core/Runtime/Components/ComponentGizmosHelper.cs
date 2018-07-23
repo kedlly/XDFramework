@@ -19,37 +19,6 @@ namespace Framework.Core.Runtime
 				public Vector3 normal;
 				public Color color;
 			}
-			static Vector3[] vertexList = new Vector3[]
-			{
-				  VertexInCircle(30 * 0, 0.5f, 0.5f )     //0
-				, VertexInCircle(30 * 0, 0.5f, -0.5f)     //1
-				, VertexInCircle(30 * 1, 0.5f, 0.5f )     //2
-				, VertexInCircle(30 * 1, 0.5f, -0.5f)     //3
-				, VertexInCircle(30 * 2, 0.5f, 0.5f )     //4
-				, VertexInCircle(30 * 2, 0.5f, -0.5f)     //5
-				, VertexInCircle(30 * 3, 0.5f, 0.5f )     //6
-				, VertexInCircle(30 * 3, 0.5f, -0.5f)     //7
-				, VertexInCircle(30 * 4, 0.5f, 0.5f )     //8
-				, VertexInCircle(30 * 4, 0.5f, -0.5f)     //9
-				, VertexInCircle(30 * 5, 0.5f, 0.5f )     //10
-				, VertexInCircle(30 * 5, 0.5f, -0.5f)     //11
-				, VertexInCircle(30 * 6, 0.5f, 0.5f )     //12
-				, VertexInCircle(30 * 6, 0.5f, -0.5f)     //13
-				, VertexInCircle(30 * 7, 0.5f, 0.5f )     //14
-				, VertexInCircle(30 * 7, 0.5f, -0.5f)     //15
-				, VertexInCircle(30 * 8, 0.5f, 0.5f )     //16
-				, VertexInCircle(30 * 8, 0.5f, -0.5f)     //17
-				, VertexInCircle(30 * 9, 0.5f, 0.5f )     //18
-				, VertexInCircle(30 * 9, 0.5f, -0.5f)     //19
-				, VertexInCircle(30 * 10, 0.5f, 0.5f )    //20
-				, VertexInCircle(30 * 10, 0.5f, -0.5f)    //21
-				, VertexInCircle(30 * 11, 0.5f, 0.5f )    //22
-				, VertexInCircle(30 * 11, 0.5f, -0.5f)    //23
-
-
-				//, VertexInCircle(30 * 11, 0.5f, 0.5f)    //24 center top
-				//, VertexInCircle(30 * 11, 0.5f, -0.5f)    //25 center bottom
-			};
 
 			static VertexFormat[] vertexData = new VertexFormat[]
 			{
@@ -174,15 +143,15 @@ namespace Framework.Core.Runtime
 
 		public static void DrawVolume(VolumeData data, int colorLevel, bool wired = false)
 		{
-			if (data.type == VolumeStyle.Sphere)
+			if (data.type == VolumeType.Sphere)
 			{
 				DrawSphereVolume(data, GetColor(SphereColor, colorLevel), wired);
 			}
-			if (data.type == VolumeStyle.Cuboid)
+			if (data.type == VolumeType.Cuboid)
 			{
 				DrawCuboidVolume(data, GetColor(CuboidColor, colorLevel), wired);
 			}
-			if (data.type == VolumeStyle.Cylinder)
+			if (data.type == VolumeType.Cylinder)
 			{
 				DrawCylinderVolume(data, GetColor(CylinderColor, colorLevel), wired);
 			}

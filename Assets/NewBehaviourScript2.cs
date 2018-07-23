@@ -2,9 +2,7 @@
 using UnityEngine;
 using System;
 using System.Reflection;
-using Framework.Library.XMLStateMachine;
 using Framework.Core.FlowControl;
-using Framework.Utils.Extensions;
 
 public class NewBehaviourScript2 : MonoBehaviour {
 
@@ -63,7 +61,6 @@ public class NewBehaviourScript2 : MonoBehaviour {
 
 	void Awake()
 	{
-		
 		Type t = typeof(NewBehaviourScript2);
 		fSM = GetComponent<FSMComponent>();
 		fSM.LoadFSM(this);

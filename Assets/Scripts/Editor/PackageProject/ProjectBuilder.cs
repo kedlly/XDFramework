@@ -5,9 +5,13 @@ using UnityEditor.Build;
 
 namespace Assets.Editor.ProjectBuilder
 {
-	public interface IProjectBuilder : IPostprocessBuild, IPreprocessBuild
+	public interface IProjectBuilder
+#if !UNITY_2018
+	:IPostprocessBuild, IPreprocessBuild
+#else
+	:IPostprocessBuildWithReport, IPreprocessBuildWithReport
+#endif
 	{
-
 	}
 
 

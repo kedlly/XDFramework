@@ -22,7 +22,7 @@ namespace Framework.Library.Singleton
 
 
 	[Obfuscation(ApplyToMembers = true, Exclude = true, Feature = "renaming")]
-	public class SingletonBehavior<T> where T : MonoBehaviour, ISingleton
+	public class SingletonBehaviour<T> where T : MonoBehaviour, ISingleton
 	{
 		private struct InstanceTagData
 		{
@@ -120,7 +120,7 @@ namespace Framework.Library.Singleton
 		{
 			get
 			{
-				return SingletonBehavior<T>.Instance;
+				return SingletonBehaviour<T>.Instance;
 			}
 		}
 
@@ -141,7 +141,7 @@ namespace Framework.Library.Singleton
 
 		protected virtual void OnSingletonInit() {}
 
-		protected virtual void OnDispose() { SingletonBehavior<T>.DisposeSingleton(); }
+		protected virtual void OnDispose() { SingletonBehaviour<T>.DisposeSingleton(); }
 
 		protected virtual void OnSingletonReborn() { }
 	}

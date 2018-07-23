@@ -19,7 +19,7 @@ namespace Framework.Library.XMLStateMachine
 	{
 		private FSMExecutor<T> executor = null;
 
-		string mapName = "";
+		public string MapName { get; private set; }
 
 		public StateMachine()
 		{
@@ -31,7 +31,7 @@ namespace Framework.Library.XMLStateMachine
 		public StateMachine(string name) : this ()
 		{
 			executor = FSMExecutorFactory<T>.CreateExecutorInPreloads(name);
-			mapName = name;
+			MapName = name;
 		}
 
 		public static void PreLoadConfigure(string name, string xml)
@@ -67,7 +67,7 @@ namespace Framework.Library.XMLStateMachine
 					PreLoadConfigure(textAsset.name, textAsset.text);
 				}
 				executor = FSMExecutorFactory<T>.CreateExecutorInPreloads(textAsset.name);
-				mapName = textAsset.name;
+				MapName = textAsset.name;
 				(this as IStateMachine).SetTargetObject(owner);
 			}
 		}

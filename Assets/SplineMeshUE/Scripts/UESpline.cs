@@ -257,11 +257,11 @@ public class UESpline : MonoBehaviour
         {
             Vector3 preVector3 = Vector3.zero;
             float keyCount = SplineReparamTable.Points.Count;
-            float lenght = GetSplineLenght();
+            ///float lenght = GetSplineLenght();
             for (int i = 0; i < keyCount; ++i)
             {
-                float distance = (float)i * lenght / keyCount;
-                float param = SplineReparamTable.Eval(distance, 0.0f, Mathf.Lerp, InterpHelp.CubicInterpFloat);
+              ///  float distance = (float)i * lenght / keyCount;
+                ///float param = SplineReparamTable.Eval(distance, 0.0f, Mathf.Lerp, InterpHelp.CubicInterpFloat);
                 var pos = this.SplineInfo.Eval(SplineReparamTable[i].OutVal, Vector3.zero, Vector3.Lerp, InterpHelp.CubicInterpVector);
                 //var rot = this.SplineRotInfo.Eval(key, Quaternion.identity, Quaternion.Lerp, CubicInterpQuat);
 

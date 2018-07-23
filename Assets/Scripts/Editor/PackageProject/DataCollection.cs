@@ -42,7 +42,7 @@ namespace Assets.Editor.ProjectBuilder
 		static DataCollection()
 		{
 			DirectoryInfo info = new DirectoryInfo(ProjectBuildPackageTemplatePath);
-			//info.Attributes = FileAttributes.ReadOnly;
+			info.Attributes = FileAttributes.ReadOnly;
 		}
 
 		public static string GetFilePathDefault(string fileName)

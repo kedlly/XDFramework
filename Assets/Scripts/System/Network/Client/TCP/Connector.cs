@@ -139,7 +139,7 @@ public abstract class AAsyncConnector
 
 	#endregion
 
-	private ManualResetEvent allDone = new ManualResetEvent(false);
+	///private ManualResetEvent allDone = new ManualResetEvent(false);
 	private void ReceiveSocket()
 	{
 		mDataHolder.Reset();
@@ -178,7 +178,7 @@ public abstract class AAsyncConnector
 				}
 				*/
 
-				byte[] bytes = new byte[4096];
+				//byte[] bytes = new byte[4096];
 				
 			}
 			catch (Exception e)
@@ -298,8 +298,8 @@ namespace Framework.System.Network.TCP
 		}
 
 
-		string ip;
-		int port;
+		string ip { get; set; }
+		int port { get; set; }
 
 		public ATcpConnector()
 		{

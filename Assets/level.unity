@@ -1934,15 +1934,38 @@ MonoBehaviour:
   m_GameObject: {fileID: 1909903034}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: a1f0af3c9d035fd4f86225429c7fcd5e, type: 3}
+  m_Script: {fileID: 11500000, guid: f83327fb054fb2242a3651a3be768fe8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  fieldDefinition:
-  - data:
-    - type: 1
-      center: {x: -2.07, y: 0, z: 0}
-      rotation: {x: 0, y: 0, z: 0}
-      scale: {x: 2.32, y: 1, z: 1}
+  g:
+    serializedVersion: 2
+    key0: {r: 1, g: 0, b: 0, a: 1}
+    key1: {r: 0.09251513, g: 0.9339623, b: 0.14782052, a: 1}
+    key2: {r: 0.093427196, g: 0.5441408, b: 0.59489185, a: 0}
+    key3: {r: 0.0935721, g: 0.4822066, b: 0.66592187, a: 0}
+    key4: {r: 0.09369995, g: 0.4275635, b: 0.72858995, a: 0}
+    key5: {r: 0.09387895, g: 0.35105717, b: 0.8163321, a: 0}
+    key6: {r: 0.093998305, g: 0.30004352, b: 0.8748377, a: 0}
+    key7: {r: 0.09411764, g: 0.24903856, b: 0.93333334, a: 0}
+    ctime0: 12914
+    ctime1: 25443
+    ctime2: 45875
+    ctime3: 49344
+    ctime4: 52235
+    ctime5: 56283
+    ctime6: 58982
+    ctime7: 61680
+    atime0: 0
+    atime1: 65535
+    atime2: 0
+    atime3: 0
+    atime4: 0
+    atime5: 0
+    atime6: 0
+    atime7: 0
+    m_Mode: 0
+    m_NumColorKeys: 8
+    m_NumAlphaKeys: 2
 --- !u!136 &1909903037
 CapsuleCollider:
   m_ObjectHideFlags: 0

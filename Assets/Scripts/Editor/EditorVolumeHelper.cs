@@ -32,7 +32,7 @@ namespace Framework.Editor
 
 		public void DrawVolume(VolumeData shapeData, int colorLevel = 0)
 		{
-			if (shapeData.type == VolumeStyle.Sphere)
+			if (shapeData.type == VolumeType.Sphere)
 			{
 				shapeData.scale.x = shapeData.scale.x == 0 ? 1 : shapeData.scale.x;
 				shapeData.scale.y = shapeData.scale.y == 0 ? 1 : shapeData.scale.y;
@@ -84,17 +84,17 @@ namespace Framework.Editor
 		{
 			Handles.CapFunction fun = null;
 			Color color = Color.grey;
-			if(data.type == VolumeStyle.Sphere)
+			if(data.type == VolumeType.Sphere)
 			{
 				fun = Handles.SphereHandleCap;
 				color = VolumeGizmosHelper.GetColor(VolumeGizmosHelper.SphereColor, colorLevel);	
 			}
-			else if(data.type == VolumeStyle.Cuboid)
+			else if(data.type == VolumeType.Cuboid)
 			{
 				fun = Handles.CubeHandleCap;
 				color = VolumeGizmosHelper.GetColor(VolumeGizmosHelper.CuboidColor, colorLevel);
 			}
-			else if (data.type == VolumeStyle.Cylinder)
+			else if (data.type == VolumeType.Cylinder)
 			{
 				fun = Handles.CylinderHandleCap;
 				color = VolumeGizmosHelper.GetColor(VolumeGizmosHelper.CylinderColor, colorLevel);

@@ -721,7 +721,7 @@ namespace Framework.Editor
 
 			if(importer != null)
 			{
-				if(!(importer.textureType == TextureImporterType.NormalMap || importer.normalmap))
+				if(!(importer.textureType == TextureImporterType.NormalMap ))///|| importer.normalmap))
 					importer.mipmapEnabled = false;
 				importer.npotScale = TextureImporterNPOTScale.ToNearest;
 				importer.textureType = TextureImporterType.Default;
@@ -730,11 +730,11 @@ namespace Framework.Editor
 
 				if(path.Contains("_alpha8"))
 				{
-					importer.textureFormat = TextureImporterFormat.Alpha8;
+					///importer.textureFormat = TextureImporterFormat.Alpha8;
 				}
 				else
 				{
-					importer.textureFormat = SetTextureFormat(tex, importer);
+					///importer.textureFormat = SetTextureFormat(tex, importer);
 				}
 				importer.maxTextureSize = 8192;
 
@@ -802,7 +802,6 @@ namespace Framework.Editor
 
 		public static void ExportModifyFilesInfo(string path)
 		{
-			string extension = "";
 			string[] retFils = Directory.GetFiles(path, "*.manifest", SearchOption.AllDirectories);
 			//LocalFilesInfo filesInfo = ScriptableObject.CreateInstance<LocalFilesInfo>();
 

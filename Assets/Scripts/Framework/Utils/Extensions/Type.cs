@@ -2,7 +2,7 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
-
+using System.Reflection;
 
 namespace Framework.Utils.Extensions
 {
@@ -113,5 +113,65 @@ namespace Framework.Utils.Extensions
 		}
 
 		#endregion
+
+
+#region AppDomain 扩展
+
+		private static Assembly[] GetLegalAssemblies(this AppDomain aAppDomain)
+		{
+			var assemblies = aAppDomain.GetAssemblies();
+			return assemblies.Where(assembly =>
+				(assembly.FullName.StartsWith("Mono.")) ||
+				(assembly.FullName.StartsWith("UnityScript")) ||
+				(assembly.FullName.StartsWith("Boo.Lan")) ||
+				(assembly.FullName.StartsWith("System")) ||
+				(assembly.FullName.StartsWith("I18N")) ||
+				(assembly.FullName.StartsWith("UnityEngine")) ||
+				(assembly.FullName.StartsWith("UnityEditor")) ||
+				(assembly.FullName.StartsWith("mscorlib")) ||
+				(assembly.FullName.StartsWith("Unity.")) ||
+				(assembly.FullName.StartsWith("Accessibility")) ||
+				(assembly.FullName.StartsWith("ExCSS.")) ||
+				(assembly.FullName.StartsWith("nunit.")) ||
+				(assembly.FullName.StartsWith("SyntaxTree.")) ? false : true
+			).ToArray();
+		}
+
+		public static Type[] GetAllDerivedTypes(this AppDomain aAppDomain, Type aType)
+		{
+			var result = new List<Type>();
+			foreach(var assembly in aAppDomain.GetLegalAssemblies() )
+			{ 
+				var types = assembly.GetTypes();
+				foreach (var type in types)
+				{
+					if (type.IsSubclassOf(aType))
+						result.Add(type);
+				}
+			}
+			return result.ToArray();
+		}
+
+		public static Type[] GetAllDerivedTypes<T>(this AppDomain aAppDomain)
+		{
+			return aAppDomain.GetAllDerivedTypes(typeof(T));
+		}
+
+		public static Type[] GetAllTypesImplementsInterface<T> (this AppDomain aAppDomain)
+		{
+			var result = new List<Type>();
+			foreach (var assembly in aAppDomain.GetLegalAssemblies())
+			{
+				var types = assembly.GetTypes();
+				foreach (var type in types)
+				{
+					if (type.ImplementsInterface<T>())
+						result.Add(type);
+				}
+			}
+			return result.ToArray();
+		}
 	}
+
+#endregion
 }

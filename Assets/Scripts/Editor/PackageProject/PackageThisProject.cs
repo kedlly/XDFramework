@@ -59,30 +59,32 @@ namespace Assets.Editor.ProjectBuilder
 			//BuilderFactory.Instance.Build(target, pathToBuiltProject);
 			if(target == BuildTarget.iOS)
 			{
-				string projectPath = pathToBuiltProject + "/Unity-iPhone.xcodeproj/project.pbxproj";
+
 #if UNITY_IPHONE
+				string projectPath = pathToBuiltProject + "/Unity-iPhone.xcodeproj/project.pbxproj";
                 UnityEditor.iOS.Xcode.PBXProject pbxProject = new UnityEditor.iOS.Xcode.PBXProject();
                 pbxProject.ReadFromFile(projectPath);
                 var projTarget = pbxProject.TargetGuidByName("Unity-iPhone");            
                 pbxProject.SetBuildProperty(projTarget, "ENABLE_BITCODE", "NO");
                 pbxProject.WriteToFile (projectPath);
-#endif            
-            }
-        }
+#endif
+			}
+
+		}
 
 		[DidReloadScripts]
         public static void drs()
         {
 			Debug.Log("All script Reload !");
         }
-		
+/*		
 		public class MyAssetHandler
 		{
 			[OnOpenAssetAttribute(1)]
 			public static bool step1(int instanceID, int line)
 			{
 				string name = EditorUtility.InstanceIDToObject(instanceID).name;
-				var obj = EditorUtility.InstanceIDToObject(instanceID);
+				//var obj = EditorUtility.InstanceIDToObject(instanceID); 
 				UnityEngine.Debug.Log("Open Asset step: 1 (" + name + ")");
 				return false; // we did not handle the open
 			}
@@ -95,6 +97,6 @@ namespace Assets.Editor.ProjectBuilder
 				return false; // we did not handle the open
 			}
 		}
-		
+		*/
 	}
 }

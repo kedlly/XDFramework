@@ -2,8 +2,6 @@
 using Framework.Library.Singleton;
 using Framework.Library.Log;
 using System.IO;
-using System.Collections.Generic;
-using Framework.Utils.Extensions;
 
 namespace Framework.Core
 {
@@ -13,7 +11,7 @@ namespace Framework.Core
 		[RuntimeInitializeOnLoadMethod(RuntimeInitializeLoadType.BeforeSceneLoad)]
 		static void InitApplicationManager()
 		{
-			ApplicationManager.Instance.InitlizeUnity();
+			ApplicationManager.Instance.initalizeUnity();
 			ApplicationManager.Instance.InitGame();
 		}
 	}
@@ -106,7 +104,7 @@ namespace Framework.Core
 			base.OnSingletonInit();
 		}
 
-		public void InitlizeUnity()
+		public void initalizeUnity()
 		{
 			//Application.backgroundLoadingPriority = ThreadPriority.High;
 			Application.lowMemory += delegate ()
@@ -130,16 +128,18 @@ namespace Framework.Core
 
 		public void InitGame()
 		{
-			GameManager.Instance.Initlize();
+			GameManager.Instance.Initalize();
 			//GameConsole.Instance.Initlize();
+			/*
 			GameObject o = null;
 			o.AddSubObject("A");
 			o.AddSubObject("A");
 			o.AddSubObject("A");
-			var q = o.AddSubObject("A/B/C/D").AddSubObject("O/P/Q");
+			var q = o.AddSubObject("A/B/C/D").AddSubObject("O/P/Q");q.AddSubObject("b");
 			DontDestroyOnLoad(o.AddSubObject("A"));
 			o.AddSubObject("A/E/F/C");
-			o.AddSubObject("A/E/Q/C");
+			o.AddSubObject("A/E/Q/C");*/
+			
 		}
 	}
 }

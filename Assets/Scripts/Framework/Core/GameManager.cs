@@ -1,5 +1,6 @@
 ﻿using UnityEngine;
 using Framework.Library.Singleton;
+using Framework.Utils.Extensions;
 
 namespace Framework.Core
 {
@@ -12,10 +13,10 @@ namespace Framework.Core
 			base.OnSingletonInit();
 		}
 
-		public void Initlize()
+		public void Initalize()
 		{
-			AssetsManager.Instance.Initlize();
-			PoolsManager.Instance.Initlize();
+			AssetsManager.Instance.Initalize();
+			PoolsManager.Instance.Initalize();
 		}
 
 		public void Update()

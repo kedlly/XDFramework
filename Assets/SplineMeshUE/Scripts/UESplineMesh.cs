@@ -29,7 +29,7 @@ public enum MeshAxisType
 public class UESplineMesh : MonoBehaviour
 {
     private MeshRenderer render;
-    private MeshFilter mesh;
+    MeshFilter mesh { get; set; }
     public SplineMeshParam param = new SplineMeshParam();
     //物体本身的朝向，指的就是物体本身mesh里的vertex数据方向
     [SerializeField, SetProperty("ForwardAxis")]

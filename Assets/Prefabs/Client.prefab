@@ -22,7 +22,7 @@ GameObject:
   - component: {fileID: 20826293512821324}
   - component: {fileID: 124413736909919498}
   - component: {fileID: 114809173753694182}
-  - component: {fileID: 114813473778181218}
+  - component: {fileID: 114294220854323160}
   m_Layer: 0
   m_Name: Main Camera
   m_TagString: MainCamera
@@ -244,6 +244,20 @@ Light:
   m_UseColorTemperature: 0
   m_ShadowRadius: 0
   m_ShadowAngle: 0
+--- !u!114 &114294220854323160
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1196539708512126}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5a8100befbf47a642a467ca15a6073d0, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  StateMachineDescription: {fileID: 4900000, guid: 20d0db8868146d1488421f187a45c7db,
+    type: 3}
+  StateName: 
 --- !u!114 &114607323310430616
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -280,23 +294,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8f71f71c8f95faf4583524ed9cc6b0f3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
---- !u!114 &114813473778181218
-MonoBehaviour:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1196539708512126}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: aa45ec7648c48944080447a1438ee35a, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  cur:
-    serializedVersion: 2
-    m_Curve: []
-    m_PreInfinity: 2
-    m_PostInfinity: 2
-    m_RotationOrder: 4
 --- !u!114 &114893482700472038
 MonoBehaviour:
   m_ObjectHideFlags: 1
