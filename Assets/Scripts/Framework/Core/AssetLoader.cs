@@ -10,7 +10,7 @@ using UnityEngine;
 namespace Framework.Core
 {
 	[GameObjectPath("/[Game]/AssetLoader"), DisallowMultipleComponent]
-	public class AssetLoader : ToSingletonBehavior<AssetLoader>
+	public class AssetLoader2 : ToSingletonBehavior<AssetLoader2>
 	{
 
 		private string ConvertAssetPathTo3WPath(string path)
