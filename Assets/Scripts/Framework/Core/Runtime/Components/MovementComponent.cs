@@ -44,15 +44,9 @@ namespace Framework.Core.Runtime
 		bool IManageredObject.TickEnabled { get {return this.isActiveAndEnabled;} }
 		bool IManageredObject.IsActiving  { get { return Speed == 0f; } }
 
-
 		void IManageredObject.Tick()
 		{
 			this.UpdatePosition();
-		}
-
-		void UpdateRotation()
-		{
-			//selfTrans.rotation = Quaternion.Lerp(selfTrans.rotation, Quaternion.LookRotation(Driection, Vector3.up), Time.deltaTime);
 		}
 	}
 }

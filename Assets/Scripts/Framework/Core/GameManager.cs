@@ -39,12 +39,17 @@ namespace Framework.Core
 
 		Dictionary<string, IManager> objMangers = new Dictionary<string, IManager>();
 
-		public void Update()
+		void Update()
 		{
 			foreach (var manager in objMangers.Values)
 			{
 				manager.Tick();
 			}
+		}
+
+		void OnDestroy()
+		{
+			Debug.Log("GameManager Over");
 		}
 
 		public IManager GetSubManager(string name)
