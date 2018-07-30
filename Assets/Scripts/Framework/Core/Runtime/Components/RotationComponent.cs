@@ -43,7 +43,7 @@ namespace Framework.Core.Runtime
 		{
 			selfTrans.rotation = Quaternion.Lerp(selfTrans.rotation, Quaternion.LookRotation(Driection, Vector3.up), Time.deltaTime * Speed);
 			Driection = Driection.normalized;
-			Debug.Log(((IManageredObject)this).IsActiving);
+			//Debug.Log(((IManageredObject)this).IsActiving);
 		}
 	}
 }
