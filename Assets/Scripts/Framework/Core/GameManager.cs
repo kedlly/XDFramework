@@ -164,6 +164,16 @@ namespace Framework.Core
 			RemoveSubManager(typeof(T));
 		}
 
+		public IManageredObject[] GetRelationed<T>(GameObject obj) where T : class, IManager
+		{
+			var subManager = GetSubManager<T>();
+			foreach (var item in subManager)
+			{
+
+			}
+			return null;
+		}
+
 	}
 
 	

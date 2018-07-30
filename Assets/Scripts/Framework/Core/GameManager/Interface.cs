@@ -14,7 +14,7 @@ namespace Framework.Core
 		bool IsActiving {get;}
 		void Tick();
 	}
-	public interface IManager
+	public interface IManager : IEnumerable<IManageredObject>
 	{
 		void Register(IManageredObject itf);
 		void UnRegister(IManageredObject itf);
@@ -59,6 +59,15 @@ namespace Framework.Core
 				unregisterList.Clear();
 			}
 		}
+		public IEnumerator<IManageredObject> GetEnumerator()
+		{
+			return registerList.GetEnumerator();
+		}
+		/*
+		IEnumerator<IManageredObject> IEnumerable<IManageredObject>.GetEnumerator()
+		{
+			return null;
+		} */
 	}
 	
 }
