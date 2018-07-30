@@ -10,7 +10,7 @@ using System;
 namespace Framework.Core
 {
 
-	[GameObjectPath("/[Game]/Systems"), DisallowMultipleComponent]
+	[GameObjectPath("/[Game]/GameManager"), DisallowMultipleComponent]
 	public sealed class GameManager : ToSingletonBehavior<GameManager>
 	{
 		protected override void OnSingletonInit()

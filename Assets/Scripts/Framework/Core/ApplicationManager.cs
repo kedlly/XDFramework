@@ -116,7 +116,7 @@ namespace Framework.Core
 			//Application.wantsToQuit == false 时不会执行OnApplicationQuit
 			Application.quitting += delegate ()
 			{
-				UnityEngine.Debug.Log("");
+				UnityEngine.Debug.Log("-><-");
 			};
 
 			Application.wantsToQuit += delegate ()
@@ -124,6 +124,10 @@ namespace Framework.Core
 				return false;
 			};
 			
+		}
+
+		private void OnApplicationQuit() {
+			Debug.Log("OnApplicationQuit");
 		}
 
 		public void InitGame()
