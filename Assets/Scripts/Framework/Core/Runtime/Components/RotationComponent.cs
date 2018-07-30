@@ -32,6 +32,7 @@ namespace Framework.Core.Runtime
 		}
 
 		bool IManageredObject.TickEnabled { get {return this.isActiveAndEnabled;} }
+		bool IManageredObject.IsActiving  { get { return selfTrans.rotation != Quaternion.LookRotation(Driection, Vector3.up); } }
 
 		void IManageredObject.Tick()
 		{
@@ -41,6 +42,8 @@ namespace Framework.Core.Runtime
 		void UpdateRotation()
 		{
 			selfTrans.rotation = Quaternion.Lerp(selfTrans.rotation, Quaternion.LookRotation(Driection, Vector3.up), Time.deltaTime * Speed);
+			Driection = Driection.normalized;
+			Debug.Log(((IManageredObject)this).IsActiving);
 		}
 	}
 }
