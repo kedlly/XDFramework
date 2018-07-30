@@ -9,10 +9,4 @@ namespace Framework.Core.FlowControl
 		event Action OnExecute;
 		void Execute();
 	}
-
-	public interface ITickable
-	{
-		bool TickEnabled { get; }
-		void Tick();
-	}
 }

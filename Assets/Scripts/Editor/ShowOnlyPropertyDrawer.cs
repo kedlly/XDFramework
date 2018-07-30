@@ -25,6 +25,9 @@ namespace Framework.Editor
 				case SerializedPropertyType.String:
 					valueStr = prop.stringValue;
 					break;
+				case SerializedPropertyType.Vector3:
+					valueStr = prop.vector3Value.ToString();
+					break;
 				default:
 					valueStr = "(not supported)";
 					break;

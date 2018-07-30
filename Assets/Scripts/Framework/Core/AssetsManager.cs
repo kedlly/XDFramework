@@ -99,7 +99,7 @@ namespace Framework.Core
 			bundle.Unload(false);
 		}
 
-		public void LoadAllAssetAsync<>
+		//public void LoadAllAssetAsync<>
 
 		//从 assetsbundle 中加载全部资源
 		public IEnumerator loadAllAssets<T>(string abPath, bool isAsync = true) where T : UnityEngine.Object

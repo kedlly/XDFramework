@@ -22,7 +22,7 @@ namespace Framework.Core.FlowControl
 
 	}
 
-	public abstract class ATickable : AFlowControl, ITickable
+	public abstract class ATickable : AFlowControl, IManageredObject
 	{
 		private bool Tickable = false;
 		public bool TickEnabled
@@ -44,12 +44,22 @@ namespace Framework.Core.FlowControl
 
 		public bool IsPlaying { get { return TickEnabled && Direction != TimeDirection.Stopped; } }
 
+
+		FlowControlTickManager mgr = null;
 		protected void EnableTick()
 		{
 			if(!Tickable)
 			{
 				Tickable = true;
-				FlowControlMananger.Instance.Register(this);
+				//ASingltonManager<ITickable>.Instance.Register(this);
+				if (mgr == null)
+				{
+					mgr = GameManager.Instance.GetSubManager<FlowControlTickManager>();
+				}
+				if (mgr != null)
+				{
+					mgr.Register(this);
+				}
 			}
 		}
 
@@ -58,7 +68,15 @@ namespace Framework.Core.FlowControl
 			if(Tickable)
 			{
 				Tickable = false;
-				FlowControlMananger.Instance.UnRegister(this);
+				//ASingltonManager<ITickable>.Instance.UnRegister(this);
+				if (mgr == null)
+				{
+					mgr = GameManager.Instance.GetSubManager<FlowControlTickManager>();
+				}
+				if (mgr != null)
+				{
+					mgr.Register(this);
+				}
 			}
 		}
 

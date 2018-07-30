@@ -171,7 +171,13 @@ namespace Framework.Utils.Extensions
 			}
 			return result.ToArray();
 		}
-	}
 
 #endregion
+#region  Attribute 扩展
+		public static T[] GetCustomAttributes<T>(this Type type, bool inherit = false)
+		{
+			return type.GetCustomAttributes(typeof(T), inherit) as T[];
+		}
+#endregion
+	}
 }

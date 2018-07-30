@@ -5,7 +5,7 @@ using System.Text;
 
 namespace Framework.Core.FlowControl
 {
-	public class Delay : ATickable
+	public sealed class Delay : ATickable
 	{
 		protected override void EnterFlow()
 		{
