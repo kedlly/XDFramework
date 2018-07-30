@@ -8,7 +8,7 @@ using System;
 namespace Framework.Core
 {
 
-	[GameObjectPath("/[Game]/Systems"), DisallowMultipleComponent]
+	[GameObjectPath("/[Game]/GameManager"), DisallowMultipleComponent]
 	public sealed class GameManager : ToSingletonBehavior<GameManager>
 	{
 		protected override void OnSingletonInit()
@@ -43,11 +43,6 @@ namespace Framework.Core
 			{
 				manager.Tick();
 			}
-		}
-
-		void OnDestroy()
-		{
-			Debug.Log("GameManager Over");
 		}
 
 		public IManager GetSubManager(string name)
