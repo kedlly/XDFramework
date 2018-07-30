@@ -28,7 +28,11 @@ namespace Framework.Core.Runtime
 
 		void OnDisable()
 		{
-			GameManager.Instance.GetSubManager<RotationSystem>().UnRegister(this);
+			var gmInstance = GameManager.Instance;
+			if (gmInstance != null)
+			{
+				gmInstance.GetSubManager<RotationSystem>().UnRegister(this);
+			}
 		}
 
 		bool IManageredObject.TickEnabled { get {return this.isActiveAndEnabled;} }

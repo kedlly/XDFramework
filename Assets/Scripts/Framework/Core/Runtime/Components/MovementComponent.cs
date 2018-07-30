@@ -28,12 +28,19 @@ namespace Framework.Core.Runtime
 		}
 
 		void OnEnable() {
-			GameManager.Instance.GetSubManager<RotationSystem>().Register(this);
+			GameManager.Instance.GetSubManager<MovementSystem>().Register(this);
 		}
 
 		void OnDisable()
 		{
-			GameManager.Instance.GetSubManager<RotationSystem>().UnRegister(this);
+			var gmInstance = GameManager.Instance;
+			if (gmInstance != null)
+			{
+				var imanager = gmInstance.GetSubManager<MovementSystem>();
+				if (imanager != null)
+					imanager.UnRegister(this);
+			}
+			
 		}
 
 		void UpdatePosition()

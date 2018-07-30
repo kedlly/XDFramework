@@ -47,11 +47,6 @@ namespace Framework.Core
 			}
 		}
 
-		void OnDestroy()
-		{
-			Debug.Log("GameManager Over");
-		}
-
 		public IManager GetSubManager(string name)
 		{
 			if (objMangers.ContainsKey(name))
