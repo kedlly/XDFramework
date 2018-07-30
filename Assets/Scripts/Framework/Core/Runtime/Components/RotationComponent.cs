@@ -28,10 +28,10 @@ namespace Framework.Core.Runtime
 
 		void OnDisable()
 		{
-			var gmInstance = GameManager.Instance;
-			if (gmInstance != null)
+			var rs = GameManager.Instance.GetSubManager<RotationSystem>();
+			if (rs != null)
 			{
-				gmInstance.GetSubManager<RotationSystem>().UnRegister(this);
+				rs.UnRegister(this);
 			}
 		}
 
