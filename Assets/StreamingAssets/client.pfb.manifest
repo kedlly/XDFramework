@@ -1,0 +1,61 @@
+ManifestFileVersion: 0
+CRC: 3371933583
+Hashes:
+  AssetFileHash:
+    serializedVersion: 2
+    Hash: cb66892a4179f1f447b80241cf481a83
+  TypeTreeHash:
+    serializedVersion: 2
+    Hash: 85d9d6406d5879b7e4908c5764f9d7f1
+HashAppended: 0
+ClassTypes:
+- Class: 1
+  Script: {instanceID: 0}
+- Class: 4
+  Script: {instanceID: 0}
+- Class: 20
+  Script: {instanceID: 0}
+- Class: 21
+  Script: {instanceID: 0}
+- Class: 23
+  Script: {instanceID: 0}
+- Class: 28
+  Script: {instanceID: 0}
+- Class: 33
+  Script: {instanceID: 0}
+- Class: 43
+  Script: {instanceID: 0}
+- Class: 48
+  Script: {instanceID: 0}
+- Class: 49
+  Script: {instanceID: 0}
+- Class: 65
+  Script: {instanceID: 0}
+- Class: 108
+  Script: {instanceID: 0}
+- Class: 114
+  Script: {fileID: 11500000, guid: a7c6d9a6b66e548459d19d83b80d14cb, type: 3}
+- Class: 114
+  Script: {fileID: 11500000, guid: 580b5dd8a9396de4983c45ace8a65692, type: 3}
+- Class: 114
+  Script: {fileID: 11500000, guid: 6ed1776955fbc9140b7fa3b29445e2bf, type: 3}
+- Class: 114
+  Script: {fileID: 11500000, guid: 8f71f71c8f95faf4583524ed9cc6b0f3, type: 3}
+- Class: 114
+  Script: {fileID: 11500000, guid: 5a8100befbf47a642a467ca15a6073d0, type: 3}
+- Class: 115
+  Script: {instanceID: 0}
+- Class: 124
+  Script: {instanceID: 0}
+Assets:
+- Assets/Prefabs/Client.prefab
+- Assets/Textures/Circuitry/Circuitry Detail Mask.png
+- Assets/Textures/Circuitry/Circuitry Detail Normal.png
+- Assets/Textures/Circuitry/Circuitry Metallic Occlusion Smoothness.png
+- Assets/Textures/Circuitry/Circuitry Emission.png
+- Assets/Textures/Circuitry/Circuitry Normals.png
+- Assets/Textures/Circuitry/Circuitry Albedo.png
+- Assets/Materials/Circuitry.mat
+- Assets/Textures/Circuitry/Circuitry Detail Albedo.png
+Dependencies:
+- D:/GitHub/XDFramework/./Assets/StreamingAssets/clientxml.textass

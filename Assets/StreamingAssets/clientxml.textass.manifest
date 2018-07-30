@@ -1,0 +1,16 @@
+ManifestFileVersion: 0
+CRC: 555932927
+Hashes:
+  AssetFileHash:
+    serializedVersion: 2
+    Hash: 78e7e26d55e605858a9aa73973d88b59
+  TypeTreeHash:
+    serializedVersion: 2
+    Hash: 5ad585dd02dfb5016c0dad519eab8f49
+HashAppended: 0
+ClassTypes:
+- Class: 49
+  Script: {instanceID: 0}
+Assets:
+- Assets/Resources/test3.xml
+Dependencies: []
