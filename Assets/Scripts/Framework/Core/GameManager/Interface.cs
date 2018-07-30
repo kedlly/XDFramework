@@ -11,6 +11,7 @@ namespace Framework.Core
 	public interface IManageredObject
 	{
 		bool TickEnabled {get;}
+		bool IsActiving {get;}
 		void Tick();
 	}
 	public interface IManager

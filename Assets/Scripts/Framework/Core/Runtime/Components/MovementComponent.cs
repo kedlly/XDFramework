@@ -42,6 +42,8 @@ namespace Framework.Core.Runtime
 		}
 
 		bool IManageredObject.TickEnabled { get {return this.isActiveAndEnabled;} }
+		bool IManageredObject.IsActiving  { get { return Speed == 0f; } }
+
 
 		void IManageredObject.Tick()
 		{

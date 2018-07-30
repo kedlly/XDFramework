@@ -63,6 +63,8 @@ namespace Framework.Core.FlowControl
 			}
 		}
 
+		bool IManageredObject.IsActiving { get { return Tickable; } }
+
 		protected void DisableTick()
 		{
 			if(Tickable)
@@ -75,7 +77,7 @@ namespace Framework.Core.FlowControl
 				}
 				if (mgr != null)
 				{
-					mgr.Register(this);
+					mgr.UnRegister(this);
 				}
 			}
 		}
