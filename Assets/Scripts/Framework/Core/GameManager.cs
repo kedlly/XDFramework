@@ -162,9 +162,9 @@ namespace Framework.Core
 			RemoveSubManager(typeof(T));
 		}
 
-		public U[] GetRelationed<T, U>()
+		public U[] GetRelationedObjects<T, U>()
 			where T : class, IManager
-			where U : class
+			where U : class, IManageredObject
 		{
 			List<U> items = new List<U>();
 			var subManager = GetSubManager<T>();
