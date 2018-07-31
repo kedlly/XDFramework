@@ -33,14 +33,11 @@ namespace Framework.Core.Runtime
 
 		void OnDisable()
 		{
-			var gmInstance = GameManager.Instance;
-			if (gmInstance != null)
+			var ms = GameManager.Instance.GetSubManager<MovementSystem>();
+			if (ms != null)
 			{
-				var imanager = gmInstance.GetSubManager<MovementSystem>();
-				if (imanager != null)
-					imanager.UnRegister(this);
+				ms.UnRegister(this);
 			}
-			
 		}
 
 		void UpdatePosition()

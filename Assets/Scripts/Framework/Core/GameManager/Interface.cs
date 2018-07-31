@@ -2,6 +2,7 @@
 using Framework.Library.Singleton;
 using Framework.Utils.Extensions;
 using System.Collections.Generic;
+using System.Collections;
 using Framework.Core.Runtime;
 using System.Linq;
 
@@ -14,7 +15,7 @@ namespace Framework.Core
 		bool IsActiving {get;}
 		void Tick();
 	}
-	public interface IManager
+	public interface IManager : IEnumerable<IManageredObject>
 	{
 		void Register(IManageredObject itf);
 		void UnRegister(IManageredObject itf);
@@ -58,6 +59,16 @@ namespace Framework.Core
 				registerList.ExceptWith(unregisterList);
 				unregisterList.Clear();
 			}
+		}
+		
+		IEnumerator<IManageredObject> IEnumerable<IManageredObject>.GetEnumerator()
+		{
+			return registerList.GetEnumerator();
+		}
+
+		IEnumerator IEnumerable.GetEnumerator()
+		{
+			return registerList.GetEnumerator();
 		}
 	}
 	
