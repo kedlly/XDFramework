@@ -2,6 +2,7 @@
 using Framework.Library.Singleton;
 using Framework.Utils.Extensions;
 using System.Collections.Generic;
+using System.Collections;
 using Framework.Core.Runtime;
 using System.Linq;
 
@@ -59,15 +60,16 @@ namespace Framework.Core
 				unregisterList.Clear();
 			}
 		}
-		public IEnumerator<IManageredObject> GetEnumerator()
+		
+		IEnumerator<IManageredObject> IEnumerable<IManageredObject>.GetEnumerator()
 		{
 			return registerList.GetEnumerator();
 		}
-		/*
-		IEnumerator<IManageredObject> IEnumerable<IManageredObject>.GetEnumerator()
+
+		IEnumerator IEnumerable.GetEnumerator()
 		{
-			return null;
-		} */
+			return registerList.GetEnumerator();
+		}
 	}
 	
 }
