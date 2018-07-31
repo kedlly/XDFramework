@@ -1,6 +1,4 @@
-﻿
-
-using System;
+﻿using System;
 
 namespace Framework.Core.FlowControl
 {
@@ -30,10 +28,7 @@ namespace Framework.Core.FlowControl
 			if(timeCount > 0)
 			{
 				timeCount--;
-				if(OnExit != null)
-				{
-					OnExit();
-				}
+				FlowControlUtils.TryActivateAction(OnExit);
 			}
 		}
 	}

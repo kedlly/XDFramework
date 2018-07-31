@@ -1,7 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 
 namespace Framework.Core.FlowControl
 {
@@ -52,10 +49,7 @@ namespace Framework.Core.FlowControl
 				CurrenTime += deltaTime;
 				if(CurrenTime == DelayTime)
 				{
-					if(OnExit != null)
-					{
-						OnExit();
-					}
+					FlowControlUtils.TryActivateAction(OnExit);
 					Reset();
 				}
 			}

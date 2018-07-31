@@ -9,4 +9,22 @@ namespace Framework.Core.FlowControl
 		event Action OnExecute;
 		void Execute();
 	}
+
+	public static class FlowControlUtils
+	{
+		public static void TryActivateAction(Action action)
+		{
+			try
+			{
+				if (action != null)
+				{
+					action();
+				}
+			}
+			catch (Exception e)
+			{
+				UnityEngine.Debug.LogException(e);
+			}
+		}
+	}
 }

@@ -12,10 +12,7 @@ namespace Framework.Core.FlowControl
 		{
 			if(IsOpen)
 			{
-				if(OnExit != null)
-				{
-					OnExit();
-				}
+				FlowControlUtils.TryActivateAction(OnExit);
 			}
 		}
 

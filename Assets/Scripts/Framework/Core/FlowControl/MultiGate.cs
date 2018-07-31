@@ -13,7 +13,7 @@ namespace Framework.Core.FlowControl
 			{
 				if (0 <= ActiveIndex && ActiveIndex < actionList.Length && actionList[ActiveIndex] != null )
 				{
-					actionList[ActiveIndex]();
+					FlowControlUtils.TryActivateAction(actionList[ActiveIndex]);
 					ToNextActionIndex();
 				}
 			}

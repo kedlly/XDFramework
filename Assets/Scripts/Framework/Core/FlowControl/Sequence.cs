@@ -9,10 +9,7 @@ namespace Framework.Core.FlowControl
 	{
 		protected override void EnterFlow()
 		{
-			if (OnAction != null)
-			{
-				OnAction();
-			}
+			FlowControlUtils.TryActivateAction(OnAction);
 		}
 
 		public Sequence()

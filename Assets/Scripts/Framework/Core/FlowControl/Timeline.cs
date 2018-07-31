@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
 
 namespace Framework.Core.FlowControl
 {
@@ -80,7 +79,7 @@ namespace Framework.Core.FlowControl
 			}
 			if (fireUpdate && OnUpdate != null)
 			{
-				OnUpdate();
+				FlowControlUtils.TryActivateAction(OnUpdate);
 			}
 		}
 
@@ -118,20 +117,14 @@ namespace Framework.Core.FlowControl
 			if(CurrenTime != timeDestination)
 			{
 				TimeTick(timeDelta);
-				if(OnUpdate != null)
-				{
-					OnUpdate();
-				}
+				FlowControlUtils.TryActivateAction(OnUpdate);
 			}
 			else
 			{
 				if(!IsLoop)
 				{
 					Stop();
-					if(OnFinished != null)
-					{
-						OnFinished();
-					}
+					FlowControlUtils.TryActivateAction(OnFinished);
 				}
 				else
 				{
@@ -206,7 +199,7 @@ namespace Framework.Core.FlowControl
 			{
 				if(isInFireTimeRange(item.timeStart, lastTime, current) && item.eventAction != null)
 				{
-					item.eventAction();
+					FlowControlUtils.TryActivateAction(item.eventAction);
 				}
 			}
 		}

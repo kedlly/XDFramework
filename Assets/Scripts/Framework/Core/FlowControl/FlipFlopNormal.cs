@@ -54,10 +54,7 @@ namespace Framework.Core.FlowControl
 		protected override void EnterFlow()
 		{
 			Action item = callList[ActionIndex];
-			if(item != null)
-			{
-				item();
-			}
+			FlowControlUtils.TryActivateAction(item);
 			IndexToNext();
 		}
 	}
