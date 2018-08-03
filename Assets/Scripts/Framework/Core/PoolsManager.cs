@@ -7,7 +7,7 @@ using Framework.Utils.Extensions;
 
 namespace Framework.Core
 {
-	[GameObjectPath("/[Game]/Systems"), DisallowMultipleComponent]
+	[PathInHierarchyAttribute("/[Game]/Systems"), DisallowMultipleComponent]
 	public sealed class PoolsManager : ToSingletonBehavior<PoolsManager>
 	{
 

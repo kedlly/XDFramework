@@ -19,6 +19,8 @@ namespace Framework.Core
 	{
 		void Register(IManageredObject itf);
 		void UnRegister(IManageredObject itf);
+		void UnRegisterAll(bool immediately = true);
+		void Register(IEnumerable<IManageredObject> items);
 		void Tick();
 	}
 
@@ -69,6 +71,23 @@ namespace Framework.Core
 		IEnumerator IEnumerable.GetEnumerator()
 		{
 			return registerList.GetEnumerator();
+		}
+
+		public void UnRegisterAll(bool immediately = true)
+		{
+			if (immediately)
+			{
+				registerList.Clear();
+			}
+			else
+			{
+				unregisterList.UnionWith(registerList);
+			}
+		}
+
+		public void Register(IEnumerable<IManageredObject> items)
+		{
+			registerList.UnionWith(items);
 		}
 	}
 	

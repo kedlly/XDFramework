@@ -8,8 +8,8 @@ using System;
 namespace Framework.Core
 {
 
-	[GameObjectPath("/[Game]/GameManager"), DisallowMultipleComponent]
-	public sealed class GameManager : ToSingletonBehavior<GameManager>
+	[PathInHierarchy("/[Game]/GameManager"), DisallowMultipleComponent]
+	public sealed class GameManagerBehaviour : ToSingletonBehavior<GameManagerBehaviour>
 	{
 		protected override void OnSingletonInit()
 		{
@@ -20,6 +20,48 @@ namespace Framework.Core
 		{
 			AssetsManager.Instance.Initalize();
 			PoolsManager.Instance.Initalize();
+		}
+
+		private void OnDestroy()
+		{
+			GameManager.Instance.Dispose();
+		}
+
+		private void Update()
+		{
+			GameManager.Instance.Update();
+		}
+	}
+
+
+	public sealed class GameManager : ToSingleton<GameManager>
+	{
+		protected override void OnSingletonInit()
+		{
+			GameConsole.Instance.OnCommand += str =>
+			{
+				Debug.Log(str);
+			};
+		}
+
+		protected override void OnDispose()
+		{
+			base.OnDispose();
+			foreach (var item in objMangers)
+			{
+				var manager = item.Value;
+				if (manager != null)
+				{
+					manager.UnRegisterAll(true);
+				}
+			}
+		}
+
+		private GameManager() {}
+
+		public void Initalize()
+		{
+			GameManagerBehaviour.Instance.Initalize();
 			var managers = System.AppDomain.CurrentDomain.GetAllTypesImplementsInterface<IManager>();
 			foreach (var mt in managers)
 			{
@@ -37,7 +79,7 @@ namespace Framework.Core
 
 		Dictionary<string, IManager> objMangers = new Dictionary<string, IManager>();
 
-		void Update()
+		public void Update()
 		{
 			foreach (var manager in objMangers.Values)
 			{

@@ -24,12 +24,12 @@ namespace Assets.Editor.ProjectBuilder
 #else
 		void IPostprocessBuildWithReport.OnPostprocessBuild(BuildReport report)
 		{
-			throw new NotImplementedException();
+			//throw new NotImplementedException();
 		}
 
 		void IPreprocessBuildWithReport.OnPreprocessBuild(BuildReport report)
 		{
-			throw new NotImplementedException();
+			//throw new NotImplementedException();
 		}
 #endif
 	}

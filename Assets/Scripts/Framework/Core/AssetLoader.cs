@@ -1,15 +1,13 @@
-﻿using System;
+﻿
 using System.Collections;
-using System.Collections.Generic;
 using System.IO;
-using System.Linq;
-using System.Text;
 using Framework.Library.Singleton;
+using Framework.Utils.Extensions;
 using UnityEngine;
 
 namespace Framework.Core
 {
-	[GameObjectPath("/[Game]/AssetLoader"), DisallowMultipleComponent]
+	[PathInHierarchyAttribute("/[Game]/AssetLoader"), DisallowMultipleComponent]
 	public class AssetLoader2 : ToSingletonBehavior<AssetLoader2>
 	{
 

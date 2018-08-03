@@ -1,14 +1,10 @@
 ﻿using UnityEngine;
 using Framework.Library.Singleton;
-using Framework.Library.Log;
-using System.Collections;
-using System.Collections.Generic;
-using System.Linq;
-using System;
+using Framework.Utils.Extensions;
 
 namespace Framework.Core
 {
-	[GameObjectPath("/[Game]/Systems"), DisallowMultipleComponent]
+	[PathInHierarchyAttribute("/[Game]/Systems"), DisallowMultipleComponent]
 	public sealed class AssetsManager : ToSingletonBehavior<AssetsManager>
 	{
 		AssetBundleLoader loader = null;

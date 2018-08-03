@@ -325,82 +325,38 @@ namespace Framework.Utils.Extensions
 			ObjectPathOperatorWrapper wrapper = new ObjectPathOperatorWrapper(parent, pathSeparateChar);
 			return wrapper.Walk(path, createIfNotExist);
 		}
+	}
 
-		/*
-
-		private static T CreateComponentOnGameObject(string path, bool dontDestroyOnLoad)
+	public static class AutoFactory
+	{
+		public static T Create<T>() where T : Component
 		{
-			var obj = FindGameObject(path, true, dontDestroyOnLoad);
-			if(obj == null)
+			var info = typeof(T);
+			T instance = null;
+			var attributes = info.GetCustomAttributes(typeof(DontDestroyOnLoadAttribute), true);
+			var dontDestroyOnLoad = (attributes != null && attributes.Length > 0);
+			attributes = info.GetCustomAttributes(typeof(PathInHierarchyAttribute), true);
+			GameObject go = null;
+			foreach (var atribute in attributes)
 			{
-				obj = new GameObject("Singleton of " + typeof(T).Name);
-			}
-
-			return obj.AddComponent<T>();
-		}
-
-		private static GameObject FindGameObject(string path, bool build, bool dontDestroyOnLoad)
-		{
-			if(string.IsNullOrEmpty(path))
-			{
-				return null;
-			}
-
-			var subPath = path.Split('/');
-			if(subPath == null || subPath.Length == 0)
-			{
-				return null;
-			}
-			subPath = Array.FindAll(
-								subPath
-								, delegate (string testString)
-								{
-									return !string.IsNullOrEmpty(testString);
-								}
-							);
-			return FindGameObject(null, subPath, 0, build, dontDestroyOnLoad);
-		}
-
-		private static GameObject FindGameObject(GameObject root, string[] subPath, int index, bool build, bool dontDestroyOnLoad)
-		{
-			GameObject client = null;
-
-			if(root == null)
-			{
-				client = GameObject.Find(subPath[index]);
-			}
-			else
-			{
-				var child = root.transform.Find(subPath[index]);
-				if(child != null)
+				var defineAttri = atribute as PathInHierarchyAttribute;
+				if (defineAttri == null)
 				{
-					client = child.gameObject;
+					continue;
 				}
+				go = defineAttri.Path.Trim().FindGameObject(null, true);
+				break;
 			}
-
-			if(client == null)
+			if (go == null)
 			{
-				if(build)
-				{
-					client = new GameObject(subPath[index]);
-					if(root != null)
-					{
-						client.transform.SetParent(root.transform);
-					}
-
-					if(dontDestroyOnLoad && index == 0)
-					{
-						GameObject.DontDestroyOnLoad(client);
-					}
-				}
+				go = new GameObject(info.Name);
 			}
-
-			if(client == null)
+			if (dontDestroyOnLoad)
 			{
-				return null;
+				UnityEngine.Object.DontDestroyOnLoad(go.transform.root.gameObject);
 			}
-
-			return ++index == subPath.Length ? client : FindGameObject(client, subPath, index, build, dontDestroyOnLoad);
-		}*/
+			instance = go.AddComponent<T>();
+			return instance;
+		}
 	}
 }

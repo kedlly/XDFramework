@@ -3,6 +3,8 @@ using System.Collections.Generic;
 using Framework.Library.Singleton;
 using UnityEngine.Profiling;
 using Framework.Library.Log;
+using Framework.Utils.Extensions;
+using System;
 
 namespace Framework.Core
 {
@@ -120,7 +122,7 @@ namespace Framework.Core
 	/// 包括FPS，内存使用情况，日志GUI输出
 	/// </summary>
 	/// 
-	[GameObjectPath("/[Game]/Systems"), DisallowMultipleComponent]
+	[PathInHierarchy("/[Game]/Console"), DisallowMultipleComponent]
 	public class GameConsole : ToSingletonBehavior<GameConsole>
 	{
 
@@ -143,7 +145,7 @@ namespace Framework.Core
 		/// 内存监视器
 		/// </summary>
 		private MemoryDetector memoryDetector = null;
-		private bool showGUI = true;
+		private bool showGUI = false;
 		List<LogData> entries = new List<LogData>();
 		Vector2 scrollPos;
 		bool scrollToBottom = true;
@@ -158,6 +160,9 @@ namespace Framework.Core
 		GUIContent clearLabel    = new GUIContent("Clear",    "Clear the contents of the console.");
 		GUIContent collapseLabel = new GUIContent("Collapse", "Hide repeated messages.");
 		GUIContent scrollToBottomLabel = new GUIContent("ScrollToBottom", "Scroll bar always at bottom");
+
+
+		public event Action<string> OnCommand; 
 
 		private void Awake()
 		{
@@ -226,7 +231,8 @@ namespace Framework.Core
 			}
 			windowRect = GUILayout.Window(10100, windowRect, ConsoleWindow, windowText);
 		}
-			
+
+		private string commandText = "";
 
 		/// <summary>
 		/// A window displaying the logged messages.
@@ -277,6 +283,19 @@ namespace Framework.Core
 			collapse = GUILayout.Toggle(collapse, collapseLabel, GUILayout.ExpandWidth(false));
 			scrollToBottom = GUILayout.Toggle (scrollToBottom, scrollToBottomLabel, GUILayout.ExpandWidth (false));
 			GUILayout.EndHorizontal();
+			if (commandText.IsNotNullAndEmpty() && Event.current.type == EventType.KeyDown && Event.current.keyCode == KeyCode.Return)
+			{
+				if (OnCommand != null)
+				{
+					OnCommand(commandText);
+					commandText = "";
+				}
+				Event.current.Use();
+			}
+			GUI.SetNextControlName("CommandLine");
+			commandText = GUILayout.TextField(commandText);
+			
+			//GUI.FocusControl("CommandLine");
 			// Set the window to be draggable by the top title bar
 			GUI.DragWindow(new Rect(0, 0, 10000, 20));
 		}

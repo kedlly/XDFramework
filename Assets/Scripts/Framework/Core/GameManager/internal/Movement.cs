@@ -9,7 +9,7 @@ namespace Framework.Core
 		
 	}
 
-	[ManagerTemplate("internalRotationSystem", AutoRegister = true)]
+	[ManagerTemplate("internalRotationSystem", AutoRegister = false)]
 	public sealed class RotationSystem : AMananger
 	{
 		

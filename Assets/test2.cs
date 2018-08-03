@@ -5,9 +5,9 @@ using Framework.Client.GameRules;
 using Framework.Library.Log;
 using System;
 using Framework.Library.Singleton;
+using Framework.Utils.Extensions;
 
-
-[GameObjectPathAttribute("/Client//Hello/world/simple/test/one/two/sfs///")]
+[PathInHierarchyAttribute("/Client//Hello/world/simple/test/one/two/sfs///")]
 public class test2 : ToSingletonBehavior<test2>
 {
 	protected override void OnSingletonInit()

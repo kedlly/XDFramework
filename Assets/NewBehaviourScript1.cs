@@ -15,7 +15,7 @@ public class NewBehaviourScript1 : MonoBehaviour {
 	void Update () {
 		
 	}
-
+	
 	void fun()
 	{
 		Debug.Log("dasfkladjsflj");

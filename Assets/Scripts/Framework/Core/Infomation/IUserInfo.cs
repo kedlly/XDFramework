@@ -20,5 +20,6 @@ namespace Framework.Core.Infomation
     {
         MovementStyle Style {get;}
         Vector3 Velocity {get;}
+		Vector3 Posiotion { get; }
     }
 }

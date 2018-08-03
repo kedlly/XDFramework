@@ -1,26 +1,10 @@
 ﻿
 using UnityEngine;
-using System;
 using System.Reflection;
 using Framework.Utils.Extensions;
 
 namespace Framework.Library.Singleton
 {
-	[AttributeUsage(AttributeTargets.Class, AllowMultiple = false, Inherited = false)]
-	public class GameObjectPathAttribute : Attribute
-	{
-		public string PathInHierarchy { get; private set; }
-		public GameObjectPathAttribute(string pathInHierarchy)
-		{
-			PathInHierarchy = pathInHierarchy;
-		}
-		public GameObjectPathAttribute()
-		{
-			PathInHierarchy = "";
-		}
-	}
-
-
 	[Obfuscation(ApplyToMembers = true, Exclude = true, Feature = "renaming")]
 	public class SingletonBehaviour<T> where T : MonoBehaviour, ISingleton
 	{
@@ -68,24 +52,8 @@ namespace Framework.Library.Singleton
 					return instance;
 				}
 
-				var info = typeof(T);
-				var attributes = info.GetCustomAttributes(true);
-				foreach(var atribute in attributes)
-				{
-					var defineAttri = atribute as GameObjectPathAttribute;
-					if(defineAttri == null)
-					{
-						continue;
-					}
-					instance =  CreateComponentOnGameObject(defineAttri.PathInHierarchy.Trim(), true);
-					break;
-				}
+				instance = AutoFactory.Create<T>();
 
-				if(instance == null)
-				{
-					var obj = new GameObject(typeof(T).Name);
-					instance = obj.AddComponent<T>();
-				}
 				if (!tagData.initialized)
 				{
 					instance.Initialize();
@@ -112,6 +80,8 @@ namespace Framework.Library.Singleton
 
 	}
 
+	[DontDestroyOnLoad]
+	[PathInHierarchy("sssss")]
 	[Obfuscation(ApplyToMembers = true, Exclude = true, Feature = "renaming")]
 	public abstract class ToSingletonBehavior<T> : MonoBehaviour, ISingleton where T : ToSingletonBehavior<T>
 	{

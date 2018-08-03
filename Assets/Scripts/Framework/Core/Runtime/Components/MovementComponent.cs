@@ -1,5 +1,9 @@
 ﻿
 using UnityEngine;
+#if !UNITY_EDITOR
+using System;
+using Framework.Core.Attributes;
+#endif
 
 namespace Framework.Core.Runtime
 {
@@ -30,7 +34,7 @@ namespace Framework.Core.Runtime
 		void OnEnable() {
 			GameManager.Instance.GetSubManager<MovementSystem>().Register(this);
 		}
-
+		
 		void OnDisable()
 		{
 			var ms = GameManager.Instance.GetSubManager<MovementSystem>();
@@ -38,6 +42,18 @@ namespace Framework.Core.Runtime
 			{
 				ms.UnRegister(this);
 			}
+		}
+		public float MaxSpeed = 50;
+		private void _Update()
+		{
+			if (Input.GetKeyDown(KeyCode.Q))
+			{
+				Application.Quit();
+			}
+			var speed = Input.GetAxis("Vertical") * MaxSpeed;
+			var direction = selfTrans.rotation * Vector3.forward;
+			Velocity = speed * direction;
+			UpdatePosition();
 		}
 
 		void UpdatePosition()

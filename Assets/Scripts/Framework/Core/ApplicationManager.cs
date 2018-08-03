@@ -1,7 +1,9 @@
 ﻿using UnityEngine;
+using Framework.Core.Attributes;
 using Framework.Library.Singleton;
 using Framework.Library.Log;
 using System.IO;
+using Framework.Utils.Extensions;
 
 namespace Framework.Core
 {
@@ -16,7 +18,7 @@ namespace Framework.Core
 		}
 	}
 
-	[GameObjectPath("/[Game]/Systems"), DisallowMultipleComponent]
+	[PathInHierarchy("/[Game]/Systems"), DisallowMultipleComponent]
 	public sealed class ApplicationManager : ToSingletonBehavior<ApplicationManager>
 	{
 		private class ApplicationLogger : ToSingleton<ApplicationLogger>
@@ -121,7 +123,7 @@ namespace Framework.Core
 
 			Application.wantsToQuit += delegate ()
 			{
-				return false;
+				return true;
 			};
 			
 		}
@@ -133,7 +135,7 @@ namespace Framework.Core
 		public void InitGame()
 		{
 			GameManager.Instance.Initalize();
-			//GameConsole.Instance.Initlize();
+			GameConsole.Instance.Initlize();
 			/*
 			GameObject o = null;
 			o.AddSubObject("A");
@@ -143,7 +145,6 @@ namespace Framework.Core
 			DontDestroyOnLoad(o.AddSubObject("A"));
 			o.AddSubObject("A/E/F/C");
 			o.AddSubObject("A/E/Q/C");*/
-			
 		}
 	}
 }

@@ -7,7 +7,7 @@ using System;
 using Framework.Library.Singleton;
 using Framework.Utils.Extensions;
 
-[GameObjectPath("/Client//Hello/world/simple/test/one/two/three///"), DisallowMultipleComponent]
+[PathInHierarchyAttribute("/Client//Hello/world/simple/test/one/two/three///"), DisallowMultipleComponent]
 public class test1 : ToSingletonBehavior<test1>
 {
 	public Camera[] cameras;
