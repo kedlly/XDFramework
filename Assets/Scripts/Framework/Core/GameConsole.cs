@@ -189,7 +189,7 @@ namespace Framework.Core
 
 		void Update()
 		{
-#if UNITY_EDITOR
+#if UNITY_EDITOR || UNITY_STANDALONE_WIN || UNITY_STANDALONE_OSX
 			if (Input.GetKeyUp(KeyCode.F1))
 				this.showGUI = !this.showGUI;
 #elif UNITY_ANDROID

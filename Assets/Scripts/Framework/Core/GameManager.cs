@@ -9,32 +9,7 @@ namespace Framework.Core
 {
 
 	[PathInHierarchy("/[Game]/GameManager"), DisallowMultipleComponent]
-	public sealed class GameManagerBehaviour : ToSingletonBehavior<GameManagerBehaviour>
-	{
-		protected override void OnSingletonInit()
-		{
-			base.OnSingletonInit();
-		}
-
-		public void Initalize()
-		{
-			AssetsManager.Instance.Initalize();
-			PoolsManager.Instance.Initalize();
-		}
-
-		private void OnDestroy()
-		{
-			GameManager.Instance.Dispose();
-		}
-
-		private void Update()
-		{
-			GameManager.Instance.Update();
-		}
-	}
-
-
-	public sealed class GameManager : ToSingleton<GameManager>
+	public sealed class GameManager : ToSingletonBehavior<GameManager>
 	{
 		protected override void OnSingletonInit()
 		{
@@ -61,7 +36,7 @@ namespace Framework.Core
 
 		public void Initalize()
 		{
-			GameManagerBehaviour.Instance.Initalize();
+			//GameManagerBehaviour.Instance.Initalize();
 			var managers = System.AppDomain.CurrentDomain.GetAllTypesImplementsInterface<IManager>();
 			foreach (var mt in managers)
 			{
@@ -75,6 +50,8 @@ namespace Framework.Core
 					AddSubManager(mt);
 				}
 			}
+
+			NetworkManager.Instance.Initalize();
 		}
 
 		Dictionary<string, IManager> objMangers = new Dictionary<string, IManager>();

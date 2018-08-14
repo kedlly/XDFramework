@@ -1,0 +1,104 @@
+
+syntax = "proto2";
+
+package ProjectProtocal;
+
+enum EMessageType
+{
+	ERequest_LoginAuth = 1;
+	ERespond_LoginAuth = 2;
+	ERequest_Moving = 3;
+	ERespond_Moving = 4;
+	ERespond_PlayerAppeared = 5;
+	ERespond_PlayerDisappeared = 6;
+	ERequest_Rotated = 7;
+	ERespond_Rotated = 8;
+	ERespond_Logout = 9;
+}
+
+message Message
+{
+	required EMessageType type = 1 ;
+	optional bytes data = 2;
+}
+
+message Request_LoginAuth {
+	required string username = 1;
+	required string password = 2;
+}
+
+message Respond_LoginAuth {
+	required string token = 1;
+	required int32 sceneId = 2;
+	required PlayerInfo player = 3;
+	repeated PlayerInfo neighborhood = 4;
+}
+
+message Request_Logout
+{
+	required int32 pid = 1;
+	//required string token = 1
+}
+
+message Respond_Logout
+{
+	required int32 pid = 1;
+}
+
+message Request_Moving {
+	required MovementData movement = 1;
+}
+
+message Respond_Moving {
+	repeated RespMovement movementList = 1;
+}
+
+message Respond_PlayerAppeared {
+	repeated PlayerInfo neighborhood = 1;
+}
+
+message Respond_PlayerDisappeared {
+	repeated int32 playerIds = 1;
+}
+
+message Request_Rotated {
+	required Vector3 direction = 1;
+}
+
+message Respond_Rotated {
+	repeated RespRotated rotations = 1;
+}
+
+//-----------------------------------------------------------base--------------------------------------------------
+message Vector3 
+{
+	required float x = 1;
+	required float y = 2;
+	required float z = 3;
+}
+
+message PlayerInfo
+{
+	required int32 pid = 1;
+	required string name = 2;
+	optional MovementData movement = 3;
+}
+
+message MovementData {
+	optional Vector3 position = 1;
+	optional Vector3 velocity = 2;
+}
+
+message RespMovement
+{
+	required int32 pid = 1;
+	required MovementData movement = 2;
+}
+
+message RespRotated
+{
+	required int32 pid = 1;
+	required Vector3 direction = 2;
+}
+
+

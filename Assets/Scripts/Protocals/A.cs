@@ -3,7 +3,7 @@
 // Input: A.proto
 
 #pragma warning disable 1591, 0612, 3021
-namespace Tutorial
+namespace tutorial
 {
 
     [global::ProtoBuf.ProtoContract()]
@@ -16,37 +16,37 @@ namespace Tutorial
         }
         public Person()
         {
-            Phones = new global::System.Collections.Generic.List<PhoneNumber>();
+            phone = new global::System.Collections.Generic.List<PhoneNumber>();
             OnConstructor();
         }
 
         partial void OnConstructor();
 
-        [global::ProtoBuf.ProtoMember(1, Name = @"name", IsRequired = true)]
-        public string Name { get; set; }
+        [global::ProtoBuf.ProtoMember(1, IsRequired = true)]
+        public string name { get; set; }
 
-        [global::ProtoBuf.ProtoMember(2, Name = @"id", IsRequired = true)]
-        public int Id { get; set; }
+        [global::ProtoBuf.ProtoMember(2, IsRequired = true)]
+        public int id { get; set; }
 
-        [global::ProtoBuf.ProtoMember(3, Name = @"email")]
+        [global::ProtoBuf.ProtoMember(3)]
         [global::System.ComponentModel.DefaultValue("")]
-        public string Email
+        public string email
         {
-            get { return __pbn__Email ?? ""; }
-            set { __pbn__Email = value; }
+            get { return __pbn__email ?? ""; }
+            set { __pbn__email = value; }
         }
-        public bool ShouldSerializeEmail()
+        public bool ShouldSerializeemail()
         {
-            return __pbn__Email != null;
+            return __pbn__email != null;
         }
-        public void ResetEmail()
+        public void Resetemail()
         {
-            __pbn__Email = null;
+            __pbn__email = null;
         }
-        private string __pbn__Email;
+        private string __pbn__email;
 
-        [global::ProtoBuf.ProtoMember(4, Name = @"phone")]
-        public global::System.Collections.Generic.List<PhoneNumber> Phones { get; private set; }
+        [global::ProtoBuf.ProtoMember(4)]
+        public global::System.Collections.Generic.List<PhoneNumber> phone { get; private set; }
 
         [global::ProtoBuf.ProtoContract()]
         public partial class PhoneNumber : global::ProtoBuf.IExtensible
@@ -63,37 +63,34 @@ namespace Tutorial
 
             partial void OnConstructor();
 
-            [global::ProtoBuf.ProtoMember(1, Name = @"number", IsRequired = true)]
-            public string Number { get; set; }
+            [global::ProtoBuf.ProtoMember(1, IsRequired = true)]
+            public string number { get; set; }
 
-            [global::ProtoBuf.ProtoMember(2, Name = @"type")]
-            [global::System.ComponentModel.DefaultValue(Person.PhoneType.Home)]
-            public Person.PhoneType Type
+            [global::ProtoBuf.ProtoMember(2)]
+            [global::System.ComponentModel.DefaultValue(Person.PhoneType.HOME)]
+            public Person.PhoneType type
             {
-                get { return __pbn__Type ?? Person.PhoneType.Home; }
-                set { __pbn__Type = value; }
+                get { return __pbn__type ?? Person.PhoneType.HOME; }
+                set { __pbn__type = value; }
             }
-            public bool ShouldSerializeType()
+            public bool ShouldSerializetype()
             {
-                return __pbn__Type != null;
+                return __pbn__type != null;
             }
-            public void ResetType()
+            public void Resettype()
             {
-                __pbn__Type = null;
+                __pbn__type = null;
             }
-            private Person.PhoneType? __pbn__Type;
+            private Person.PhoneType? __pbn__type;
 
         }
 
         [global::ProtoBuf.ProtoContract()]
         public enum PhoneType
         {
-            [global::ProtoBuf.ProtoEnum(Name = @"MOBILE")]
-            Mobile = 0,
-            [global::ProtoBuf.ProtoEnum(Name = @"HOME")]
-            Home = 1,
-            [global::ProtoBuf.ProtoEnum(Name = @"WORK")]
-            Work = 2,
+            MOBILE = 0,
+            HOME = 1,
+            WORK = 2,
         }
 
     }
@@ -108,14 +105,14 @@ namespace Tutorial
         }
         public AddressBook()
         {
-            Persons = new global::System.Collections.Generic.List<Person>();
+            person = new global::System.Collections.Generic.List<Person>();
             OnConstructor();
         }
 
         partial void OnConstructor();
 
-        [global::ProtoBuf.ProtoMember(1, Name = @"person")]
-        public global::System.Collections.Generic.List<Person> Persons { get; private set; }
+        [global::ProtoBuf.ProtoMember(1)]
+        public global::System.Collections.Generic.List<Person> person { get; private set; }
 
     }
 

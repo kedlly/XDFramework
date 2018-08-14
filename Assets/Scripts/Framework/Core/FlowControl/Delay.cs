@@ -29,7 +29,7 @@ namespace Framework.Core.FlowControl
 				timeNonius = value < 0f ? 0f : value > DelayTime ? DelayTime : value;
 			}
 		}
-		void Reset()
+		public void Reset()
 		{
 			CurrenTime = 0.0f;
 			Direction = TimeDirection.Stopped;

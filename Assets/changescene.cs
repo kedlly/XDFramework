@@ -28,7 +28,7 @@ public class changescene : MonoBehaviour
 		}
 		if(Input.GetKeyDown(KeyCode.D))
 		{
-			Destroy(GameObject.Find("A"));
+			Destroy(GameObject.Find("A") );
 		}
 	}
 }

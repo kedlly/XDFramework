@@ -81,7 +81,6 @@ namespace Framework.Library.Singleton
 	}
 
 	[DontDestroyOnLoad]
-	[PathInHierarchy("sssss")]
 	[Obfuscation(ApplyToMembers = true, Exclude = true, Feature = "renaming")]
 	public abstract class ToSingletonBehavior<T> : MonoBehaviour, ISingleton where T : ToSingletonBehavior<T>
 	{

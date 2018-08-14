@@ -45,6 +45,11 @@ namespace Framework.Core
 
 		public void Tick()
 		{
+			if (unregisterList.Count > 0)
+			{
+				registerList.ExceptWith(unregisterList);
+				unregisterList.Clear();
+			}
 			foreach (var fc in registerList)
 			{
 				if(fc.TickEnabled)
