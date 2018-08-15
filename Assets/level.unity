@@ -951,7 +951,7 @@ GameObject:
   - component: {fileID: 568802506}
   - component: {fileID: 568802505}
   - component: {fileID: 568802504}
-  - component: {fileID: 568802503}
+  - component: {fileID: 568802508}
   m_Layer: 0
   m_Name: Sphere
   m_TagString: Untagged
@@ -959,26 +959,6 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!114 &568802503
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 568802502}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: dfb7b89e75031654383b91b8da7e4d6f, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  hand: {fileID: 1365906088}
-  handLookAt: 1
-  lockYAxis: 1
-  lockSpeed: 1
-  armRotated: 1
-  coefficientOfRestoringForce: 1000
-  exogenic: {x: 0, y: 0, z: 0}
-  dist: 0
-  compositeForce: {x: 0, y: 0, z: 0}
 --- !u!135 &568802504
 SphereCollider:
   m_ObjectHideFlags: 0
@@ -1046,6 +1026,21 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 20
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &568802508
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 568802502}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2d82fae092aaf36489ab5d5ca32d3a24, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  ABC: 1
+  CDE: 
+  go: {fileID: 0}
+  ok: 
 --- !u!1 &666928208
 GameObject:
   m_ObjectHideFlags: 0

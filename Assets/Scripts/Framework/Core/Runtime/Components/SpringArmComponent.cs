@@ -7,11 +7,12 @@ namespace Framework.Core.Runtime
 	{
 		public Transform hand;
 
+		public bool armRotateEnable = true;
 		public bool handLookAt = true;
 		public bool lockYAxis = true;
-		public bool ignoreArmRot = false;
-		public float lockSpeed = 1.0f;
-		public bool armRotated = true;
+		public bool lookAtOrignal = false;
+		public float handRotateSpeed = 1.0f;
+		
 
 		public float coefficientOfRestoringForce = 100;
 
@@ -86,7 +87,7 @@ namespace Framework.Core.Runtime
 			// hand 在 当前gameobject 本地空间中的目的位置向量 (初始化为开始时位置)
 			var targetDirInLocalSpace = __targetDirectionInLocalSpace;
 			// 若没有使用arm旋转
-			if (!armRotated)
+			if (!armRotateEnable)
 			{
 				//hand 在 当前gameobject 本地空间中的目的位置向量 从初始位置反向旋转到arm初始方向
 				targetDirInLocalSpace = transform.worldToLocalMatrix.MultiplyVector(targetDirInLocalSpace);
@@ -137,8 +138,8 @@ namespace Framework.Core.Runtime
 				else
 				{
 					var originalRotation = originalHandMat.rotation * originalSelfMat.inverse.rotation;
-					var rotation = ignoreArmRot ? originalRotation : originalRotation * transform.rotation;
-					hand.rotation = Quaternion.RotateTowards(hand.rotation, rotation, lockSpeed * Time.deltaTime);
+					var rotation = lookAtOrignal ? originalRotation : originalRotation * transform.rotation;
+					hand.rotation = Quaternion.RotateTowards(hand.rotation, rotation, handRotateSpeed * Time.deltaTime);
 				}
 			}
 		}
