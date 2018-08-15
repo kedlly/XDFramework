@@ -1,0 +1,10 @@
+{
+    "python.linting.enabled": false,
+    "protoc": {
+        "path": "protoc.exe",
+        "options": [
+            "--proto_path=${workspaceRoot}/Protocal",
+            "--python_out=."
+        ]
+    }
+}
