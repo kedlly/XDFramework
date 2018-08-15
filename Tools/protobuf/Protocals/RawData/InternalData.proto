@@ -1,0 +1,37 @@
+
+syntax = "proto2";
+
+package Protocal.RawData;
+
+message Vector3 
+{
+	required float x = 1;
+	required float y = 2;
+	required float z = 3;
+}
+
+message PlayerInfo
+{
+	required int32 pid = 1;
+	required string name = 2;
+	optional MovementData movement = 3;
+}
+
+message MovementData {
+	optional Vector3 position = 1;
+	optional Vector3 velocity = 2;
+}
+
+message RespMovement
+{
+	required int32 pid = 1;
+	required MovementData movement = 2;
+}
+
+message RespRotated
+{
+	required int32 pid = 1;
+	required Vector3 direction = 2;
+}
+
+

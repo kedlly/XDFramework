@@ -1,0 +1,29 @@
+
+
+syntax = "proto2";
+
+package Protocal;
+
+
+enum MessageMajorType
+{
+	Request = 1;
+	Respond = 2;
+}
+
+enum MessageMinorType
+{
+	LoginAuth = 1;
+	Moving = 2;
+	PlayerAppeared = 3;
+	PlayerDisappeared = 4;
+	Rotated = 5;
+	Logout = 6;
+}
+
+message Message
+{
+	required MessageMajorType MajorType = 1;
+	required MessageMinorType MinorType = 2;
+	optional bytes data = 3;
+}

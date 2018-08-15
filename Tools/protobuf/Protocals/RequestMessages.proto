@@ -1,0 +1,29 @@
+
+
+syntax = "proto2";
+
+package Protocal.Request;
+
+import "RawData/InternalData.proto";
+
+message Request_LoginAuth {
+	required string username = 1;
+	required string password = 2;
+}
+
+message Request_Logout
+{
+	required int32 pid = 1;
+	//required string token = 1
+}
+
+
+message Request_Moving {
+	required Protocal.RawData.MovementData movement = 1;
+}
+
+
+message Request_Rotated {
+	required Protocal.RawData.Vector3 direction = 1;
+}
+
