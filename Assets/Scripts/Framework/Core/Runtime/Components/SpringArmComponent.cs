@@ -89,13 +89,7 @@ namespace Framework.Core.Runtime
 
 			compositeForce = springForce + exogenic;
 
-			var delta = compositeForce * Time.deltaTime * Time.deltaTime;
-
-			if (__targetRigibody == null || __targetRigibody.isKinematic)
-			{
-				targetLastPosition = hand.position;
-				hand.position += delta;
-			}
+			
 		}
 
 		private Vector3 compositeForce = Vector3.zero;
@@ -118,6 +112,12 @@ namespace Framework.Core.Runtime
 			if (hand == null)
 			{
 				return;
+			}
+			var delta = compositeForce * Time.deltaTime * Time.deltaTime;
+			if (__targetRigibody == null || __targetRigibody.isKinematic)
+			{
+				targetLastPosition = hand.position;
+				hand.position += delta;
 			}
 			if (handLookAt)
 			{
