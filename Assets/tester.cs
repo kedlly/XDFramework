@@ -7,9 +7,6 @@ using System;
 
 public class tester : MonoBehaviour 
 {
-
-
-
 	private void OnCollisionEnter(Collision collision)
 	{
 		Debug.Log("OnCollisionEnter");

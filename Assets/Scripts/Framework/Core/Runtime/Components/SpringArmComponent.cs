@@ -5,12 +5,13 @@ namespace Framework.Core.Runtime
 {
 	public class SpringArmComponent : MonoBehaviour
 	{
-		public Transform targetTrans;
+		public Transform hand;
 
-		public bool lockTargetLookAt = true;
-		public bool lockLookAtYAxis = true;
+		public bool handLookAt = true;
+		public bool lockYAxis = true;
+		public bool lockOriDirection = false;
 		public float lockSpeed = 1.0f;
-		public bool lockSelfRotation = true;
+		public bool armRotated = true;
 
 		public float coefficientOfRestoringForce = 1;
 
@@ -21,15 +22,47 @@ namespace Framework.Core.Runtime
 		Quaternion __targetQuat;
 		Vector3 __targetLookAt;
 
+		SpringArm_HandComponent handcomp = null;
+
 		public void Start()
 		{
-			if (targetTrans != null)
+			Init();
+		}
+
+		private void OnEnable()
+		{
+			if (handcomp != null)
 			{
-				__targetRigibody = targetTrans.gameObject.GetComponent<Rigidbody>();
-				__targetDirection = targetTrans.position - transform.position;
-				targetLastPosition = targetTrans.position;
-				__targetQuat = targetTrans.rotation;
-				__targetLookAt = targetTrans.forward;
+				handcomp.enabled = true;
+			}
+		}
+
+		private void OnDisable()
+		{
+			if (handcomp != null)
+			{
+				handcomp.enabled = false;
+			}
+		}
+
+		public void Init()
+		{
+			if (hand != null)
+			{
+				__targetRigibody = hand.gameObject.GetComponent<Rigidbody>();
+				__targetDirection = hand.position - transform.position;
+				targetLastPosition = hand.position;
+				__targetQuat = hand.rotation;
+				__targetLookAt = hand.forward;
+				handcomp = hand.gameObject.GetComponent<SpringArm_HandComponent>();
+				if (handcomp == null)
+				{
+					handcomp = hand.gameObject.AddComponent<SpringArm_HandComponent>();
+				}
+				handcomp.enabled = true;
+				handcomp.onUpdate = _Update;
+				handcomp.onFixedUpdate = _FixedUpdate;
+				handcomp.onLateUpdate = _LateUpdate;
 			}
 			else
 			{
@@ -37,19 +70,21 @@ namespace Framework.Core.Runtime
 			}
 		}
 
+
+
 		Vector3 targetLastPosition;
-		private void Update()
+		private void _Update()
 		{
-			if (targetTrans == null)
+			if (hand == null)
 			{
 				return;
 			}
 			var targetDir = __targetDirection;
-			if (lockSelfRotation)
+			if (armRotated)
 			{
 				targetDir = transform.TransformVector(targetDir);
 			}
-			currentDirection = targetTrans.position - transform.position;
+			currentDirection = hand.position - transform.position;
 			var springForce = (targetDir - currentDirection) * coefficientOfRestoringForce;
 
 			compositeForce = springForce + exogenic;
@@ -58,17 +93,17 @@ namespace Framework.Core.Runtime
 
 			if (__targetRigibody == null || __targetRigibody.isKinematic)
 			{
-				targetLastPosition = targetTrans.position;
-				targetTrans.position += delta;
+				targetLastPosition = hand.position;
+				hand.position += delta;
 			}
 		}
 
 		private Vector3 compositeForce = Vector3.zero;
 		private Vector3 currentDirection;
 
-		private void FixedUpdate()
+		private void _FixedUpdate()
 		{
-			if (targetTrans == null)
+			if (hand == null)
 			{
 				return;
 			}
@@ -78,34 +113,40 @@ namespace Framework.Core.Runtime
 			}
 		}
 
-		private void LateUpdate()
+		private void _LateUpdate()
 		{
-			if (targetTrans == null)
+			if (hand == null)
 			{
 				return;
 			}
-			if (lockTargetLookAt)
+			if (handLookAt)
 			{
-				if (lockLookAtYAxis)
+				if (lockYAxis)
 				{
-					targetTrans.LookAt(transform.position, Vector3.up);
+					hand.LookAt(transform.position, Vector3.up);
 				}
 				else
 				{
-					var v = Quaternion.FromToRotation(__targetDirection, currentDirection);
-					targetTrans.rotation = Quaternion.Lerp(targetTrans.rotation, v * __targetQuat, Time.deltaTime * lockSpeed);
+					if (lockOriDirection)
+					{
+						hand.rotation = Quaternion.Lerp(hand.rotation, __targetQuat * Quaternion.Inverse(hand.rotation), Time.deltaTime * lockSpeed);
+					}
+					else
+					{
+						hand.LookAt(transform.position);
+					}
 				}
 			}
 		}
 
 		private void OnDrawGizmos()
 		{
-			if (targetTrans == null)
+			if (hand == null)
 			{
 				return;
 			}
 			Gizmos.color = Color.red;
-			Gizmos.DrawLine(transform.position, targetTrans.position);
+			Gizmos.DrawLine(transform.position, hand.position);
 		}
 	}
 

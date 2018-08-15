@@ -967,16 +967,18 @@ MonoBehaviour:
   m_GameObject: {fileID: 568802502}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: e19325f094315d844ac36b806fe4e0dc, type: 3}
+  m_Script: {fileID: 11500000, guid: dfb7b89e75031654383b91b8da7e4d6f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  targetTrans: {fileID: 1365906088}
-  lockTargetLookAt: 1
-  lockLookAtYAxis: 1
+  hand: {fileID: 1365906088}
+  handLookAt: 1
+  lockYAxis: 1
   lockSpeed: 1
-  lockSelfRotation: 1
-  coefficientOfRestoringForce: 100
+  armRotated: 1
+  coefficientOfRestoringForce: 1000
   exogenic: {x: 0, y: 0, z: 0}
+  dist: 0
+  compositeForce: {x: 0, y: 0, z: 0}
 --- !u!135 &568802504
 SphereCollider:
   m_ObjectHideFlags: 0
@@ -1764,7 +1766,6 @@ GameObject:
   - component: {fileID: 1365906084}
   - component: {fileID: 1365906089}
   - component: {fileID: 1365906091}
-  - component: {fileID: 1365906090}
   m_Layer: 0
   m_Name: Cube (5)
   m_TagString: Untagged
@@ -1867,21 +1868,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Velocity: {x: 0, y: 0, z: 0}
   MaxSpeed: 50
---- !u!54 &1365906090
-Rigidbody:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 1365906083}
-  serializedVersion: 2
-  m_Mass: 1
-  m_Drag: 2
-  m_AngularDrag: 0.05
-  m_UseGravity: 1
-  m_IsKinematic: 0
-  m_Interpolate: 0
-  m_Constraints: 0
-  m_CollisionDetection: 0
 --- !u!114 &1365906091
 MonoBehaviour:
   m_ObjectHideFlags: 0
