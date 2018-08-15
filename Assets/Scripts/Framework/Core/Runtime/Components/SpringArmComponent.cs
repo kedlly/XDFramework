@@ -3,7 +3,7 @@ using UnityEngine;
 
 namespace Framework.Core.Runtime
 {
-	public class SpringArm : MonoBehaviour
+	public class SpringArmComponent : MonoBehaviour
 	{
 		public Transform hand;
 
