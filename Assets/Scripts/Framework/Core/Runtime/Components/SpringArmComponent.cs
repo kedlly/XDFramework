@@ -3,26 +3,26 @@ using UnityEngine;
 
 namespace Framework.Core.Runtime
 {
-	public class SpringArmComponent : MonoBehaviour
+	public class SpringArm : MonoBehaviour
 	{
 		public Transform hand;
 
 		public bool handLookAt = true;
 		public bool lockYAxis = true;
-		public bool lockOriDirection = false;
+		public bool ignoreArmRot = false;
 		public float lockSpeed = 1.0f;
 		public bool armRotated = true;
 
-		public float coefficientOfRestoringForce = 1;
+		public float coefficientOfRestoringForce = 100;
 
 		public Vector3 exogenic = Vector3.zero;
 
-		Vector3 __targetDirection;
-		Rigidbody __targetRigibody = null;
-		Quaternion __targetQuat;
-		Vector3 __targetLookAt;
+		Vector3 __targetDirectionInWorldSpace;
+		Vector3 __targetDirectionInLocalSpace;
 
-		SpringArm_HandComponent handcomp = null;
+		Matrix4x4 originalHandMat;
+		Matrix4x4 originalSelfMat;
+
 
 		public void Start()
 		{
@@ -44,16 +44,15 @@ namespace Framework.Core.Runtime
 				handcomp.enabled = false;
 			}
 		}
-
+		Rigidbody __targetRigibody = null;
+		SpringArm_HandComponent handcomp = null;
 		public void Init()
 		{
 			if (hand != null)
 			{
 				__targetRigibody = hand.gameObject.GetComponent<Rigidbody>();
-				__targetDirection = hand.position - transform.position;
+				__targetDirectionInWorldSpace = hand.position - transform.position;
 				targetLastPosition = hand.position;
-				__targetQuat = hand.rotation;
-				__targetLookAt = hand.forward;
 				handcomp = hand.gameObject.GetComponent<SpringArm_HandComponent>();
 				if (handcomp == null)
 				{
@@ -63,6 +62,9 @@ namespace Framework.Core.Runtime
 				handcomp.onUpdate = _Update;
 				handcomp.onFixedUpdate = _FixedUpdate;
 				handcomp.onLateUpdate = _LateUpdate;
+				originalHandMat = hand.transform.localToWorldMatrix;
+				originalSelfMat = transform.localToWorldMatrix;
+				__targetDirectionInLocalSpace = transform.worldToLocalMatrix.MultiplyVector(__targetDirectionInWorldSpace);
 			}
 			else
 			{
@@ -79,40 +81,47 @@ namespace Framework.Core.Runtime
 			{
 				return;
 			}
-			var targetDir = __targetDirection;
-			if (armRotated)
+			// hand 变换到当前gameobject的 本地空间
+			var mat = transform.worldToLocalMatrix * hand.transform.localToWorldMatrix;
+			// hand 在 当前gameobject 本地空间中的目的位置向量 (初始化为开始时位置)
+			var targetDirInLocalSpace = __targetDirectionInLocalSpace;
+			// 若没有使用arm旋转
+			if (!armRotated)
 			{
-				targetDir = transform.TransformVector(targetDir);
+				//hand 在 当前gameobject 本地空间中的目的位置向量 从初始位置反向旋转到arm初始方向
+				targetDirInLocalSpace = transform.worldToLocalMatrix.MultiplyVector(targetDirInLocalSpace);
 			}
-			currentDirection = hand.position - transform.position;
-			var springForce = (targetDir - currentDirection) * coefficientOfRestoringForce;
+			//取得相对位置向量
+			currentDirectionInLocalSpace = mat.GetColumn(3);
+			//力的方向为目的位置与当前相对位置两向量之差
+			var springForce = targetDirInLocalSpace - currentDirectionInLocalSpace; 
 
-			compositeForce = springForce + exogenic;
+			//合力为 弹力(变换到世界空间) * 系数 + 外力
+			compositeForce = transform.TransformVector(springForce) * coefficientOfRestoringForce + exogenic;
 
-			
 		}
 
 		private Vector3 compositeForce = Vector3.zero;
-		private Vector3 currentDirection;
+		private Vector3 currentDirectionInLocalSpace;
 
 		private void _FixedUpdate()
 		{
-			if (hand == null)
-			{
-				return;
-			}
-			if (__targetRigibody != null && !__targetRigibody.isKinematic)
-			{
-				__targetRigibody.AddForce(compositeForce, ForceMode.Force);
-			}
+ 			if (hand == null)
+ 			{
+ 				return;
+ 			}
+ 			if (__targetRigibody != null && !__targetRigibody.isKinematic)
+ 			{
+ 				__targetRigibody.AddForce(compositeForce, ForceMode.Force);
+ 			}
 		}
 
 		private void _LateUpdate()
 		{
-			if (hand == null)
-			{
-				return;
-			}
+ 			if (hand == null)
+ 			{
+ 				return;
+ 			}
 			var delta = compositeForce * Time.deltaTime * Time.deltaTime;
 			if (__targetRigibody == null || __targetRigibody.isKinematic)
 			{
@@ -127,14 +136,9 @@ namespace Framework.Core.Runtime
 				}
 				else
 				{
-					if (lockOriDirection)
-					{
-						hand.rotation = Quaternion.Lerp(hand.rotation, __targetQuat * Quaternion.Inverse(hand.rotation), Time.deltaTime * lockSpeed);
-					}
-					else
-					{
-						hand.LookAt(transform.position);
-					}
+					var originalRotation = originalHandMat.rotation * originalSelfMat.inverse.rotation;
+					var rotation = ignoreArmRot ? originalRotation : originalRotation * transform.rotation;
+					hand.rotation = Quaternion.RotateTowards(hand.rotation, rotation, lockSpeed * Time.deltaTime);
 				}
 			}
 		}
