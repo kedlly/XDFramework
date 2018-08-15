@@ -8,6 +8,7 @@ from google.protobuf import descriptor as _descriptor
 from google.protobuf import message as _message
 from google.protobuf import reflection as _reflection
 from google.protobuf import symbol_database as _symbol_database
+from google.protobuf import descriptor_pb2
 # @@protoc_insertion_point(imports)
 
 _sym_db = _symbol_database.Default()
@@ -18,10 +19,9 @@ _sym_db = _symbol_database.Default()
 DESCRIPTOR = _descriptor.FileDescriptor(
   name='Messages.proto',
   package='ProjectProtocal',
-  syntax='proto2',
-  serialized_options=None,
   serialized_pb=_b('\n\x0eMessages.proto\x12\x0fProjectProtocal\"D\n\x07Message\x12+\n\x04type\x18\x01 \x02(\x0e\x32\x1d.ProjectProtocal.EMessageType\x12\x0c\n\x04\x64\x61ta\x18\x02 \x01(\x0c\"7\n\x11Request_LoginAuth\x12\x10\n\x08username\x18\x01 \x02(\t\x12\x10\n\x08password\x18\x02 \x02(\t\"\x93\x01\n\x11Respond_LoginAuth\x12\r\n\x05token\x18\x01 \x02(\t\x12\x0f\n\x07sceneId\x18\x02 \x02(\x05\x12+\n\x06player\x18\x03 \x02(\x0b\x32\x1b.ProjectProtocal.PlayerInfo\x12\x31\n\x0cneighborhood\x18\x04 \x03(\x0b\x32\x1b.ProjectProtocal.PlayerInfo\"\x1d\n\x0eRequest_Logout\x12\x0b\n\x03pid\x18\x01 \x02(\x05\"\x1d\n\x0eRespond_Logout\x12\x0b\n\x03pid\x18\x01 \x02(\x05\"A\n\x0eRequest_Moving\x12/\n\x08movement\x18\x01 \x02(\x0b\x32\x1d.ProjectProtocal.MovementData\"E\n\x0eRespond_Moving\x12\x33\n\x0cmovementList\x18\x01 \x03(\x0b\x32\x1d.ProjectProtocal.RespMovement\"K\n\x16Respond_PlayerAppeared\x12\x31\n\x0cneighborhood\x18\x01 \x03(\x0b\x32\x1b.ProjectProtocal.PlayerInfo\".\n\x19Respond_PlayerDisappeared\x12\x11\n\tplayerIds\x18\x01 \x03(\x05\">\n\x0fRequest_Rotated\x12+\n\tdirection\x18\x01 \x02(\x0b\x32\x18.ProjectProtocal.Vector3\"B\n\x0fRespond_Rotated\x12/\n\trotations\x18\x01 \x03(\x0b\x32\x1c.ProjectProtocal.RespRotated\"*\n\x07Vector3\x12\t\n\x01x\x18\x01 \x02(\x02\x12\t\n\x01y\x18\x02 \x02(\x02\x12\t\n\x01z\x18\x03 \x02(\x02\"X\n\nPlayerInfo\x12\x0b\n\x03pid\x18\x01 \x02(\x05\x12\x0c\n\x04name\x18\x02 \x02(\t\x12/\n\x08movement\x18\x03 \x01(\x0b\x32\x1d.ProjectProtocal.MovementData\"f\n\x0cMovementData\x12*\n\x08position\x18\x01 \x01(\x0b\x32\x18.ProjectProtocal.Vector3\x12*\n\x08velocity\x18\x02 \x01(\x0b\x32\x18.ProjectProtocal.Vector3\"L\n\x0cRespMovement\x12\x0b\n\x03pid\x18\x01 \x02(\x05\x12/\n\x08movement\x18\x02 \x02(\x0b\x32\x1d.ProjectProtocal.MovementData\"G\n\x0bRespRotated\x12\x0b\n\x03pid\x18\x01 \x02(\x05\x12+\n\tdirection\x18\x02 \x02(\x0b\x32\x18.ProjectProtocal.Vector3*\xe6\x01\n\x0c\x45MessageType\x12\x16\n\x12\x45Request_LoginAuth\x10\x01\x12\x16\n\x12\x45Respond_LoginAuth\x10\x02\x12\x13\n\x0f\x45Request_Moving\x10\x03\x12\x13\n\x0f\x45Respond_Moving\x10\x04\x12\x1b\n\x17\x45Respond_PlayerAppeared\x10\x05\x12\x1e\n\x1a\x45Respond_PlayerDisappeared\x10\x06\x12\x14\n\x10\x45Request_Rotated\x10\x07\x12\x14\n\x10\x45Respond_Rotated\x10\x08\x12\x13\n\x0f\x45Respond_Logout\x10\t')
 )
+_sym_db.RegisterFileDescriptor(DESCRIPTOR)
 
 _EMESSAGETYPE = _descriptor.EnumDescriptor(
   name='EMessageType',
@@ -31,43 +31,43 @@ _EMESSAGETYPE = _descriptor.EnumDescriptor(
   values=[
     _descriptor.EnumValueDescriptor(
       name='ERequest_LoginAuth', index=0, number=1,
-      serialized_options=None,
+      options=None,
       type=None),
     _descriptor.EnumValueDescriptor(
       name='ERespond_LoginAuth', index=1, number=2,
-      serialized_options=None,
+      options=None,
       type=None),
     _descriptor.EnumValueDescriptor(
       name='ERequest_Moving', index=2, number=3,
-      serialized_options=None,
+      options=None,
       type=None),
     _descriptor.EnumValueDescriptor(
       name='ERespond_Moving', index=3, number=4,
-      serialized_options=None,
+      options=None,
       type=None),
     _descriptor.EnumValueDescriptor(
       name='ERespond_PlayerAppeared', index=4, number=5,
-      serialized_options=None,
+      options=None,
       type=None),
     _descriptor.EnumValueDescriptor(
       name='ERespond_PlayerDisappeared', index=5, number=6,
-      serialized_options=None,
+      options=None,
       type=None),
     _descriptor.EnumValueDescriptor(
       name='ERequest_Rotated', index=6, number=7,
-      serialized_options=None,
+      options=None,
       type=None),
     _descriptor.EnumValueDescriptor(
       name='ERespond_Rotated', index=7, number=8,
-      serialized_options=None,
+      options=None,
       type=None),
     _descriptor.EnumValueDescriptor(
       name='ERespond_Logout', index=8, number=9,
-      serialized_options=None,
+      options=None,
       type=None),
   ],
   containing_type=None,
-  serialized_options=None,
+  options=None,
   serialized_start=1159,
   serialized_end=1389,
 )
@@ -99,23 +99,22 @@ _MESSAGE = _descriptor.Descriptor(
       has_default_value=False, default_value=1,
       message_type=None, enum_type=None, containing_type=None,
       is_extension=False, extension_scope=None,
-      serialized_options=None, file=DESCRIPTOR),
+      options=None),
     _descriptor.FieldDescriptor(
       name='data', full_name='ProjectProtocal.Message.data', index=1,
       number=2, type=12, cpp_type=9, label=1,
       has_default_value=False, default_value=_b(""),
       message_type=None, enum_type=None, containing_type=None,
       is_extension=False, extension_scope=None,
-      serialized_options=None, file=DESCRIPTOR),
+      options=None),
   ],
   extensions=[
   ],
   nested_types=[],
   enum_types=[
   ],
-  serialized_options=None,
+  options=None,
   is_extendable=False,
-  syntax='proto2',
   extension_ranges=[],
   oneofs=[
   ],
@@ -137,23 +136,22 @@ _REQUEST_LOGINAUTH = _descriptor.Descriptor(
       has_default_value=False, default_value=_b("").decode('utf-8'),
       message_type=None, enum_type=None, containing_type=None,
       is_extension=False, extension_scope=None,
-      serialized_options=None, file=DESCRIPTOR),
+      options=None),
     _descriptor.FieldDescriptor(
       name='password', full_name='ProjectProtocal.Request_LoginAuth.password', index=1,
       number=2, type=9, cpp_type=9, label=2,
       has_default_value=False, default_value=_b("").decode('utf-8'),
       message_type=None, enum_type=None, containing_type=None,
       is_extension=False, extension_scope=None,
-      serialized_options=None, file=DESCRIPTOR),
+      options=None),
   ],
   extensions=[
   ],
   nested_types=[],
   enum_types=[
   ],
-  serialized_options=None,
+  options=None,
   is_extendable=False,
-  syntax='proto2',
   extension_ranges=[],
   oneofs=[
   ],
@@ -175,37 +173,36 @@ _RESPOND_LOGINAUTH = _descriptor.Descriptor(
       has_default_value=False, default_value=_b("").decode('utf-8'),
       message_type=None, enum_type=None, containing_type=None,
       is_extension=False, extension_scope=None,
-      serialized_options=None, file=DESCRIPTOR),
+      options=None),
     _descriptor.FieldDescriptor(
       name='sceneId', full_name='ProjectProtocal.Respond_LoginAuth.sceneId', index=1,
       number=2, type=5, cpp_type=1, label=2,
       has_default_value=False, default_value=0,
       message_type=None, enum_type=None, containing_type=None,
       is_extension=False, extension_scope=None,
-      serialized_options=None, file=DESCRIPTOR),
+      options=None),
     _descriptor.FieldDescriptor(
       name='player', full_name='ProjectProtocal.Respond_LoginAuth.player', index=2,
       number=3, type=11, cpp_type=10, label=2,
       has_default_value=False, default_value=None,
       message_type=None, enum_type=None, containing_type=None,
       is_extension=False, extension_scope=None,
-      serialized_options=None, file=DESCRIPTOR),
+      options=None),
     _descriptor.FieldDescriptor(
       name='neighborhood', full_name='ProjectProtocal.Respond_LoginAuth.neighborhood', index=3,
       number=4, type=11, cpp_type=10, label=3,
       has_default_value=False, default_value=[],
       message_type=None, enum_type=None, containing_type=None,
       is_extension=False, extension_scope=None,
-      serialized_options=None, file=DESCRIPTOR),
+      options=None),
   ],
   extensions=[
   ],
   nested_types=[],
   enum_types=[
   ],
-  serialized_options=None,
+  options=None,
   is_extendable=False,
-  syntax='proto2',
   extension_ranges=[],
   oneofs=[
   ],
@@ -227,16 +224,15 @@ _REQUEST_LOGOUT = _descriptor.Descriptor(
       has_default_value=False, default_value=0,
       message_type=None, enum_type=None, containing_type=None,
       is_extension=False, extension_scope=None,
-      serialized_options=None, file=DESCRIPTOR),
+      options=None),
   ],
   extensions=[
   ],
   nested_types=[],
   enum_types=[
   ],
-  serialized_options=None,
+  options=None,
   is_extendable=False,
-  syntax='proto2',
   extension_ranges=[],
   oneofs=[
   ],
@@ -258,16 +254,15 @@ _RESPOND_LOGOUT = _descriptor.Descriptor(
       has_default_value=False, default_value=0,
       message_type=None, enum_type=None, containing_type=None,
       is_extension=False, extension_scope=None,
-      serialized_options=None, file=DESCRIPTOR),
+      options=None),
   ],
   extensions=[
   ],
   nested_types=[],
   enum_types=[
   ],
-  serialized_options=None,
+  options=None,
   is_extendable=False,
-  syntax='proto2',
   extension_ranges=[],
   oneofs=[
   ],
@@ -289,16 +284,15 @@ _REQUEST_MOVING = _descriptor.Descriptor(
       has_default_value=False, default_value=None,
       message_type=None, enum_type=None, containing_type=None,
       is_extension=False, extension_scope=None,
-      serialized_options=None, file=DESCRIPTOR),
+      options=None),
   ],
   extensions=[
   ],
   nested_types=[],
   enum_types=[
   ],
-  serialized_options=None,
+  options=None,
   is_extendable=False,
-  syntax='proto2',
   extension_ranges=[],
   oneofs=[
   ],
@@ -320,16 +314,15 @@ _RESPOND_MOVING = _descriptor.Descriptor(
       has_default_value=False, default_value=[],
       message_type=None, enum_type=None, containing_type=None,
       is_extension=False, extension_scope=None,
-      serialized_options=None, file=DESCRIPTOR),
+      options=None),
   ],
   extensions=[
   ],
   nested_types=[],
   enum_types=[
   ],
-  serialized_options=None,
+  options=None,
   is_extendable=False,
-  syntax='proto2',
   extension_ranges=[],
   oneofs=[
   ],
@@ -351,16 +344,15 @@ _RESPOND_PLAYERAPPEARED = _descriptor.Descriptor(
       has_default_value=False, default_value=[],
       message_type=None, enum_type=None, containing_type=None,
       is_extension=False, extension_scope=None,
-      serialized_options=None, file=DESCRIPTOR),
+      options=None),
   ],
   extensions=[
   ],
   nested_types=[],
   enum_types=[
   ],
-  serialized_options=None,
+  options=None,
   is_extendable=False,
-  syntax='proto2',
   extension_ranges=[],
   oneofs=[
   ],
@@ -382,16 +374,15 @@ _RESPOND_PLAYERDISAPPEARED = _descriptor.Descriptor(
       has_default_value=False, default_value=[],
       message_type=None, enum_type=None, containing_type=None,
       is_extension=False, extension_scope=None,
-      serialized_options=None, file=DESCRIPTOR),
+      options=None),
   ],
   extensions=[
   ],
   nested_types=[],
   enum_types=[
   ],
-  serialized_options=None,
+  options=None,
   is_extendable=False,
-  syntax='proto2',
   extension_ranges=[],
   oneofs=[
   ],
@@ -413,16 +404,15 @@ _REQUEST_ROTATED = _descriptor.Descriptor(
       has_default_value=False, default_value=None,
       message_type=None, enum_type=None, containing_type=None,
       is_extension=False, extension_scope=None,
-      serialized_options=None, file=DESCRIPTOR),
+      options=None),
   ],
   extensions=[
   ],
   nested_types=[],
   enum_types=[
   ],
-  serialized_options=None,
+  options=None,
   is_extendable=False,
-  syntax='proto2',
   extension_ranges=[],
   oneofs=[
   ],
@@ -444,16 +434,15 @@ _RESPOND_ROTATED = _descriptor.Descriptor(
       has_default_value=False, default_value=[],
       message_type=None, enum_type=None, containing_type=None,
       is_extension=False, extension_scope=None,
-      serialized_options=None, file=DESCRIPTOR),
+      options=None),
   ],
   extensions=[
   ],
   nested_types=[],
   enum_types=[
   ],
-  serialized_options=None,
+  options=None,
   is_extendable=False,
-  syntax='proto2',
   extension_ranges=[],
   oneofs=[
   ],
@@ -472,33 +461,32 @@ _VECTOR3 = _descriptor.Descriptor(
     _descriptor.FieldDescriptor(
       name='x', full_name='ProjectProtocal.Vector3.x', index=0,
       number=1, type=2, cpp_type=6, label=2,
-      has_default_value=False, default_value=float(0),
+      has_default_value=False, default_value=0,
       message_type=None, enum_type=None, containing_type=None,
       is_extension=False, extension_scope=None,
-      serialized_options=None, file=DESCRIPTOR),
+      options=None),
     _descriptor.FieldDescriptor(
       name='y', full_name='ProjectProtocal.Vector3.y', index=1,
       number=2, type=2, cpp_type=6, label=2,
-      has_default_value=False, default_value=float(0),
+      has_default_value=False, default_value=0,
       message_type=None, enum_type=None, containing_type=None,
       is_extension=False, extension_scope=None,
-      serialized_options=None, file=DESCRIPTOR),
+      options=None),
     _descriptor.FieldDescriptor(
       name='z', full_name='ProjectProtocal.Vector3.z', index=2,
       number=3, type=2, cpp_type=6, label=2,
-      has_default_value=False, default_value=float(0),
+      has_default_value=False, default_value=0,
       message_type=None, enum_type=None, containing_type=None,
       is_extension=False, extension_scope=None,
-      serialized_options=None, file=DESCRIPTOR),
+      options=None),
   ],
   extensions=[
   ],
   nested_types=[],
   enum_types=[
   ],
-  serialized_options=None,
+  options=None,
   is_extendable=False,
-  syntax='proto2',
   extension_ranges=[],
   oneofs=[
   ],
@@ -520,30 +508,29 @@ _PLAYERINFO = _descriptor.Descriptor(
       has_default_value=False, default_value=0,
       message_type=None, enum_type=None, containing_type=None,
       is_extension=False, extension_scope=None,
-      serialized_options=None, file=DESCRIPTOR),
+      options=None),
     _descriptor.FieldDescriptor(
       name='name', full_name='ProjectProtocal.PlayerInfo.name', index=1,
       number=2, type=9, cpp_type=9, label=2,
       has_default_value=False, default_value=_b("").decode('utf-8'),
       message_type=None, enum_type=None, containing_type=None,
       is_extension=False, extension_scope=None,
-      serialized_options=None, file=DESCRIPTOR),
+      options=None),
     _descriptor.FieldDescriptor(
       name='movement', full_name='ProjectProtocal.PlayerInfo.movement', index=2,
       number=3, type=11, cpp_type=10, label=1,
       has_default_value=False, default_value=None,
       message_type=None, enum_type=None, containing_type=None,
       is_extension=False, extension_scope=None,
-      serialized_options=None, file=DESCRIPTOR),
+      options=None),
   ],
   extensions=[
   ],
   nested_types=[],
   enum_types=[
   ],
-  serialized_options=None,
+  options=None,
   is_extendable=False,
-  syntax='proto2',
   extension_ranges=[],
   oneofs=[
   ],
@@ -565,23 +552,22 @@ _MOVEMENTDATA = _descriptor.Descriptor(
       has_default_value=False, default_value=None,
       message_type=None, enum_type=None, containing_type=None,
       is_extension=False, extension_scope=None,
-      serialized_options=None, file=DESCRIPTOR),
+      options=None),
     _descriptor.FieldDescriptor(
       name='velocity', full_name='ProjectProtocal.MovementData.velocity', index=1,
       number=2, type=11, cpp_type=10, label=1,
       has_default_value=False, default_value=None,
       message_type=None, enum_type=None, containing_type=None,
       is_extension=False, extension_scope=None,
-      serialized_options=None, file=DESCRIPTOR),
+      options=None),
   ],
   extensions=[
   ],
   nested_types=[],
   enum_types=[
   ],
-  serialized_options=None,
+  options=None,
   is_extendable=False,
-  syntax='proto2',
   extension_ranges=[],
   oneofs=[
   ],
@@ -603,23 +589,22 @@ _RESPMOVEMENT = _descriptor.Descriptor(
       has_default_value=False, default_value=0,
       message_type=None, enum_type=None, containing_type=None,
       is_extension=False, extension_scope=None,
-      serialized_options=None, file=DESCRIPTOR),
+      options=None),
     _descriptor.FieldDescriptor(
       name='movement', full_name='ProjectProtocal.RespMovement.movement', index=1,
       number=2, type=11, cpp_type=10, label=2,
       has_default_value=False, default_value=None,
       message_type=None, enum_type=None, containing_type=None,
       is_extension=False, extension_scope=None,
-      serialized_options=None, file=DESCRIPTOR),
+      options=None),
   ],
   extensions=[
   ],
   nested_types=[],
   enum_types=[
   ],
-  serialized_options=None,
+  options=None,
   is_extendable=False,
-  syntax='proto2',
   extension_ranges=[],
   oneofs=[
   ],
@@ -641,23 +626,22 @@ _RESPROTATED = _descriptor.Descriptor(
       has_default_value=False, default_value=0,
       message_type=None, enum_type=None, containing_type=None,
       is_extension=False, extension_scope=None,
-      serialized_options=None, file=DESCRIPTOR),
+      options=None),
     _descriptor.FieldDescriptor(
       name='direction', full_name='ProjectProtocal.RespRotated.direction', index=1,
       number=2, type=11, cpp_type=10, label=2,
       has_default_value=False, default_value=None,
       message_type=None, enum_type=None, containing_type=None,
       is_extension=False, extension_scope=None,
-      serialized_options=None, file=DESCRIPTOR),
+      options=None),
   ],
   extensions=[
   ],
   nested_types=[],
   enum_types=[
   ],
-  serialized_options=None,
+  options=None,
   is_extendable=False,
-  syntax='proto2',
   extension_ranges=[],
   oneofs=[
   ],
@@ -695,7 +679,6 @@ DESCRIPTOR.message_types_by_name['MovementData'] = _MOVEMENTDATA
 DESCRIPTOR.message_types_by_name['RespMovement'] = _RESPMOVEMENT
 DESCRIPTOR.message_types_by_name['RespRotated'] = _RESPROTATED
 DESCRIPTOR.enum_types_by_name['EMessageType'] = _EMESSAGETYPE
-_sym_db.RegisterFileDescriptor(DESCRIPTOR)
 
 Message = _reflection.GeneratedProtocolMessageType('Message', (_message.Message,), dict(
   DESCRIPTOR = _MESSAGE,
