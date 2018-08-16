@@ -18,8 +18,6 @@ def Deserialize(binData):
 	except:
 		return None
 
-# p = Request_LoginAuth()
-
 def getType(obj):
 	objType = type(obj)
 	return objType, str(objType).split("'")[1].split(".")[-1]

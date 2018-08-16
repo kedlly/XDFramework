@@ -12,7 +12,7 @@
   <component name="CoverageDataManager">
     <SUITE FILE_PATH="coverage/GameServer$Robot.coverage" NAME="Robot Coverage Results" MODIFIED="1534392219157" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
     <SUITE FILE_PATH="coverage/GameServer$test.coverage" NAME="test Coverage Results" MODIFIED="1534391888299" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/" />
-    <SUITE FILE_PATH="coverage/GameServer$GameServer.coverage" NAME="GameServer Coverage Results" MODIFIED="1534417044744" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
+    <SUITE FILE_PATH="coverage/GameServer$GameServer.coverage" NAME="GameServer Coverage Results" MODIFIED="1534417822127" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
     <SUITE FILE_PATH="coverage/GameServer$main.coverage" NAME="Robot Coverage Results" MODIFIED="1533640774673" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
   </component>
   <component name="FileEditorManager">
@@ -29,22 +29,17 @@
       <file leaf-file-name="InternalData_pb2.py" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/Messages/RawData/InternalData_pb2.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="2732">
-              <caret line="428" column="72" selection-start-line="428" selection-start-column="72" selection-end-line="428" selection-end-column="72" />
+            <state relative-caret-position="369">
+              <caret line="289" column="72" selection-start-line="289" selection-start-column="72" selection-end-line="289" selection-end-column="72" />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="Setup.py" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/Bussiness/Setup.py">
-          <provider selected="true" editor-type-id="text-editor" />
-        </entry>
-      </file>
-      <file leaf-file-name="MessageMap.py" pinned="false" current-in-tab="false">
+      <file leaf-file-name="MessageMap.py" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/Messages/MessageMap.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="408">
-              <caret line="26" column="48" selection-start-line="26" selection-start-column="48" selection-end-line="26" selection-end-column="48" />
+            <state relative-caret-position="306">
+              <caret line="18" column="19" selection-start-line="18" selection-start-column="19" selection-end-line="18" selection-end-column="19" />
               <folding>
                 <element signature="e#0#34#0" expanded="true" />
               </folding>
@@ -55,8 +50,8 @@
       <file leaf-file-name="Message_pb2.py" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/Messages/Message_pb2.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="306">
-              <caret line="18" lean-forward="true" selection-start-line="18" selection-end-line="18" />
+            <state relative-caret-position="238">
+              <caret line="14" lean-forward="true" selection-start-line="14" selection-end-line="14" />
             </state>
           </provider>
         </entry>
@@ -94,13 +89,18 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="RequestMessages_pb2.py" pinned="false" current-in-tab="true">
+      <file leaf-file-name="RequestMessages_pb2.py" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/Messages/RequestMessages_pb2.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="442">
-              <caret line="113" column="4" lean-forward="true" selection-start-line="113" selection-start-column="4" selection-end-line="113" selection-end-column="4" />
+            <state relative-caret-position="272">
+              <caret line="103" column="23" lean-forward="true" selection-start-line="103" selection-start-column="23" selection-end-line="103" selection-end-column="23" />
             </state>
           </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="RespondMessages_pb2.py" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/Messages/RespondMessages_pb2.py">
+          <provider selected="true" editor-type-id="text-editor" />
         </entry>
       </file>
       <file leaf-file-name="LogicServer.py" pinned="false" current-in-tab="false">
@@ -174,9 +174,9 @@
         <option value="$PROJECT_DIR$/KK.py" />
         <option value="$PROJECT_DIR$/Messages/MessageMap2.py" />
         <option value="$PROJECT_DIR$/Robot.py" />
-        <option value="$PROJECT_DIR$/Messages/MessageMap.py" />
         <option value="$PROJECT_DIR$/Messages/MessageProcess.py" />
         <option value="$PROJECT_DIR$/Bussiness/PlayerManager.py" />
+        <option value="$PROJECT_DIR$/Messages/MessageMap.py" />
       </list>
     </option>
   </component>
@@ -403,13 +403,6 @@
     </breakpoint-manager>
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://C:/Program Files/Python27/Lib/site-packages/twisted/internet/default.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="313">
-          <caret line="49" column="58" lean-forward="true" selection-start-line="49" selection-start-column="58" selection-end-line="49" selection-end-column="58" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://C:/Program Files/Python27/Lib/site-packages/twisted/internet/reactor.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="444">
@@ -689,16 +682,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/Messages/MessageMap.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="408">
-          <caret line="26" column="48" selection-start-line="26" selection-start-column="48" selection-end-line="26" selection-end-column="48" />
-          <folding>
-            <element signature="e#0#34#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/Messages/MessageProcess.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="170">
@@ -718,15 +701,15 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/Messages/RawData/InternalData_pb2.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="2732">
-          <caret line="428" column="72" selection-start-line="428" selection-start-column="72" selection-end-line="428" selection-end-column="72" />
+        <state relative-caret-position="369">
+          <caret line="289" column="72" selection-start-line="289" selection-start-column="72" selection-end-line="289" selection-end-column="72" />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/Messages/Message_pb2.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="306">
-          <caret line="18" lean-forward="true" selection-start-line="18" selection-end-line="18" />
+        <state relative-caret-position="238">
+          <caret line="14" lean-forward="true" selection-start-line="14" selection-end-line="14" />
         </state>
       </provider>
     </entry>
@@ -742,8 +725,21 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/Messages/RequestMessages_pb2.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="442">
-          <caret line="113" column="4" lean-forward="true" selection-start-line="113" selection-start-column="4" selection-end-line="113" selection-end-column="4" />
+        <state relative-caret-position="272">
+          <caret line="103" column="23" lean-forward="true" selection-start-line="103" selection-start-column="23" selection-end-line="103" selection-end-column="23" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/Messages/RespondMessages_pb2.py">
+      <provider selected="true" editor-type-id="text-editor" />
+    </entry>
+    <entry file="file://$PROJECT_DIR$/Messages/MessageMap.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="306">
+          <caret line="18" column="19" selection-start-line="18" selection-start-column="19" selection-end-line="18" selection-end-column="19" />
+          <folding>
+            <element signature="e#0#34#0" expanded="true" />
+          </folding>
         </state>
       </provider>
     </entry>
