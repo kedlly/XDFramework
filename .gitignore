@@ -6,7 +6,7 @@
 /Library
 
 /.vs
-/.idea
+**/.idea
 *.csproj
 *.sln
 *.pyc
