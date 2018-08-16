@@ -6,5 +6,6 @@
             "--proto_path=${workspaceRoot}/Protocal",
             "--python_out=."
         ]
-    }
+    },
+    "python.pythonPath": "C:\\Program Files\\Python27\\python.exe"
 }

@@ -10,11 +10,20 @@ message Vector3
 	required float z = 3;
 }
 
+
+enum PlayerType
+{
+	EPT_HUMAN = 0;
+	EPT_ROBOT = 1;
+	EPT_UAV	= 2;
+}
+
 message PlayerInfo
 {
 	required int32 pid = 1;
 	required string name = 2;
-	optional MovementData movement = 3;
+	required PlayerType playerType = 3;
+	optional MovementData movement = 4;
 }
 
 message MovementData {

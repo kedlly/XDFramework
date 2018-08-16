@@ -2,17 +2,19 @@
 
 syntax = "proto2";
 
-package Protocal;
+package Protocal.Transport;
 
 
 enum MessageMajorType
 {
+	Unknow = 0;
 	Request = 1;
 	Respond = 2;
 }
 
 enum MessageMinorType
 {
+	Undefined = 0;
 	LoginAuth = 1;
 	Moving = 2;
 	PlayerAppeared = 3;
@@ -21,9 +23,9 @@ enum MessageMinorType
 	Logout = 6;
 }
 
-message Message
+message DataPackage
 {
-	required MessageMajorType MajorType = 1;
-	required MessageMinorType MinorType = 2;
+	required MessageMajorType majorType = 1;
+	required MessageMinorType minorType = 2;
 	optional bytes data = 3;
 }

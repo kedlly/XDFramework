@@ -71,7 +71,7 @@ class PyVector3(object):
 		return PyVector3(-0.02612079, -1.65, 3.404987)
 	
 	def toProtoVector3(self):
-		from Messages.Messages_pb2 import Vector3
+		from Messages.RawData.InternalData_pb2 import Vector3
 		v = Vector3()
 		v.x, v.y, v.z = self.x, self.y, self.z
 		return v
@@ -108,7 +108,7 @@ class Movement(object):
 		else:
 			print "velocity must be PyVector3 object"
 			
-class PlayerInfo:
+class PlayerInfo(object):
 	
 	def __init__(self):
 		self._movement = Movement()
@@ -162,10 +162,12 @@ class Player(object):
 		return (player for player in PlayerManager().Players if player.ID != self.ID)
 	
 	def toProtoPlayer(self):
-		from Messages.Messages_pb2 import PlayerInfo
-		pi = PlayerInfo()
+		import Messages.RawData.InternalData_pb2 as protoRawData
+		pi = protoRawData.PlayerInfo()
 		pi.pid = self.ID
 		pi.name = self.Name
+		snu = self.Name.lower()[0:3]
+		pi.playerType = protoRawData.EPT_UAV if snu == "uav" else protoRawData.EPT_ROBOT if snu == 'rob' else protoRawData.EPT_HUMAN
 		pi.movement.position.CopyFrom(self._state.movement.position.toProtoVector3())
 		pi.movement.velocity.CopyFrom(self._state.movement.velocity.toProtoVector3())
 		return pi
@@ -211,7 +213,7 @@ class PlayerManager(object):
 	
 	def update(self):
 		for player in self.__players.itervalues():
-			player.update();
+			player.update()
 	
 	def remove(self, *players):
 		for player in players:

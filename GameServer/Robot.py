@@ -3,7 +3,8 @@
 from twisted.internet import reactor, task
 from twisted.internet.protocol import ClientFactory, Protocol
 from Messages.MessageMap import Serialize, Deserialize
-from Messages.Messages_pb2 import *
+from Messages.RequestMessages_pb2 import *
+from Messages.RespondMessages_pb2 import *
 from Bussiness.Delay import Delay
 from Bussiness.PlayerManager import PyVector3
 
@@ -85,7 +86,7 @@ class RobotClientFactory(ClientFactory):
 transport = None
 
 def login():
-	from Messages.Messages_pb2 import Request_LoginAuth
+	from Messages.RequestMessages_pb2 import Request_LoginAuth
 	import os
 	username = str(os.getpid())
 	pwd = "password"
@@ -112,6 +113,7 @@ def onLoginRespond(data):
 		
 
 def reportMovement():
+	from Messages.RawData.InternalData_pb2 import MovementData
 	try:
 		md = MovementData()
 		md.position.CopyFrom(__position.toProtoVector3())

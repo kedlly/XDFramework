@@ -1,8 +1,9 @@
 #coding:utf8
-from Messages_pb2 import *
+
 from Bussiness.Singleton import Singleton
 from MessageMap import Serialize
-
+from RequestMessages_pb2 import *
+from RespondMessages_pb2 import *
 from Bussiness.Delay import Delay
 from Bussiness.PlayerManager import *
 

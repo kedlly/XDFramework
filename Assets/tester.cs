@@ -1,9 +1,8 @@
 ﻿using Framework.Utils.Extensions;
-using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using Framework.Library.XMLStateMachine;
 using System;
+using Protocal;
 
 public class tester : MonoBehaviour 
 {
@@ -11,7 +10,15 @@ public class tester : MonoBehaviour
 	{
 		Debug.Log("OnCollisionEnter");
 	}
-
+	private void Start()
+	{
+		var p = new Protocal.Request.Request_LoginAuth();
+		p.username = "zhaoxionghui";
+		p.password = "helloworld";
+		var m = p.Pack();
+		Protocal.Request.Request_LoginAuth u = m.Unpack() as Protocal.Request.Request_LoginAuth;
+		print(u.username +"/"+ u.password);
+	}
 }
 
 public class Ringbuffer

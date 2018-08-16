@@ -78,5 +78,18 @@ namespace Framework.Core
 		}
 	}
 
-	
+	public static class NetworkHelper
+	{
+		public static void Send(this byte[] data)
+		{
+			if (data == null)
+			{
+				Debug.LogWarning("ignore send null or zero length data uses networkHelper .");
+			}
+			else
+			{
+				NetworkManager.Instance.SendNetworkMessage(data);
+			}
+		}
+	}
 }

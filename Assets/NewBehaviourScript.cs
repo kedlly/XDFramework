@@ -1,12 +1,7 @@
 ﻿using Framework.Core.Runtime.ECS;
 using ProtoBuf;
 using System;
-using System.IO;
 using UnityEngine;
-using ProjectProtocal;
-using Framework.Core;
-using Protocals;
-using System.Collections.Generic;
 
 [Serializable]
 class RotateEntity : IEntity
