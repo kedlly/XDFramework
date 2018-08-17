@@ -119,12 +119,17 @@ class PlayerInfo(object):
 
 class Player(object):
 	
+	TYPE_HUMAN = 0
+	TYPE_UAV = 1
+	TYPE_ROBOT = 2
+	
 	def __init__(self):
 		self.__id = -1
 		self._link = None
 		self._state = PlayerInfo()
 		self._name = ""
 		self._time = 0
+		self._type = Player.TYPE_HUMAN
 	
 	@property
 	def ID(self):
@@ -141,6 +146,12 @@ class Player(object):
 	@Name.setter
 	def Name(self, value):
 		self._name = value
+		snu = self._name.lower()[0:3]
+		self._type = Player.TYPE_UAV if snu == "uav" else Player.TYPE_ROBOT if snu == 'rob' else Player.TYPE_HUMAN
+	
+	@property
+	def Type(self):
+		return self._type
 	
 	@property
 	def link(self):
@@ -158,6 +169,26 @@ class Player(object):
 	def create(id = -1):
 		return PlayerManager().GetPlayer(id)
 	
+	import Messages.RawData.InternalData_pb2 as protoRawData
+	__TYPE_DICT__ = [
+		(protoRawData.EPT_UAV, TYPE_UAV)
+		, (protoRawData.EPT_HUMAN, TYPE_HUMAN)
+		, (protoRawData.EPT_ROBOT, TYPE_ROBOT)
+		]
+	@staticmethod
+	def convertPlayerType(protoPlayerType):
+		for k, v in Player.__TYPE_DICT__:
+			if k == protoPlayerType:
+				return v
+		raise Exception("Type Error: not ProtoPlayerType mapped PlayerType")
+	
+	@staticmethod
+	def convertProtoPlayerType( playerType ):
+		for k, v in Player.__TYPE_DICT__:
+			if v == playerType:
+				return k
+		raise Exception("Type Error: not ProtoPlayerType mapped PlayerType")
+	
 	def getNeighborhoods(self):
 		return (player for player in PlayerManager().Players if player.ID != self.ID)
 	
@@ -166,8 +197,7 @@ class Player(object):
 		pi = protoRawData.PlayerInfo()
 		pi.pid = self.ID
 		pi.name = self.Name
-		snu = self.Name.lower()[0:3]
-		pi.playerType = protoRawData.EPT_UAV if snu == "uav" else protoRawData.EPT_ROBOT if snu == 'rob' else protoRawData.EPT_HUMAN
+		pi.playerType = Player.convertProtoPlayerType(self.Type)
 		pi.movement.position.CopyFrom(self._state.movement.position.toProtoVector3())
 		pi.movement.velocity.CopyFrom(self._state.movement.velocity.toProtoVector3())
 		return pi
