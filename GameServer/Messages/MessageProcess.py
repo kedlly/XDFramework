@@ -45,6 +45,14 @@ class MessageProcessor(object):
 			# r_la.player.pid = link.player.ID
 			# r_la.player.name = data.username
 			# r_la.player.state.position.CopyFrom(PyVector3.default().toProtoVector3())
+			if link.player.Type == Player.TYPE_UAV:
+				link.player.state.movement.position = PyVector3(0, 8, 0)
+			elif link.player.Type == Player.TYPE_HUMAN:
+				link.player.state.movement.position = PyVector3.default()
+			elif link.player.Type == Player.TYPE_ROBOT:
+				link.player.state.movement.position = PyVector3.default()
+			else:
+				pass
 			r_la.player.CopyFrom(link.player.toProtoPlayer())
 			rn = rpa.neighborhood.add()
 			rn.CopyFrom(r_la.player)

@@ -23,9 +23,16 @@ namespace Projects.ThirdPerson
 					case "2":
 						cmd = "login kedlly zhaoxionghui";
 						break;
+					case "3":
+						cmd = "login uav 123456";
+						break;
+					case "4":
+						cmd = "login robot 123456";
+						break;
 					default:
 						break;
 				}
+
 				var cmds = cmd.Split(' ', '\t');
 				
 				if (cmds[0] == "connect")

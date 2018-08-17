@@ -25,7 +25,9 @@ namespace Projects.ThirdPerson
 		public UnityEngine.Vector3 Direction;
 
 		public GameObject go { get; private set; }
-		static UnityEngine.Object resource;
+		static UnityEngine.Object resourceHuman;
+		static UnityEngine.Object resourceUAV;
+		static UnityEngine.Object resourceRobot;
 		public Player()
 		{
 			
@@ -33,28 +35,39 @@ namespace Projects.ThirdPerson
 
 		public void CreateGameObject()
 		{
-			if (resource == null)
+			UnityEngine.Object resource = null;
+			switch (PType)
 			{
-				/*
-				switch (PType)
-				{
-					case PlayerType.Humam:
-						resource = Resources.Load("Character/Player");
-						break;
-					case PlayerType.UAV:
-						resource = Resources.Load("Character/UAV");
-						break;
-					case PlayerType.Robot:
-						resource = Resources.Load("Character/Robot");
-						break;
-					default:
-						resource = Resources.Load("Character/Player");
-						break;
-				}
-				*/
-				resource = Resources.Load("Character/UAV");
+				case PlayerType.Humam:
+					if (resourceHuman == null)
+					{
+						resourceHuman = Resources.Load("Character/Player");
+					}
+					resource = resourceHuman;
+					break;
+				case PlayerType.UAV:
+					if (resourceUAV == null)
+					{
+						resourceUAV = Resources.Load("Character/UAV");
+					}
+					resource = resourceUAV;
+					break;
+				case PlayerType.Robot:
+					if (resourceUAV == null)
+					{
+						resourceUAV = Resources.Load("Character/Robot");
+					}
+					resource = resourceRobot;
+					break;
+				default:
+					resource = null;
+					break;
 			}
-			go = UnityEngine.GameObject.Instantiate(resource) as GameObject;
+			if (resource != null)
+			{
+				go = UnityEngine.GameObject.Instantiate(resource, Position, Quaternion.identity) as GameObject;
+			}
+			
 		}
 
 		public void RefreshMovment()
@@ -207,10 +220,13 @@ namespace Projects.ThirdPerson
 					Player pc = new Player();
 					pc.ID = p.pid;
 					pc.Token = p.name;
+					pc.PType = p.playerType == Protocal.RawData.PlayerType.EPT_HUMAN ? PlayerType.Humam :
+								p.playerType == Protocal.RawData.PlayerType.EPT_ROBOT ? PlayerType.Robot :
+								p.playerType == Protocal.RawData.PlayerType.EPT_UAV ? PlayerType.UAV : PlayerType.Humam;
 					pc.Position = p.movement.position.PV2UV();
 					pc.Velocity = p.movement.velocity.PV2UV();
 					PlayerManager.Instance.AddPlayer(pc);
-					player.CreateGameObject();
+					pc.CreateGameObject();
 					pc.AddRemoteController();
 				}
 			}
