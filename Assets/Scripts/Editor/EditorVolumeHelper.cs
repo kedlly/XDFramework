@@ -75,7 +75,7 @@ namespace Framework.Editor
 			}
 			else if(currentSetting == Settings.Scale)
 			{
-				scale = Handles.ScaleHandle(scale, center, rotation, 1f);
+				scale = Handles.ScaleHandle(scale, center, rotation, HandleUtility.GetHandleSize(center));
 				data.scale = scale;
 			}
 		}
@@ -99,6 +99,7 @@ namespace Framework.Editor
 				fun = Handles.CylinderHandleCap;
 				color = VolumeGizmosHelper.GetColor(VolumeGizmosHelper.CylinderColor, colorLevel);
 			}
+			color.a *= 0.1f;
 			Color oldColor = Handles.color;
 			Handles.color = color;
 			Matrix4x4 oldMat = Handles.matrix;

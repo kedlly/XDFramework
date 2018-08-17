@@ -54,6 +54,37 @@ namespace Framework.Core.Runtime
 			return isInField;
 		}
 
+		public bool TestWorldPosition(Vector3 position)
+		{
+			bool isInField = false;
+			int layerIndex = 0;
+			int fieldDataIndex = 0;
+			if (fieldDefinition != null && fieldDefinition.Length > 0)
+			{
+				for (layerIndex = 0; layerIndex < fieldDefinition.Length; ++layerIndex)
+				{
+					var shapes = fieldDefinition[layerIndex];
+					if (shapes.data != null && shapes.data.Length > 0)
+					{
+						for (fieldDataIndex = 0; fieldDataIndex < shapes.data.Length; ++fieldDataIndex)
+						{
+							var shape = shapes.data[fieldDataIndex];
+							if (TestInShape(position, shape))
+							{
+								isInField = true;
+								break;
+							}
+						}
+					}
+					if (isInField)
+					{
+						break;
+					}
+				}
+			}
+			return isInField;
+		}
+
 		bool TestInShape(Vector3 worldPosition, VolumeData data)
 		{
 			return VolumeData.Contains(data, worldPosition, transform.localToWorldMatrix);

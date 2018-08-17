@@ -35,6 +35,9 @@ namespace Framework.Core.Runtime
 			}
 		}
 
+		public FieldComponent FieldInLimit;
+		public FieldComponent FieldOutLimit;
+
 		Transform selfTrans;
 		MovementSystem ms;
 
@@ -73,7 +76,46 @@ namespace Framework.Core.Runtime
 
 		void UpdatePosition()
 		{
-			selfTrans.position = selfTrans.position + Velocity * Time.deltaTime;
+			//selfTrans.position
+			if (Velocity == Vector3.zero)
+			{
+				return;
+			}
+			if (IsInsideFieldLimitIn(selfTrans.position) && IsOutsideFieldLimitOut(selfTrans.position))
+			{
+				var targetPos = selfTrans.position + Velocity * Time.deltaTime;
+				if (IsInsideFieldLimitIn(targetPos) && IsOutsideFieldLimitOut(targetPos))
+				{
+					selfTrans.position = targetPos;
+				}
+				else
+				{
+					Velocity = Vector3.zero;
+				}
+			}
+			else
+			{
+				Velocity = Vector3.zero;
+			}
+			
+		}
+
+		bool IsInsideFieldLimitIn(Vector3 pos)
+		{
+			if (FieldInLimit != null)
+			{
+				return FieldInLimit.TestWorldPosition(pos);
+			}
+			return true;
+		}
+
+		bool IsOutsideFieldLimitOut(Vector3 pos)
+		{
+			if (FieldOutLimit != null)
+			{
+				return ! FieldOutLimit.TestWorldPosition(pos);
+			}
+			return true;
 		}
 
 		bool IManageredObject.TickEnabled { get { return this.isActiveAndEnabled; } }
