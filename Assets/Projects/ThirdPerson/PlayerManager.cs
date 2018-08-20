@@ -53,7 +53,7 @@ namespace Projects.ThirdPerson
 					resource = resourceUAV;
 					break;
 				case PlayerType.Robot:
-					if (resourceUAV == null)
+					if (resourceRobot == null)
 					{
 						resourceRobot = Resources.Load("Character/Robot");
 					}
