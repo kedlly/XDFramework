@@ -55,7 +55,7 @@ namespace Projects.ThirdPerson
 				case PlayerType.Robot:
 					if (resourceUAV == null)
 					{
-						resourceUAV = Resources.Load("Character/Robot");
+						resourceRobot = Resources.Load("Character/Robot");
 					}
 					resource = resourceRobot;
 					break;
@@ -117,7 +117,7 @@ namespace Projects.ThirdPerson
 			src.coefficientOfRestoringForce = 100;*/
 
 			var camera = Camera.main;
-			var sph = go.GetComponent<SpringArmComponent>();
+			var sph = go.GetComponentInChildren<SpringArmComponent>();
 			if (sph != null)
 			{
 				if (sph.hand != null)
@@ -131,6 +131,7 @@ namespace Projects.ThirdPerson
 				{
 					sph.hand = camera.transform;
 				}
+				sph.enabled = true;
 			}
 		}
 
@@ -280,8 +281,7 @@ namespace Projects.ThirdPerson
 
 		static void RPC_Respond_PlayerAppeared(ProtoBuf.IExtensible data)
 		{
-			Respond_PlayerAppeared rpa = data as Respond_PlayerAppeared;
-			if (rpa != null)
+			data.Process<Respond_PlayerAppeared>(rpa => 
 			{
 				foreach (var m in rpa.neighborhood)
 				{
@@ -291,16 +291,20 @@ namespace Projects.ThirdPerson
 						player = new Player();
 						player.ID = m.pid;
 						player.Token = m.name;
+						player.PType = m.playerType == Protocal.RawData.PlayerType.EPT_HUMAN ? PlayerType.Humam :
+								m.playerType == Protocal.RawData.PlayerType.EPT_ROBOT ? PlayerType.Robot :
+								m.playerType == Protocal.RawData.PlayerType.EPT_UAV ? PlayerType.UAV : PlayerType.Humam;
 						player.Position = m.movement.position.PV2UV();
 						player.Velocity = m.movement.velocity.PV2UV();
 						PlayerManager.Instance.AddPlayer(player);
+						player.CreateGameObject();
 						player.AddRemoteController();
 					}
 					player.Position = m.movement.position.toUV();
 					player.Velocity = m.movement.velocity.toUV();
 					player.RefreshMovment();
 				}
-			}
+			});
 		}
 
 	}

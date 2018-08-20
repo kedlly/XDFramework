@@ -158,7 +158,7 @@ def update():
 
 #__opitions, addr_port =parse_args()
 
-_NAME_PREFIX = 'Robot'
+_NAME_PREFIX = 'UAV'
 
 if __name__ == "__main__":
 	factory = RobotClientFactory()

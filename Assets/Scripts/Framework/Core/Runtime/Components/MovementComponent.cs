@@ -23,7 +23,8 @@ namespace Framework.Core.Runtime
 			}
 			set
 			{
-				selfTrans.position = value;
+				SafeUpdatePosition(value);
+				//selfTrans.position = value;
 			}
 		}
 		//[NonSerialized]
@@ -72,6 +73,21 @@ namespace Framework.Core.Runtime
 #endif
 		{
 			UpdatePosition();
+		}
+
+		public void SafeUpdatePosition(Vector3 targetPos)
+		{
+			if (targetPos == selfTrans.position)
+			{
+				return;
+			}
+			if (IsInsideFieldLimitIn(selfTrans.position) && IsOutsideFieldLimitOut(selfTrans.position))
+			{
+				if (IsInsideFieldLimitIn(targetPos) && IsOutsideFieldLimitOut(targetPos))
+				{
+					selfTrans.position = targetPos;
+				}
+			}
 		}
 
 		void UpdatePosition()
