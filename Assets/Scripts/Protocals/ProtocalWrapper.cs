@@ -99,7 +99,7 @@ namespace Protocal
 			return dataPackage;
 		}
 
-		public static RawData.Vector3 toPV(this Vector3 vec)
+		public static RawData.Vector3 ToPV(this Vector3 vec)
 		{
 			var pv = new RawData.Vector3();
 			pv.x = vec.x;
@@ -108,7 +108,7 @@ namespace Protocal
 			return pv;
 		}
 
-		public static Vector3 toUV(this RawData.Vector3 vec)
+		public static Vector3 ToUV(this RawData.Vector3 vec)
 		{
 			var uv = new Vector3();
 			uv.x = vec.x;
@@ -213,8 +213,8 @@ namespace Protocal
 
 		public delegate void MessageHandle(ProtoBuf.IExtensible target);
 
-		
+		public delegate void MessageHandle<T>(T data) where T : ProtoBuf.IExtensible;
 
-		
+		public delegate void MessageHanle();
 	}
 }

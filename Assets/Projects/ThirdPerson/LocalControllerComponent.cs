@@ -40,8 +40,8 @@ namespace Projects.ThirdPerson
 					var position = selfTrans.position;
 					var velocity = MovementComp.Velocity;
 					Protocal.RawData.MovementData data = new Protocal.RawData.MovementData();
-					data.position = position.toPV();
-					data.velocity = velocity.toPV();
+					data.position = position.ToPV();
+					data.velocity = velocity.ToPV();
 					Request_Moving request = new Request_Moving();
 					request.movement = data;
 					request.Pack().Serialize().Send();

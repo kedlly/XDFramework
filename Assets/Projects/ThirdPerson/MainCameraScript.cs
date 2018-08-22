@@ -10,7 +10,6 @@ namespace Projects.ThirdPerson
 {
 	public class MainCameraScript : MonoBehaviour
 	{
-		public static Dictionary<Type, Delegate> methodList = new Dictionary<Type, Delegate>();
 		private void Start()
 		{
 			GameConsole.Instance.OnCommand += cmd =>
@@ -51,33 +50,19 @@ namespace Projects.ThirdPerson
 					dataObject.password = password;
 					dataObject.Pack().Serialize().Send();
 				}
-				if (cmds[0] == "arm")
-				{
-					var src = PlayerManager.Instance.Current.go.GetComponent<SpringArmComponent>();
-					if (src != null)
-					{
-						src.armRotateEnabled = !src.armRotateEnabled;
-					}
-				}
+
 			};
 
+			ProtocalProcessor.Register<NetworkCommunication>();
 			NetworkManager.Instance.OnDataReceived += data =>
 			{
+
 				var obj = data.Deserialize().Unpack();
 				if (obj == null)
 				{
 					return;
 				}
-				if (!methodList.ContainsKey(obj.GetType()))
-				{
-					var namePath = obj.GetType().Name.Split('.');
-					var methodName = "RPC_" + namePath[namePath.Length - 1];
-					var method = typeof(PlayerManager).GetMethod(methodName, System.Reflection.BindingFlags.Static | System.Reflection.BindingFlags.Public | System.Reflection.BindingFlags.NonPublic);
-					Delegate mehthodDelegate = Delegate.CreateDelegate(typeof(ProtocalWrapper.MessageHandle), method);
-					methodList[obj.GetType()] = mehthodDelegate;
-				}
-				var methodDelegate = methodList[obj.GetType()];
-				methodDelegate.DynamicInvoke(obj);
+				ProtocalProcessor.MessagePump(obj);
 			};
 
 			NetworkManager.Instance.OnConnected += () =>

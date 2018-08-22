@@ -139,7 +139,7 @@ namespace Framework.Utils
 
 		///private ManualResetEvent allDone = new ManualResetEvent(false);
 		//接受数据保存至bytes当中  
-		byte[] bytes = new byte[20480];
+		byte[] bytes = new byte[8192];
 		//Receive方法中会一直等待服务端回发消息  
 		//如果没有回发会一直在这里等着。  
 		private void ReceiveSocket()

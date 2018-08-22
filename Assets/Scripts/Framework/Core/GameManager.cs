@@ -58,9 +58,9 @@ namespace Framework.Core
 
 		public void Update()
 		{
-			foreach (var manager in objMangers.Values)
+			foreach (var manager in objMangers)
 			{
-				manager.Tick();
+				manager.Value.Tick();
 			}
 		}
 

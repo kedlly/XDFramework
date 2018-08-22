@@ -6,7 +6,7 @@ namespace Projects.ThirdPerson
 {
     public abstract class ActorControllerComponent : MonoBehaviour
     {
-		public Player player { get; set; }
+		public GamePlayerProxy player { get; set; }
 		protected Transform selfTrans;
 
 		public MovementComponent MovementComp { get; private set; }
