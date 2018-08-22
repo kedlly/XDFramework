@@ -38,8 +38,8 @@ public class NewBehaviourScript : MonoBehaviour
 	public Group myGroup;
 	void Start()
 	{
-		tutorial.Person p = new tutorial.Person();
-		p.name = "";
+		//tutorial.Person p = new tutorial.Person();
+		//p.name = "";
 		// 		if (!ProtoBuf.Meta.RuntimeTypeModel.Default.IsDefined(typeof(Vector3)))
 		// 		{
 		// 			ProtoBuf.Meta.RuntimeTypeModel.Default.Add(typeof(Vector3), false).Add("x", "y", "z");
