@@ -17,15 +17,15 @@ _sym_db = _symbol_database.Default()
 
 DESCRIPTOR = _descriptor.FileDescriptor(
   name='InternalData.proto',
-  package='Protocal.RawData',
+  package='Protocol.RawData',
   syntax='proto2',
   serialized_options=None,
-  serialized_pb=_b('\n\x12InternalData.proto\x12\x10Protocal.RawData\"*\n\x07Vector3\x12\t\n\x01x\x18\x01 \x02(\x02\x12\t\n\x01y\x18\x02 \x02(\x02\x12\t\n\x01z\x18\x03 \x02(\x02\"\x8b\x01\n\nPlayerInfo\x12\x0b\n\x03pid\x18\x01 \x02(\x05\x12\x0c\n\x04name\x18\x02 \x02(\t\x12\x30\n\nplayerType\x18\x03 \x02(\x0e\x32\x1c.Protocal.RawData.PlayerType\x12\x30\n\x08movement\x18\x04 \x01(\x0b\x32\x1e.Protocal.RawData.MovementData\"h\n\x0cMovementData\x12+\n\x08position\x18\x01 \x01(\x0b\x32\x19.Protocal.RawData.Vector3\x12+\n\x08velocity\x18\x02 \x01(\x0b\x32\x19.Protocal.RawData.Vector3\"M\n\x0cRespMovement\x12\x0b\n\x03pid\x18\x01 \x02(\x05\x12\x30\n\x08movement\x18\x02 \x02(\x0b\x32\x1e.Protocal.RawData.MovementData\"H\n\x0bRespRotated\x12\x0b\n\x03pid\x18\x01 \x02(\x05\x12,\n\tdirection\x18\x02 \x02(\x0b\x32\x19.Protocal.RawData.Vector3*7\n\nPlayerType\x12\r\n\tEPT_HUMAN\x10\x00\x12\r\n\tEPT_ROBOT\x10\x01\x12\x0b\n\x07\x45PT_UAV\x10\x02')
+  serialized_pb=_b('\n\x12InternalData.proto\x12\x10Protocol.RawData\"*\n\x07Vector3\x12\t\n\x01x\x18\x01 \x02(\x02\x12\t\n\x01y\x18\x02 \x02(\x02\x12\t\n\x01z\x18\x03 \x02(\x02\"\x8b\x01\n\nPlayerInfo\x12\x0b\n\x03pid\x18\x01 \x02(\x05\x12\x0c\n\x04name\x18\x02 \x02(\t\x12\x30\n\nplayerType\x18\x03 \x02(\x0e\x32\x1c.Protocol.RawData.PlayerType\x12\x30\n\x08movement\x18\x04 \x01(\x0b\x32\x1e.Protocol.RawData.MovementData\"h\n\x0cMovementData\x12+\n\x08position\x18\x01 \x01(\x0b\x32\x19.Protocol.RawData.Vector3\x12+\n\x08velocity\x18\x02 \x01(\x0b\x32\x19.Protocol.RawData.Vector3\"M\n\x0cRespMovement\x12\x0b\n\x03pid\x18\x01 \x02(\x05\x12\x30\n\x08movement\x18\x02 \x02(\x0b\x32\x1e.Protocol.RawData.MovementData\"H\n\x0bRespRotated\x12\x0b\n\x03pid\x18\x01 \x02(\x05\x12,\n\tdirection\x18\x02 \x02(\x0b\x32\x19.Protocol.RawData.Vector3*7\n\nPlayerType\x12\r\n\tEPT_HUMAN\x10\x00\x12\r\n\tEPT_ROBOT\x10\x01\x12\x0b\n\x07\x45PT_UAV\x10\x02')
 )
 
 _PLAYERTYPE = _descriptor.EnumDescriptor(
   name='PlayerType',
-  full_name='Protocal.RawData.PlayerType',
+  full_name='Protocol.RawData.PlayerType',
   filename=None,
   file=DESCRIPTOR,
   values=[
@@ -58,27 +58,27 @@ EPT_UAV = 2
 
 _VECTOR3 = _descriptor.Descriptor(
   name='Vector3',
-  full_name='Protocal.RawData.Vector3',
+  full_name='Protocol.RawData.Vector3',
   filename=None,
   file=DESCRIPTOR,
   containing_type=None,
   fields=[
     _descriptor.FieldDescriptor(
-      name='x', full_name='Protocal.RawData.Vector3.x', index=0,
+      name='x', full_name='Protocol.RawData.Vector3.x', index=0,
       number=1, type=2, cpp_type=6, label=2,
       has_default_value=False, default_value=float(0),
       message_type=None, enum_type=None, containing_type=None,
       is_extension=False, extension_scope=None,
       serialized_options=None, file=DESCRIPTOR),
     _descriptor.FieldDescriptor(
-      name='y', full_name='Protocal.RawData.Vector3.y', index=1,
+      name='y', full_name='Protocol.RawData.Vector3.y', index=1,
       number=2, type=2, cpp_type=6, label=2,
       has_default_value=False, default_value=float(0),
       message_type=None, enum_type=None, containing_type=None,
       is_extension=False, extension_scope=None,
       serialized_options=None, file=DESCRIPTOR),
     _descriptor.FieldDescriptor(
-      name='z', full_name='Protocal.RawData.Vector3.z', index=2,
+      name='z', full_name='Protocol.RawData.Vector3.z', index=2,
       number=3, type=2, cpp_type=6, label=2,
       has_default_value=False, default_value=float(0),
       message_type=None, enum_type=None, containing_type=None,
@@ -103,34 +103,34 @@ _VECTOR3 = _descriptor.Descriptor(
 
 _PLAYERINFO = _descriptor.Descriptor(
   name='PlayerInfo',
-  full_name='Protocal.RawData.PlayerInfo',
+  full_name='Protocol.RawData.PlayerInfo',
   filename=None,
   file=DESCRIPTOR,
   containing_type=None,
   fields=[
     _descriptor.FieldDescriptor(
-      name='pid', full_name='Protocal.RawData.PlayerInfo.pid', index=0,
+      name='pid', full_name='Protocol.RawData.PlayerInfo.pid', index=0,
       number=1, type=5, cpp_type=1, label=2,
       has_default_value=False, default_value=0,
       message_type=None, enum_type=None, containing_type=None,
       is_extension=False, extension_scope=None,
       serialized_options=None, file=DESCRIPTOR),
     _descriptor.FieldDescriptor(
-      name='name', full_name='Protocal.RawData.PlayerInfo.name', index=1,
+      name='name', full_name='Protocol.RawData.PlayerInfo.name', index=1,
       number=2, type=9, cpp_type=9, label=2,
       has_default_value=False, default_value=_b("").decode('utf-8'),
       message_type=None, enum_type=None, containing_type=None,
       is_extension=False, extension_scope=None,
       serialized_options=None, file=DESCRIPTOR),
     _descriptor.FieldDescriptor(
-      name='playerType', full_name='Protocal.RawData.PlayerInfo.playerType', index=2,
+      name='playerType', full_name='Protocol.RawData.PlayerInfo.playerType', index=2,
       number=3, type=14, cpp_type=8, label=2,
       has_default_value=False, default_value=0,
       message_type=None, enum_type=None, containing_type=None,
       is_extension=False, extension_scope=None,
       serialized_options=None, file=DESCRIPTOR),
     _descriptor.FieldDescriptor(
-      name='movement', full_name='Protocal.RawData.PlayerInfo.movement', index=3,
+      name='movement', full_name='Protocol.RawData.PlayerInfo.movement', index=3,
       number=4, type=11, cpp_type=10, label=1,
       has_default_value=False, default_value=None,
       message_type=None, enum_type=None, containing_type=None,
@@ -155,20 +155,20 @@ _PLAYERINFO = _descriptor.Descriptor(
 
 _MOVEMENTDATA = _descriptor.Descriptor(
   name='MovementData',
-  full_name='Protocal.RawData.MovementData',
+  full_name='Protocol.RawData.MovementData',
   filename=None,
   file=DESCRIPTOR,
   containing_type=None,
   fields=[
     _descriptor.FieldDescriptor(
-      name='position', full_name='Protocal.RawData.MovementData.position', index=0,
+      name='position', full_name='Protocol.RawData.MovementData.position', index=0,
       number=1, type=11, cpp_type=10, label=1,
       has_default_value=False, default_value=None,
       message_type=None, enum_type=None, containing_type=None,
       is_extension=False, extension_scope=None,
       serialized_options=None, file=DESCRIPTOR),
     _descriptor.FieldDescriptor(
-      name='velocity', full_name='Protocal.RawData.MovementData.velocity', index=1,
+      name='velocity', full_name='Protocol.RawData.MovementData.velocity', index=1,
       number=2, type=11, cpp_type=10, label=1,
       has_default_value=False, default_value=None,
       message_type=None, enum_type=None, containing_type=None,
@@ -193,20 +193,20 @@ _MOVEMENTDATA = _descriptor.Descriptor(
 
 _RESPMOVEMENT = _descriptor.Descriptor(
   name='RespMovement',
-  full_name='Protocal.RawData.RespMovement',
+  full_name='Protocol.RawData.RespMovement',
   filename=None,
   file=DESCRIPTOR,
   containing_type=None,
   fields=[
     _descriptor.FieldDescriptor(
-      name='pid', full_name='Protocal.RawData.RespMovement.pid', index=0,
+      name='pid', full_name='Protocol.RawData.RespMovement.pid', index=0,
       number=1, type=5, cpp_type=1, label=2,
       has_default_value=False, default_value=0,
       message_type=None, enum_type=None, containing_type=None,
       is_extension=False, extension_scope=None,
       serialized_options=None, file=DESCRIPTOR),
     _descriptor.FieldDescriptor(
-      name='movement', full_name='Protocal.RawData.RespMovement.movement', index=1,
+      name='movement', full_name='Protocol.RawData.RespMovement.movement', index=1,
       number=2, type=11, cpp_type=10, label=2,
       has_default_value=False, default_value=None,
       message_type=None, enum_type=None, containing_type=None,
@@ -231,20 +231,20 @@ _RESPMOVEMENT = _descriptor.Descriptor(
 
 _RESPROTATED = _descriptor.Descriptor(
   name='RespRotated',
-  full_name='Protocal.RawData.RespRotated',
+  full_name='Protocol.RawData.RespRotated',
   filename=None,
   file=DESCRIPTOR,
   containing_type=None,
   fields=[
     _descriptor.FieldDescriptor(
-      name='pid', full_name='Protocal.RawData.RespRotated.pid', index=0,
+      name='pid', full_name='Protocol.RawData.RespRotated.pid', index=0,
       number=1, type=5, cpp_type=1, label=2,
       has_default_value=False, default_value=0,
       message_type=None, enum_type=None, containing_type=None,
       is_extension=False, extension_scope=None,
       serialized_options=None, file=DESCRIPTOR),
     _descriptor.FieldDescriptor(
-      name='direction', full_name='Protocal.RawData.RespRotated.direction', index=1,
+      name='direction', full_name='Protocol.RawData.RespRotated.direction', index=1,
       number=2, type=11, cpp_type=10, label=2,
       has_default_value=False, default_value=None,
       message_type=None, enum_type=None, containing_type=None,
@@ -283,35 +283,35 @@ _sym_db.RegisterFileDescriptor(DESCRIPTOR)
 Vector3 = _reflection.GeneratedProtocolMessageType('Vector3', (_message.Message,), dict(
   DESCRIPTOR = _VECTOR3,
   __module__ = 'InternalData_pb2'
-  # @@protoc_insertion_point(class_scope:Protocal.RawData.Vector3)
+  # @@protoc_insertion_point(class_scope:Protocol.RawData.Vector3)
   ))
 _sym_db.RegisterMessage(Vector3)
 
 PlayerInfo = _reflection.GeneratedProtocolMessageType('PlayerInfo', (_message.Message,), dict(
   DESCRIPTOR = _PLAYERINFO,
   __module__ = 'InternalData_pb2'
-  # @@protoc_insertion_point(class_scope:Protocal.RawData.PlayerInfo)
+  # @@protoc_insertion_point(class_scope:Protocol.RawData.PlayerInfo)
   ))
 _sym_db.RegisterMessage(PlayerInfo)
 
 MovementData = _reflection.GeneratedProtocolMessageType('MovementData', (_message.Message,), dict(
   DESCRIPTOR = _MOVEMENTDATA,
   __module__ = 'InternalData_pb2'
-  # @@protoc_insertion_point(class_scope:Protocal.RawData.MovementData)
+  # @@protoc_insertion_point(class_scope:Protocol.RawData.MovementData)
   ))
 _sym_db.RegisterMessage(MovementData)
 
 RespMovement = _reflection.GeneratedProtocolMessageType('RespMovement', (_message.Message,), dict(
   DESCRIPTOR = _RESPMOVEMENT,
   __module__ = 'InternalData_pb2'
-  # @@protoc_insertion_point(class_scope:Protocal.RawData.RespMovement)
+  # @@protoc_insertion_point(class_scope:Protocol.RawData.RespMovement)
   ))
 _sym_db.RegisterMessage(RespMovement)
 
 RespRotated = _reflection.GeneratedProtocolMessageType('RespRotated', (_message.Message,), dict(
   DESCRIPTOR = _RESPROTATED,
   __module__ = 'InternalData_pb2'
-  # @@protoc_insertion_point(class_scope:Protocal.RawData.RespRotated)
+  # @@protoc_insertion_point(class_scope:Protocol.RawData.RespRotated)
   ))
 _sym_db.RegisterMessage(RespRotated)
 

@@ -2,6 +2,7 @@
 using UnityEditor;
 using Framework.Core.Runtime;
 using System.Collections.Generic;
+using System.IO;
 
 namespace Framework.Editor
 {
@@ -12,6 +13,28 @@ namespace Framework.Editor
 	public class FieldComponentDrawer : UnityEditor.Editor
 	{
 		EditorVolumeHelper helper = new EditorVolumeHelper();
+
+		public
+			//override 
+			void _OnInspectorGUI()
+		{
+			string assetPath = AssetDatabase.GetAssetPath(target.GetInstanceID());
+			string libraryPath = Path.ChangeExtension(assetPath, null);
+			bool isInAnEditorFolder = libraryPath.Contains("/Editor/");
+
+			GUILayout.BeginHorizontal();
+			GUILayout.Label(assetPath, EditorStyles.boldLabel);
+			GUILayout.FlexibleSpace();
+// 			if (isInAnEditorFolder && m_EditButtonClickedCallback != null && GUILayout.Button("Edit...", s_EditButtonStyle))
+// 			{
+// 				if (m_EditButtonClickedCallback != null)
+// 					m_EditButtonClickedCallback(libraryPath);
+// 			}
+			GUILayout.EndHorizontal();
+
+			GUILayout.Space(6);
+
+		}
 		void OnSceneGUI()
 		{
 			var script = (FieldComponent)target;

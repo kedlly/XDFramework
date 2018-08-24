@@ -17,10 +17,10 @@ from RawData import InternalData_pb2 as RawData_dot_InternalData__pb2
 
 DESCRIPTOR = _descriptor.FileDescriptor(
   name='RequestMessages.proto',
-  package='Protocal.Request',
+  package='Protocol.Request',
   syntax='proto2',
   serialized_options=None,
-  serialized_pb=_b('\n\x15RequestMessages.proto\x12\x10Protocal.Request\x1a\x1aRawData/InternalData.proto\"7\n\x11Request_LoginAuth\x12\x10\n\x08username\x18\x01 \x02(\t\x12\x10\n\x08password\x18\x02 \x02(\t\"\x1d\n\x0eRequest_Logout\x12\x0b\n\x03pid\x18\x01 \x02(\x05\"B\n\x0eRequest_Moving\x12\x30\n\x08movement\x18\x01 \x02(\x0b\x32\x1e.Protocal.RawData.MovementData\"?\n\x0fRequest_Rotated\x12,\n\tdirection\x18\x01 \x02(\x0b\x32\x19.Protocal.RawData.Vector3')
+  serialized_pb=_b('\n\x15RequestMessages.proto\x12\x10Protocol.Request\x1a\x1aRawData/InternalData.proto\"7\n\x11Request_LoginAuth\x12\x10\n\x08username\x18\x01 \x02(\t\x12\x10\n\x08password\x18\x02 \x02(\t\"\x1d\n\x0eRequest_Logout\x12\x0b\n\x03pid\x18\x01 \x02(\x05\"B\n\x0eRequest_Moving\x12\x30\n\x08movement\x18\x01 \x02(\x0b\x32\x1e.Protocol.RawData.MovementData\"?\n\x0fRequest_Rotated\x12,\n\tdirection\x18\x01 \x02(\x0b\x32\x19.Protocol.RawData.Vector3')
   ,
   dependencies=[RawData_dot_InternalData__pb2.DESCRIPTOR,])
 
@@ -29,20 +29,20 @@ DESCRIPTOR = _descriptor.FileDescriptor(
 
 _REQUEST_LOGINAUTH = _descriptor.Descriptor(
   name='Request_LoginAuth',
-  full_name='Protocal.Request.Request_LoginAuth',
+  full_name='Protocol.Request.Request_LoginAuth',
   filename=None,
   file=DESCRIPTOR,
   containing_type=None,
   fields=[
     _descriptor.FieldDescriptor(
-      name='username', full_name='Protocal.Request.Request_LoginAuth.username', index=0,
+      name='username', full_name='Protocol.Request.Request_LoginAuth.username', index=0,
       number=1, type=9, cpp_type=9, label=2,
       has_default_value=False, default_value=_b("").decode('utf-8'),
       message_type=None, enum_type=None, containing_type=None,
       is_extension=False, extension_scope=None,
       serialized_options=None, file=DESCRIPTOR),
     _descriptor.FieldDescriptor(
-      name='password', full_name='Protocal.Request.Request_LoginAuth.password', index=1,
+      name='password', full_name='Protocol.Request.Request_LoginAuth.password', index=1,
       number=2, type=9, cpp_type=9, label=2,
       has_default_value=False, default_value=_b("").decode('utf-8'),
       message_type=None, enum_type=None, containing_type=None,
@@ -67,13 +67,13 @@ _REQUEST_LOGINAUTH = _descriptor.Descriptor(
 
 _REQUEST_LOGOUT = _descriptor.Descriptor(
   name='Request_Logout',
-  full_name='Protocal.Request.Request_Logout',
+  full_name='Protocol.Request.Request_Logout',
   filename=None,
   file=DESCRIPTOR,
   containing_type=None,
   fields=[
     _descriptor.FieldDescriptor(
-      name='pid', full_name='Protocal.Request.Request_Logout.pid', index=0,
+      name='pid', full_name='Protocol.Request.Request_Logout.pid', index=0,
       number=1, type=5, cpp_type=1, label=2,
       has_default_value=False, default_value=0,
       message_type=None, enum_type=None, containing_type=None,
@@ -98,13 +98,13 @@ _REQUEST_LOGOUT = _descriptor.Descriptor(
 
 _REQUEST_MOVING = _descriptor.Descriptor(
   name='Request_Moving',
-  full_name='Protocal.Request.Request_Moving',
+  full_name='Protocol.Request.Request_Moving',
   filename=None,
   file=DESCRIPTOR,
   containing_type=None,
   fields=[
     _descriptor.FieldDescriptor(
-      name='movement', full_name='Protocal.Request.Request_Moving.movement', index=0,
+      name='movement', full_name='Protocol.Request.Request_Moving.movement', index=0,
       number=1, type=11, cpp_type=10, label=2,
       has_default_value=False, default_value=None,
       message_type=None, enum_type=None, containing_type=None,
@@ -129,13 +129,13 @@ _REQUEST_MOVING = _descriptor.Descriptor(
 
 _REQUEST_ROTATED = _descriptor.Descriptor(
   name='Request_Rotated',
-  full_name='Protocal.Request.Request_Rotated',
+  full_name='Protocol.Request.Request_Rotated',
   filename=None,
   file=DESCRIPTOR,
   containing_type=None,
   fields=[
     _descriptor.FieldDescriptor(
-      name='direction', full_name='Protocal.Request.Request_Rotated.direction', index=0,
+      name='direction', full_name='Protocol.Request.Request_Rotated.direction', index=0,
       number=1, type=11, cpp_type=10, label=2,
       has_default_value=False, default_value=None,
       message_type=None, enum_type=None, containing_type=None,
@@ -168,28 +168,28 @@ _sym_db.RegisterFileDescriptor(DESCRIPTOR)
 Request_LoginAuth = _reflection.GeneratedProtocolMessageType('Request_LoginAuth', (_message.Message,), dict(
   DESCRIPTOR = _REQUEST_LOGINAUTH,
   __module__ = 'RequestMessages_pb2'
-  # @@protoc_insertion_point(class_scope:Protocal.Request.Request_LoginAuth)
+  # @@protoc_insertion_point(class_scope:Protocol.Request.Request_LoginAuth)
   ))
 _sym_db.RegisterMessage(Request_LoginAuth)
 
 Request_Logout = _reflection.GeneratedProtocolMessageType('Request_Logout', (_message.Message,), dict(
   DESCRIPTOR = _REQUEST_LOGOUT,
   __module__ = 'RequestMessages_pb2'
-  # @@protoc_insertion_point(class_scope:Protocal.Request.Request_Logout)
+  # @@protoc_insertion_point(class_scope:Protocol.Request.Request_Logout)
   ))
 _sym_db.RegisterMessage(Request_Logout)
 
 Request_Moving = _reflection.GeneratedProtocolMessageType('Request_Moving', (_message.Message,), dict(
   DESCRIPTOR = _REQUEST_MOVING,
   __module__ = 'RequestMessages_pb2'
-  # @@protoc_insertion_point(class_scope:Protocal.Request.Request_Moving)
+  # @@protoc_insertion_point(class_scope:Protocol.Request.Request_Moving)
   ))
 _sym_db.RegisterMessage(Request_Moving)
 
 Request_Rotated = _reflection.GeneratedProtocolMessageType('Request_Rotated', (_message.Message,), dict(
   DESCRIPTOR = _REQUEST_ROTATED,
   __module__ = 'RequestMessages_pb2'
-  # @@protoc_insertion_point(class_scope:Protocal.Request.Request_Rotated)
+  # @@protoc_insertion_point(class_scope:Protocol.Request.Request_Rotated)
   ))
 _sym_db.RegisterMessage(Request_Rotated)
 

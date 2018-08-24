@@ -1,7 +1,7 @@
 
 syntax = "proto2";
 
-package Protocal.RawData;
+package Protocol.RawData;
 
 message Vector3 
 {

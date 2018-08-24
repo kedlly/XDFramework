@@ -1,6 +1,6 @@
 ﻿using Framework.Core;
-using Protocal.Request;
-using Protocal;
+using Protocol.Request;
+using Protocol;
 using System;
 using System.Collections.Generic;
 using UnityEngine;
@@ -53,7 +53,7 @@ namespace Projects.ThirdPerson
 
 			};
 
-			ProtocalProcessor.Register<NetworkCommunication>();
+			ProtocolProcessor.Register<NetworkCommunication>();
 			NetworkManager.Instance.OnDataReceived += data =>
 			{
 
@@ -62,7 +62,7 @@ namespace Projects.ThirdPerson
 				{
 					return;
 				}
-				ProtocalProcessor.MessagePump(obj);
+				ProtocolProcessor.MessagePump(obj);
 			};
 
 			NetworkManager.Instance.OnConnected += () =>

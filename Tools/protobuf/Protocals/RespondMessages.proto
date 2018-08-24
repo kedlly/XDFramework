@@ -1,15 +1,15 @@
 
 syntax = "proto2";
 
-package Protocal.Respond;
+package Protocol.Respond;
 
 import "RawData/InternalData.proto";
 
 message Respond_LoginAuth {
 	required string token = 1;
 	required int32 sceneId = 2;
-	required Protocal.RawData.PlayerInfo player = 3;
-	repeated Protocal.RawData.PlayerInfo neighborhood = 4;
+	required Protocol.RawData.PlayerInfo player = 3;
+	repeated Protocol.RawData.PlayerInfo neighborhood = 4;
 }
 
 
@@ -19,11 +19,11 @@ message Respond_Logout
 }
 
 message Respond_Moving {
-	repeated Protocal.RawData.RespMovement movementList = 1;
+	repeated Protocol.RawData.RespMovement movementList = 1;
 }
 
 message Respond_PlayerAppeared {
-	repeated Protocal.RawData.PlayerInfo neighborhood = 1;
+	repeated Protocol.RawData.PlayerInfo neighborhood = 1;
 }
 
 message Respond_PlayerDisappeared {
@@ -31,7 +31,7 @@ message Respond_PlayerDisappeared {
 }
 
 message Respond_Rotated {
-	repeated Protocal.RawData.RespRotated rotations = 1;
+	repeated Protocol.RawData.RespRotated rotations = 1;
 }
 
 

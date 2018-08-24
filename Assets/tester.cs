@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using System;
-using Protocal;
+using Protocol;
 
 public class tester : MonoBehaviour 
 {
@@ -12,11 +12,11 @@ public class tester : MonoBehaviour
 	}
 	private void Start()
 	{
-		var p = new Protocal.Request.Request_LoginAuth();
+		var p = new Protocol.Request.Request_LoginAuth();
 		p.username = "zhaoxionghui";
 		p.password = "helloworld";
 		var m = p.Pack();
-		Protocal.Request.Request_LoginAuth u = m.Unpack() as Protocal.Request.Request_LoginAuth;
+		Protocol.Request.Request_LoginAuth u = m.Unpack() as Protocol.Request.Request_LoginAuth;
 		print(u.username +"/"+ u.password);
 	}
 }

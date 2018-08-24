@@ -17,10 +17,10 @@ from RawData import InternalData_pb2 as RawData_dot_InternalData__pb2
 
 DESCRIPTOR = _descriptor.FileDescriptor(
   name='RespondMessages.proto',
-  package='Protocal.Respond',
+  package='Protocol.Respond',
   syntax='proto2',
   serialized_options=None,
-  serialized_pb=_b('\n\x15RespondMessages.proto\x12\x10Protocal.Respond\x1a\x1aRawData/InternalData.proto\"\x95\x01\n\x11Respond_LoginAuth\x12\r\n\x05token\x18\x01 \x02(\t\x12\x0f\n\x07sceneId\x18\x02 \x02(\x05\x12,\n\x06player\x18\x03 \x02(\x0b\x32\x1c.Protocal.RawData.PlayerInfo\x12\x32\n\x0cneighborhood\x18\x04 \x03(\x0b\x32\x1c.Protocal.RawData.PlayerInfo\"\x1d\n\x0eRespond_Logout\x12\x0b\n\x03pid\x18\x01 \x02(\x05\"F\n\x0eRespond_Moving\x12\x34\n\x0cmovementList\x18\x01 \x03(\x0b\x32\x1e.Protocal.RawData.RespMovement\"L\n\x16Respond_PlayerAppeared\x12\x32\n\x0cneighborhood\x18\x01 \x03(\x0b\x32\x1c.Protocal.RawData.PlayerInfo\".\n\x19Respond_PlayerDisappeared\x12\x11\n\tplayerIds\x18\x01 \x03(\x05\"C\n\x0fRespond_Rotated\x12\x30\n\trotations\x18\x01 \x03(\x0b\x32\x1d.Protocal.RawData.RespRotated')
+  serialized_pb=_b('\n\x15RespondMessages.proto\x12\x10Protocol.Respond\x1a\x1aRawData/InternalData.proto\"\x95\x01\n\x11Respond_LoginAuth\x12\r\n\x05token\x18\x01 \x02(\t\x12\x0f\n\x07sceneId\x18\x02 \x02(\x05\x12,\n\x06player\x18\x03 \x02(\x0b\x32\x1c.Protocol.RawData.PlayerInfo\x12\x32\n\x0cneighborhood\x18\x04 \x03(\x0b\x32\x1c.Protocol.RawData.PlayerInfo\"\x1d\n\x0eRespond_Logout\x12\x0b\n\x03pid\x18\x01 \x02(\x05\"F\n\x0eRespond_Moving\x12\x34\n\x0cmovementList\x18\x01 \x03(\x0b\x32\x1e.Protocol.RawData.RespMovement\"L\n\x16Respond_PlayerAppeared\x12\x32\n\x0cneighborhood\x18\x01 \x03(\x0b\x32\x1c.Protocol.RawData.PlayerInfo\".\n\x19Respond_PlayerDisappeared\x12\x11\n\tplayerIds\x18\x01 \x03(\x05\"C\n\x0fRespond_Rotated\x12\x30\n\trotations\x18\x01 \x03(\x0b\x32\x1d.Protocol.RawData.RespRotated')
   ,
   dependencies=[RawData_dot_InternalData__pb2.DESCRIPTOR,])
 
@@ -29,34 +29,34 @@ DESCRIPTOR = _descriptor.FileDescriptor(
 
 _RESPOND_LOGINAUTH = _descriptor.Descriptor(
   name='Respond_LoginAuth',
-  full_name='Protocal.Respond.Respond_LoginAuth',
+  full_name='Protocol.Respond.Respond_LoginAuth',
   filename=None,
   file=DESCRIPTOR,
   containing_type=None,
   fields=[
     _descriptor.FieldDescriptor(
-      name='token', full_name='Protocal.Respond.Respond_LoginAuth.token', index=0,
+      name='token', full_name='Protocol.Respond.Respond_LoginAuth.token', index=0,
       number=1, type=9, cpp_type=9, label=2,
       has_default_value=False, default_value=_b("").decode('utf-8'),
       message_type=None, enum_type=None, containing_type=None,
       is_extension=False, extension_scope=None,
       serialized_options=None, file=DESCRIPTOR),
     _descriptor.FieldDescriptor(
-      name='sceneId', full_name='Protocal.Respond.Respond_LoginAuth.sceneId', index=1,
+      name='sceneId', full_name='Protocol.Respond.Respond_LoginAuth.sceneId', index=1,
       number=2, type=5, cpp_type=1, label=2,
       has_default_value=False, default_value=0,
       message_type=None, enum_type=None, containing_type=None,
       is_extension=False, extension_scope=None,
       serialized_options=None, file=DESCRIPTOR),
     _descriptor.FieldDescriptor(
-      name='player', full_name='Protocal.Respond.Respond_LoginAuth.player', index=2,
+      name='player', full_name='Protocol.Respond.Respond_LoginAuth.player', index=2,
       number=3, type=11, cpp_type=10, label=2,
       has_default_value=False, default_value=None,
       message_type=None, enum_type=None, containing_type=None,
       is_extension=False, extension_scope=None,
       serialized_options=None, file=DESCRIPTOR),
     _descriptor.FieldDescriptor(
-      name='neighborhood', full_name='Protocal.Respond.Respond_LoginAuth.neighborhood', index=3,
+      name='neighborhood', full_name='Protocol.Respond.Respond_LoginAuth.neighborhood', index=3,
       number=4, type=11, cpp_type=10, label=3,
       has_default_value=False, default_value=[],
       message_type=None, enum_type=None, containing_type=None,
@@ -81,13 +81,13 @@ _RESPOND_LOGINAUTH = _descriptor.Descriptor(
 
 _RESPOND_LOGOUT = _descriptor.Descriptor(
   name='Respond_Logout',
-  full_name='Protocal.Respond.Respond_Logout',
+  full_name='Protocol.Respond.Respond_Logout',
   filename=None,
   file=DESCRIPTOR,
   containing_type=None,
   fields=[
     _descriptor.FieldDescriptor(
-      name='pid', full_name='Protocal.Respond.Respond_Logout.pid', index=0,
+      name='pid', full_name='Protocol.Respond.Respond_Logout.pid', index=0,
       number=1, type=5, cpp_type=1, label=2,
       has_default_value=False, default_value=0,
       message_type=None, enum_type=None, containing_type=None,
@@ -112,13 +112,13 @@ _RESPOND_LOGOUT = _descriptor.Descriptor(
 
 _RESPOND_MOVING = _descriptor.Descriptor(
   name='Respond_Moving',
-  full_name='Protocal.Respond.Respond_Moving',
+  full_name='Protocol.Respond.Respond_Moving',
   filename=None,
   file=DESCRIPTOR,
   containing_type=None,
   fields=[
     _descriptor.FieldDescriptor(
-      name='movementList', full_name='Protocal.Respond.Respond_Moving.movementList', index=0,
+      name='movementList', full_name='Protocol.Respond.Respond_Moving.movementList', index=0,
       number=1, type=11, cpp_type=10, label=3,
       has_default_value=False, default_value=[],
       message_type=None, enum_type=None, containing_type=None,
@@ -143,13 +143,13 @@ _RESPOND_MOVING = _descriptor.Descriptor(
 
 _RESPOND_PLAYERAPPEARED = _descriptor.Descriptor(
   name='Respond_PlayerAppeared',
-  full_name='Protocal.Respond.Respond_PlayerAppeared',
+  full_name='Protocol.Respond.Respond_PlayerAppeared',
   filename=None,
   file=DESCRIPTOR,
   containing_type=None,
   fields=[
     _descriptor.FieldDescriptor(
-      name='neighborhood', full_name='Protocal.Respond.Respond_PlayerAppeared.neighborhood', index=0,
+      name='neighborhood', full_name='Protocol.Respond.Respond_PlayerAppeared.neighborhood', index=0,
       number=1, type=11, cpp_type=10, label=3,
       has_default_value=False, default_value=[],
       message_type=None, enum_type=None, containing_type=None,
@@ -174,13 +174,13 @@ _RESPOND_PLAYERAPPEARED = _descriptor.Descriptor(
 
 _RESPOND_PLAYERDISAPPEARED = _descriptor.Descriptor(
   name='Respond_PlayerDisappeared',
-  full_name='Protocal.Respond.Respond_PlayerDisappeared',
+  full_name='Protocol.Respond.Respond_PlayerDisappeared',
   filename=None,
   file=DESCRIPTOR,
   containing_type=None,
   fields=[
     _descriptor.FieldDescriptor(
-      name='playerIds', full_name='Protocal.Respond.Respond_PlayerDisappeared.playerIds', index=0,
+      name='playerIds', full_name='Protocol.Respond.Respond_PlayerDisappeared.playerIds', index=0,
       number=1, type=5, cpp_type=1, label=3,
       has_default_value=False, default_value=[],
       message_type=None, enum_type=None, containing_type=None,
@@ -205,13 +205,13 @@ _RESPOND_PLAYERDISAPPEARED = _descriptor.Descriptor(
 
 _RESPOND_ROTATED = _descriptor.Descriptor(
   name='Respond_Rotated',
-  full_name='Protocal.Respond.Respond_Rotated',
+  full_name='Protocol.Respond.Respond_Rotated',
   filename=None,
   file=DESCRIPTOR,
   containing_type=None,
   fields=[
     _descriptor.FieldDescriptor(
-      name='rotations', full_name='Protocal.Respond.Respond_Rotated.rotations', index=0,
+      name='rotations', full_name='Protocol.Respond.Respond_Rotated.rotations', index=0,
       number=1, type=11, cpp_type=10, label=3,
       has_default_value=False, default_value=[],
       message_type=None, enum_type=None, containing_type=None,
@@ -249,42 +249,42 @@ _sym_db.RegisterFileDescriptor(DESCRIPTOR)
 Respond_LoginAuth = _reflection.GeneratedProtocolMessageType('Respond_LoginAuth', (_message.Message,), dict(
   DESCRIPTOR = _RESPOND_LOGINAUTH,
   __module__ = 'RespondMessages_pb2'
-  # @@protoc_insertion_point(class_scope:Protocal.Respond.Respond_LoginAuth)
+  # @@protoc_insertion_point(class_scope:Protocol.Respond.Respond_LoginAuth)
   ))
 _sym_db.RegisterMessage(Respond_LoginAuth)
 
 Respond_Logout = _reflection.GeneratedProtocolMessageType('Respond_Logout', (_message.Message,), dict(
   DESCRIPTOR = _RESPOND_LOGOUT,
   __module__ = 'RespondMessages_pb2'
-  # @@protoc_insertion_point(class_scope:Protocal.Respond.Respond_Logout)
+  # @@protoc_insertion_point(class_scope:Protocol.Respond.Respond_Logout)
   ))
 _sym_db.RegisterMessage(Respond_Logout)
 
 Respond_Moving = _reflection.GeneratedProtocolMessageType('Respond_Moving', (_message.Message,), dict(
   DESCRIPTOR = _RESPOND_MOVING,
   __module__ = 'RespondMessages_pb2'
-  # @@protoc_insertion_point(class_scope:Protocal.Respond.Respond_Moving)
+  # @@protoc_insertion_point(class_scope:Protocol.Respond.Respond_Moving)
   ))
 _sym_db.RegisterMessage(Respond_Moving)
 
 Respond_PlayerAppeared = _reflection.GeneratedProtocolMessageType('Respond_PlayerAppeared', (_message.Message,), dict(
   DESCRIPTOR = _RESPOND_PLAYERAPPEARED,
   __module__ = 'RespondMessages_pb2'
-  # @@protoc_insertion_point(class_scope:Protocal.Respond.Respond_PlayerAppeared)
+  # @@protoc_insertion_point(class_scope:Protocol.Respond.Respond_PlayerAppeared)
   ))
 _sym_db.RegisterMessage(Respond_PlayerAppeared)
 
 Respond_PlayerDisappeared = _reflection.GeneratedProtocolMessageType('Respond_PlayerDisappeared', (_message.Message,), dict(
   DESCRIPTOR = _RESPOND_PLAYERDISAPPEARED,
   __module__ = 'RespondMessages_pb2'
-  # @@protoc_insertion_point(class_scope:Protocal.Respond.Respond_PlayerDisappeared)
+  # @@protoc_insertion_point(class_scope:Protocol.Respond.Respond_PlayerDisappeared)
   ))
 _sym_db.RegisterMessage(Respond_PlayerDisappeared)
 
 Respond_Rotated = _reflection.GeneratedProtocolMessageType('Respond_Rotated', (_message.Message,), dict(
   DESCRIPTOR = _RESPOND_ROTATED,
   __module__ = 'RespondMessages_pb2'
-  # @@protoc_insertion_point(class_scope:Protocal.Respond.Respond_Rotated)
+  # @@protoc_insertion_point(class_scope:Protocol.Respond.Respond_Rotated)
   ))
 _sym_db.RegisterMessage(Respond_Rotated)
 

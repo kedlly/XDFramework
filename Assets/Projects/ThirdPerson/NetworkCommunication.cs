@@ -1,6 +1,6 @@
 ﻿using Framework.Core;
-using Protocal;
-using Protocal.Respond;
+using Protocol;
+using Protocol.Respond;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -14,7 +14,7 @@ namespace Projects.ThirdPerson
 
 	}
 
-	public static class ProtocalProcessor
+	public static class ProtocolProcessor
 	{
 		public static Dictionary<Type, Delegate> methodList = new Dictionary<Type, Delegate>();
 		public static Type ProcessorClassType { get; private set; }
@@ -36,7 +36,7 @@ namespace Projects.ThirdPerson
 													System.Reflection.BindingFlags.Public |
 													System.Reflection.BindingFlags.NonPublic
 												);
-				Delegate mehthodDelegate = Delegate.CreateDelegate(typeof(ProtocalWrapper.MessageHandle<>).MakeGenericType(messageType), method);
+				Delegate mehthodDelegate = Delegate.CreateDelegate(typeof(ProtocolWrapper.MessageHandle<>).MakeGenericType(messageType), method);
 				methodList[messageType] = mehthodDelegate;
 			}
 			var methodDelegate = methodList[messageType];

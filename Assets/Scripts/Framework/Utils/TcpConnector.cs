@@ -16,7 +16,9 @@ namespace Framework.Utils
 
 		protected override Socket CreateSocket()
 		{
-			return new Socket(AddressFamily.InterNetwork, SocketType.Stream, ProtocolType.Tcp);
+			var socket = new Socket(AddressFamily.InterNetwork, SocketType.Stream, ProtocolType.Tcp);
+			socket.SetSocketOption(SocketOptionLevel.Tcp, SocketOptionName.NoDelay, true);
+			return socket;
 		}
 
 		protected override void LoadProtocols()

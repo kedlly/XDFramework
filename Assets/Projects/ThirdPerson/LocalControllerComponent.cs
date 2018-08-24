@@ -1,7 +1,8 @@
 ﻿using Framework.Core.FlowControl;
 using UnityEngine;
-using Protocal.Request;
-using Protocal;
+using Protocol.Request;
+using Protocol.RawData;
+using Protocol;
 using Framework.Core;
 
 namespace Projects.ThirdPerson
@@ -39,7 +40,7 @@ namespace Projects.ThirdPerson
 				{
 					var position = selfTrans.position;
 					var velocity = MovementComp.Velocity;
-					Protocal.RawData.MovementData data = new Protocal.RawData.MovementData();
+					MovementData data = new MovementData();
 					data.position = position.ToPV();
 					data.velocity = velocity.ToPV();
 					Request_Moving request = new Request_Moving();

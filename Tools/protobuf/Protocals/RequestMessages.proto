@@ -2,7 +2,7 @@
 
 syntax = "proto2";
 
-package Protocal.Request;
+package Protocol.Request;
 
 import "RawData/InternalData.proto";
 
@@ -19,11 +19,11 @@ message Request_Logout
 
 
 message Request_Moving {
-	required Protocal.RawData.MovementData movement = 1;
+	required Protocol.RawData.MovementData movement = 1;
 }
 
 
 message Request_Rotated {
-	required Protocal.RawData.Vector3 direction = 1;
+	required Protocol.RawData.Vector3 direction = 1;
 }
 

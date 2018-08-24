@@ -1,5 +1,6 @@
 ﻿using Framework.Core.Runtime;
 using UnityEngine;
+using Protocol.RawData;
 
 
 namespace Projects.ThirdPerson
@@ -12,41 +13,38 @@ namespace Projects.ThirdPerson
 	public static class PlayerInfoHelper
 	{
 		
-		public static Protocal.RawData.PlayerType ToProtoPlayerType(this GamePlayerType pt)
+		public static PlayerType ToProtoPlayerType(this GamePlayerType pt)
 		{
-			Protocal.RawData.PlayerType value = Protocal.RawData.PlayerType.EPT_HUMAN;
+			PlayerType value = PlayerType.EPT_HUMAN;
 			switch (pt)
 			{
 				case GamePlayerType.Humam:
-					value = Protocal.RawData.PlayerType.EPT_HUMAN;
+					value = PlayerType.EPT_HUMAN;
 					break;
 				case GamePlayerType.Robot:
-					value = Protocal.RawData.PlayerType.EPT_ROBOT;
+					value = PlayerType.EPT_ROBOT;
 					break;
 				case GamePlayerType.UAV:
-					value = Protocal.RawData.PlayerType.EPT_UAV;
+					value = PlayerType.EPT_UAV;
 					break;
 				default:
 					break;
 			}
 			return value;
-			//Protocal.RawData.PlayerType.EPT_HUMAN? PlayerType.Humam:
-			//rla.player.playerType == Protocal.RawData.PlayerType.EPT_ROBOT ? PlayerType.Robot :
-			//rla.player.playerType == Protocal.RawData.PlayerType.EPT_UAV ? PlayerType.UAV : PlayerType.Humam;
 		}
 
-		public static GamePlayerType ToGamePlayerType(this Protocal.RawData.PlayerType pt)
+		public static GamePlayerType ToGamePlayerType(this PlayerType pt)
 		{
 			GamePlayerType value = GamePlayerType.Humam;
 			switch (pt)
 			{
-				case Protocal.RawData.PlayerType.EPT_HUMAN:
+				case PlayerType.EPT_HUMAN:
 					value = GamePlayerType.Humam;
 					break;
-				case Protocal.RawData.PlayerType.EPT_ROBOT:
+				case PlayerType.EPT_ROBOT:
 					value = GamePlayerType.Robot;
 					break;
-				case Protocal.RawData.PlayerType.EPT_UAV:
+				case PlayerType.EPT_UAV:
 					value = GamePlayerType.UAV;
 					break;
 				default:
@@ -63,9 +61,9 @@ namespace Projects.ThirdPerson
 		public string Token { get; private set; }
 		public string Name { get; set; }
 		public GamePlayerType PlayerType { get; private set; }
-		public Vector3 Position { get; set; }
-		public Vector3 Velocity { get; set; }
-		public Vector3 Direction { get; set; }
+		public UnityEngine.Vector3 Position { get; set; }
+		public UnityEngine.Vector3 Velocity { get; set; }
+		public UnityEngine.Vector3 Direction { get; set; }
 
 		public GamePlayerInfo(int id, string token = "", string name = "",GamePlayerType type = GamePlayerType.Humam)
 		{
@@ -198,9 +196,9 @@ namespace Projects.ThirdPerson
 				if (sph.hand != null)
 				{
 					camera.transform.parent = sph.hand.transform;
-					camera.transform.localEulerAngles = Vector3.zero;
-					camera.transform.localPosition = Vector3.zero;
-					camera.transform.localScale = Vector3.one;
+					camera.transform.localEulerAngles = UnityEngine.Vector3.zero;
+					camera.transform.localPosition = UnityEngine.Vector3.zero;
+					camera.transform.localScale = UnityEngine.Vector3.one;
 				}
 				else
 				{

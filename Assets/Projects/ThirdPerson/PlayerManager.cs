@@ -1,8 +1,8 @@
 ﻿using Framework.Library.Singleton;
 using System;
 using System.Collections.Generic;
-using Protocal.Respond;
-using Protocal;
+using Protocol.Respond;
+using Protocol;
 using UnityEngine;
 using Framework.Core.Runtime;
 

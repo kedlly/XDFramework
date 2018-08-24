@@ -2,7 +2,7 @@
 
 syntax = "proto2";
 
-package Protocal.Transport;
+package Protocol.Transport;
 
 
 enum MessageMajorType
