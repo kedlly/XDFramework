@@ -171,7 +171,6 @@ namespace Framework.Core.Runtime
 			}
 			//合力为 弹力(变换到世界空间) * 系数 + 外力
 			compositeForce = transform.TransformVector(springForce) * coefficientOfRestoringForce *externCoefficientOfTelescope + exogenic;
-
 		}
 
 		private Vector3 compositeForce = Vector3.zero;

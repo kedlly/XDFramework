@@ -125,6 +125,8 @@ namespace Framework.Core
 			{
 				return true;
 			};
+
+			Application.targetFrameRate = 60;
 			
 		}
 
