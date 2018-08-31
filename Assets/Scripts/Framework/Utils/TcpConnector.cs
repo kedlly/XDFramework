@@ -37,4 +37,22 @@ namespace Framework.Utils
 		public event Action<byte[]> OnDataReceived;
 
 	}
+
+	public class GameTcpClient : AAsyncNetworkClient
+	{
+		public override Socket Socket
+		{
+			get
+			{
+				if (_socket == null)
+				{
+					_socket = new Socket(AddressFamily.InterNetwork, SocketType.Stream, ProtocolType.Tcp);
+					_socket.SetSocketOption(SocketOptionLevel.Tcp, SocketOptionName.NoDelay, true);
+				}
+				return _socket;
+			}
+		}
+
+		private Socket _socket;
+	}
 }

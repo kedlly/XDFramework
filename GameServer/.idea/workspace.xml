@@ -13,7 +13,7 @@
     <SUITE FILE_PATH="coverage/GameServer$Robot.coverage" NAME="Robot Coverage Results" MODIFIED="1534729129168" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
     <SUITE FILE_PATH="coverage/GameServer$test.coverage" NAME="test Coverage Results" MODIFIED="1534391888299" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/" />
     <SUITE FILE_PATH="coverage/GameServer$build.coverage" NAME="build Coverage Results" MODIFIED="1535097911299" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
-    <SUITE FILE_PATH="coverage/GameServer$GameServer.coverage" NAME="GameServer Coverage Results" MODIFIED="1535677168015" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
+    <SUITE FILE_PATH="coverage/GameServer$GameServer.coverage" NAME="GameServer Coverage Results" MODIFIED="1535706852523" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
   </component>
   <component name="FUSProjectUsageTrigger">
     <session id="1296372686">
@@ -96,11 +96,11 @@
           </provider>
         </entry>
       </file>
-      <file pinned="false" current-in-tab="false">
+      <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/Servers/DataReader.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="171">
-              <caret line="96" selection-start-line="96" selection-end-line="96" />
+            <state relative-caret-position="323">
+              <caret line="94" column="14" selection-start-line="94" selection-start-column="8" selection-end-line="94" selection-end-column="14" />
               <folding>
                 <element signature="e#14#27#0" expanded="true" />
                 <marker date="1535625227856" expanded="true" signature="114:284" ph="..." />
@@ -121,9 +121,10 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/Messages/MessageMap.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="85">
-              <caret line="5" column="24" lean-forward="true" selection-start-line="5" selection-start-column="24" selection-end-line="5" selection-end-column="24" />
+            <state relative-caret-position="211">
+              <caret line="20" column="4" selection-start-line="20" selection-start-column="4" selection-end-line="20" selection-end-column="4" />
               <folding>
+                <element signature="e#0#34#0" expanded="true" />
                 <marker date="1535676524917" expanded="true" signature="623:625" ph="..." />
               </folding>
             </state>
@@ -135,15 +136,6 @@
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="398">
               <caret line="49" column="14" selection-start-line="49" selection-start-column="14" selection-end-line="49" selection-end-column="14" />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="true">
-        <entry file="file://$USER_HOME$/.PyCharm2018.2/system/python_stubs/-697680286/_functools.py">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="221">
-              <caret line="22" column="9" lean-forward="true" selection-start-line="22" selection-start-column="9" selection-end-line="22" selection-end-column="9" />
             </state>
           </provider>
         </entry>
@@ -397,15 +389,15 @@
     <servers />
   </component>
   <component name="ToolWindowManager">
-    <frame x="-8" y="-8" width="1936" height="1066" extended-state="6" />
+    <frame x="-8" y="-8" width="1936" height="1066" extended-state="7" />
     <editor active="true" />
     <layout>
-      <window_info active="true" content_ui="combo" id="Project" order="0" visible="true" weight="0.16257995" />
+      <window_info content_ui="combo" id="Project" order="0" visible="true" weight="0.16257995" />
       <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
       <window_info id="Favorites" order="2" side_tool="true" />
       <window_info anchor="bottom" id="Message" order="0" />
       <window_info anchor="bottom" id="Find" order="1" sideWeight="0.49733475" weight="0.32834226" />
-      <window_info anchor="bottom" id="Run" order="2" sideWeight="0.4360341" visible="true" weight="0.2636656" />
+      <window_info active="true" anchor="bottom" id="Run" order="2" sideWeight="0.4360341" visible="true" weight="0.2636656" />
       <window_info anchor="bottom" id="Debug" order="3" sideWeight="0.46002132" weight="0.3954984" />
       <window_info anchor="bottom" id="Cvs" order="4" weight="0.25" />
       <window_info anchor="bottom" id="Inspection" order="5" weight="0.4" />
@@ -716,21 +708,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/Servers/DataReader.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="171">
-          <caret line="96" selection-start-line="96" selection-end-line="96" />
-          <folding>
-            <element signature="e#14#27#0" expanded="true" />
-            <marker date="1535625227856" expanded="true" signature="114:284" ph="..." />
-            <marker date="1535625227856" expanded="true" signature="462:480" ph="..." />
-            <marker date="1535625227856" expanded="true" signature="717:721" ph="..." />
-            <marker date="1535625227856" expanded="true" signature="859:1633" ph="..." />
-            <marker date="1535625227856" expanded="true" signature="1716:1795" ph="..." />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/Bussiness/Setup.py">
       <provider selected="true" editor-type-id="text-editor" />
     </entry>
@@ -751,6 +728,20 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$USER_HOME$/.PyCharm2018.2/system/python_stubs/-697680286/_functools.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="221">
+          <caret line="22" column="9" lean-forward="true" selection-start-line="22" selection-start-column="9" selection-end-line="22" selection-end-column="9" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://C:/Program Files/Python27/Lib/functools.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="398">
+          <caret line="49" column="14" selection-start-line="49" selection-start-column="14" selection-end-line="49" selection-end-column="14" />
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/Messages/MessageProcess.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="515">
@@ -763,25 +754,27 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/Messages/MessageMap.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="85">
-          <caret line="5" column="24" lean-forward="true" selection-start-line="5" selection-start-column="24" selection-end-line="5" selection-end-column="24" />
+        <state relative-caret-position="211">
+          <caret line="20" column="4" selection-start-line="20" selection-start-column="4" selection-end-line="20" selection-end-column="4" />
           <folding>
+            <element signature="e#0#34#0" expanded="true" />
             <marker date="1535676524917" expanded="true" signature="623:625" ph="..." />
           </folding>
         </state>
       </provider>
     </entry>
-    <entry file="file://C:/Program Files/Python27/Lib/functools.py">
+    <entry file="file://$PROJECT_DIR$/Servers/DataReader.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="398">
-          <caret line="49" column="14" selection-start-line="49" selection-start-column="14" selection-end-line="49" selection-end-column="14" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$USER_HOME$/.PyCharm2018.2/system/python_stubs/-697680286/_functools.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="221">
-          <caret line="22" column="9" lean-forward="true" selection-start-line="22" selection-start-column="9" selection-end-line="22" selection-end-column="9" />
+        <state relative-caret-position="323">
+          <caret line="94" column="14" selection-start-line="94" selection-start-column="8" selection-end-line="94" selection-end-column="14" />
+          <folding>
+            <element signature="e#14#27#0" expanded="true" />
+            <marker date="1535625227856" expanded="true" signature="114:284" ph="..." />
+            <marker date="1535625227856" expanded="true" signature="462:480" ph="..." />
+            <marker date="1535625227856" expanded="true" signature="717:721" ph="..." />
+            <marker date="1535625227856" expanded="true" signature="859:1633" ph="..." />
+            <marker date="1535625227856" expanded="true" signature="1716:1795" ph="..." />
+          </folding>
         </state>
       </provider>
     </entry>

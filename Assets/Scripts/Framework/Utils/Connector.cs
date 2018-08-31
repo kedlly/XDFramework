@@ -4,14 +4,291 @@
 using System.Net.Sockets;
 using System;
 using System.Collections.Generic;
-using System.Text;
 using System.Threading;
 using UnityEngine;
-using System.IO;
-
+using System.Net;
+using Framework.Library;
 
 namespace Framework.Utils
 {
+
+	public abstract class AAsyncNetworkClient
+	{
+		public bool Closed { get; private set; }
+		/// <summary>
+		/// 接收数据的缓冲区
+		/// </summary>
+		public byte[] ReceiveBuffer { get; private set; }
+		/// <summary>
+		/// 发送数据的缓冲区
+		/// </summary>
+		public byte[] SendBuffer { get; private set; }
+		/// <summary>
+		/// 客户端Socket对象
+		/// </summary>
+		public abstract Socket Socket { get; }
+		/// <summary>
+		/// 发送数据上下文对象
+		/// </summary>
+		public SocketAsyncEventArgs SendEventArgs { get; private set; }
+		/// <summary>
+		/// 接收数据上下文对象
+		/// </summary>
+		public SocketAsyncEventArgs ReceiveEventArgs { get; private set; }
+
+		protected FSMDataReceiver receiver = new FSMDataReceiver();
+		protected FSMDataSender sender = new FSMDataSender();
+
+		public AAsyncNetworkClient(int recvBuffSize = 1024, int sendBuffSize = 1024)
+		{
+			ReceiveBuffer = new byte[recvBuffSize];//定义接收缓冲区
+			SendBuffer = new byte[sendBuffSize];//定义发送缓冲区
+			SendEventArgs = new SocketAsyncEventArgs();
+			SendEventArgs.UserToken = this;
+			ReceiveEventArgs = new SocketAsyncEventArgs();
+			ReceiveEventArgs.UserToken = this;
+			ReceiveEventArgs.SetBuffer(ReceiveBuffer, 0, ReceiveBuffer.Length);//设置接收缓冲区
+			SendEventArgs.SetBuffer(SendBuffer, 0, SendBuffer.Length);//设置发送缓冲区
+		}
+
+		public void Connect(string host, int port)
+		{
+			var remoteEP = new IPEndPoint(IPAddress.Parse(host), port);
+			ReceiveEventArgs.RemoteEndPoint = remoteEP;
+			ReceiveEventArgs.Completed -= Connect_Completed;
+			ReceiveEventArgs.Completed += Connect_Completed;
+			Socket.ConnectAsync(ReceiveEventArgs);
+		}
+
+		public event Action<EndPoint, SocketError> onConnectCompleted;
+
+		void Connect_Completed(object send, SocketAsyncEventArgs e)
+		{
+			Console.WriteLine("Is connected to server {0}", e.RemoteEndPoint);
+			ReceiveEventArgs.Completed -= Connect_Completed;
+			if (e.SocketError == SocketError.Success)
+			{
+				ReceiveEventArgs.SetBuffer(ReceiveBuffer, 0, ReceiveBuffer.Length);
+				ReceiveEventArgs.Completed += Receive_Completed;
+				Socket.ReceiveAsync(ReceiveEventArgs);
+			}
+			else
+			{
+
+			}
+			
+		}
+		void Receive_Completed(object sender, SocketAsyncEventArgs e)
+		{
+			if (e.BytesTransferred == 0)
+			{
+				Console.WriteLine("Socket is closed", Socket.Handle);
+				Socket.Close();
+				Closed = true;
+			}
+			else
+			{
+				//string message = Encoding.Unicode.GetString(e.Buffer, 0, e.BytesTransferred);
+				//Console.WriteLine("Server send message:{0}", message);
+				receiver.Read(e.Buffer, 0, e.BytesTransferred);
+				Socket.ReceiveAsync(ReceiveEventArgs);
+			}
+		}
+
+		protected virtual void ReceiveData(byte[] data) { }
+
+		public void Send(byte[] message)
+		{
+			if (!Socket.Connected)
+			{
+				return;
+			}
+
+			sender.Append(message);
+			if (sender.hasData)
+			{
+				var length = sender.Pop(SendBuffer, 0);
+				SendEventArgs.SetBuffer(0, length);
+				Socket.SendAsync(SendEventArgs);
+			}
+		}
+
+		void Send_Completed(object sender, SocketAsyncEventArgs e)
+		{
+			if (e.BytesTransferred == 0)
+			{
+				Console.WriteLine("Socket is closed", Socket.Handle);
+				Socket.Close();
+				Closed = true;
+			}
+			else
+			{
+				Console.WriteLine("sent {0} byte(s) data to server.", e.BytesTransferred);
+				if (this.sender.hasData)
+				{
+					Socket.SendAsync(SendEventArgs);
+				}
+			}
+		}
+
+		enum State
+		{
+			ReadLength
+				, ReadData
+		}
+
+		public class FSMDataSender
+		{
+			public RingBuffer<byte> senderBuffer = new RingBuffer<byte>(2048);
+			public void Append(byte[] data)
+			{
+				int length = data.Length;
+				if (senderBuffer.Capacity < senderBuffer.Count + 4 * 2 + length)
+				{
+					//数据池已经放不下这个序列
+					throw new Exception("send buffer is full.");
+				}
+				FillBytes(length + 4, lengthBuffer);
+				// 写入辅助长度
+				senderBuffer.Write(lengthBuffer);
+				// 写入实际长度
+				FillBytes(length, lengthBuffer);
+				if (System.BitConverter.IsLittleEndian)
+				{
+					Array.Reverse(lengthBuffer);
+				}
+				senderBuffer.Write(lengthBuffer);
+				// 写入数据
+				senderBuffer.Write(data);
+			}
+
+			State _state = State.ReadLength;
+
+			int dataLength = 0;
+			int remainedPopLen = 0;
+
+			public int Pop(byte[] buffer, int startIndex)
+			{
+				if (_state == State.ReadLength)
+				{
+					if (senderBuffer.Count <= 4)
+					{
+						throw new Exception("Error buffer.");
+					}
+					senderBuffer.Read(lengthBuffer, 0, 4);
+					dataLength = System.BitConverter.ToInt32(lengthBuffer, 0);
+					remainedPopLen = dataLength;
+					_state = State.ReadData;
+				}
+				if (_state == State.ReadData)
+				{
+					var lenOfPopData = Math.Min(remainedPopLen, buffer.Length - startIndex);
+					senderBuffer.Read(buffer, startIndex, lenOfPopData);
+					remainedPopLen = remainedPopLen - lenOfPopData;
+					if (remainedPopLen == 0)
+					{
+						_state = State.ReadLength;
+					}
+					return lenOfPopData;
+				}
+				return 0;
+			}
+
+			public bool hasData { get { return senderBuffer.Count > 0; } }
+
+			private byte[] lengthBuffer = new byte[4];
+			public static unsafe void FillBytes(int value, byte[] buffer, int index = 0)
+			{
+				byte[] bytes = buffer;
+				fixed (byte* b = &bytes[index])
+					*((int*)b) = value;
+				return;
+			}
+		}
+
+
+		public class FSMDataReceiver
+		{
+			public readonly RingBuffer<byte> receiveBuffer = new RingBuffer<byte>(2048);
+			
+
+			State _state = State.ReadLength;
+
+			public void Read(byte[] originalData)
+			{
+				Read(new ArraySegment<byte>(originalData));
+			}
+
+			public void Read(byte[] originalData, int offset, int length)
+			{
+				Read(new ArraySegment<byte>(originalData, offset, length));
+			}
+
+			int length = 0;
+			byte[] lengthDataBuffer = new byte[4];
+			int lengthDataRemainedCount = 4;
+
+			public void Read(ArraySegment<byte> segment)
+			{
+				var remained = segment;
+				while (remained.Count > 0)
+				{
+					if (_state == State.ReadLength)
+					{
+						ArraySegment<byte> lengthSeg = doRead(remained, lengthDataRemainedCount, out remained);
+						Array.Copy(lengthSeg.Array, lengthSeg.Offset, lengthDataBuffer, lengthDataBuffer.Length - lengthDataRemainedCount, lengthSeg.Count);
+						lengthDataRemainedCount = lengthDataRemainedCount - lengthSeg.Count;
+						if (lengthDataRemainedCount == 0)
+						{
+							if (System.BitConverter.IsLittleEndian)
+							{
+								Array.Reverse(lengthDataBuffer);
+							}
+							length = System.BitConverter.ToInt32(lengthDataBuffer, 0);
+							receiveBuffer.Write(lengthDataBuffer);
+							_state = State.ReadData;
+						}
+					}
+					if (_state == State.ReadData)
+					{
+						if (remained.Count > 0)
+						{
+							if (remained.Count >= length)
+							{
+								var dataSegment = doRead(remained, length, out remained);
+								receiveBuffer.Write(dataSegment.Array, dataSegment.Offset, dataSegment.Count);
+								length = 0;
+								_state = State.ReadLength;
+								lengthDataRemainedCount = lengthDataBuffer.Length;
+							}
+							else
+							{
+								receiveBuffer.Write(remained.Array, remained.Offset, remained.Count);
+								length -= remained.Count;
+								remained = new ArraySegment<byte>(remained.Array, remained.Offset + remained.Count, 0);
+							}
+						}
+					}
+				}
+
+				if (remained.Count > 0)
+				{
+					throw new Exception("------------");
+				}
+			}
+
+			private static ArraySegment<byte> doRead(ArraySegment<byte> data, int length, out ArraySegment<byte> remainedSegment)
+			{
+				remainedSegment = new ArraySegment<byte>(data.Array, 0, 0);
+				ArraySegment<byte> result = remainedSegment;
+				int actualLength = Math.Min(length, data.Count);
+				result = new ArraySegment<byte>(data.Array, data.Offset, actualLength);
+				remainedSegment = new ArraySegment<byte>(data.Array, data.Offset + actualLength, data.Count - actualLength);
+				return result;
+			}
+		}
+	}
+
 	public abstract class AAsyncConnector
 	{
 
@@ -39,6 +316,8 @@ namespace Framework.Utils
 		{
 			Host = host;
 			Port = port;
+
+			socket = CreateSocket();
 			try
 			{
 				if (clientBackgroundThread != null)

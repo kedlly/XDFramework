@@ -17,7 +17,8 @@ namespace Framework.Core
 			base.OnSingletonInit();
 		}
 
-		AAsyncConnector connector = new TcpConnector();
+		//AAsyncConnector connector = new TcpConnector();
+		AAsyncNetworkClient connector = new GameTcpClient();
 
 		public void Initalize()
 		{
@@ -27,7 +28,7 @@ namespace Framework.Core
 		{
 			if (connector != null)
 			{
-				connector.CloseSocket();
+				//connector.CloseSocket();
 			}
 		}
 
@@ -35,12 +36,12 @@ namespace Framework.Core
 		{
 			if (connector != null)
 			{
-				connector.Update();
+				//connector.Update();
 			}
 		}
 
 		public void SendNetworkMessage(byte[] data)
-		{
+		{/*
 			if (connector != null && connector.isConnect())
 			{
 				int length = data.Length;
@@ -54,15 +55,19 @@ namespace Framework.Core
 				Array.Copy(lengthBit, newData, lengthBit.Length);
 				Array.Copy(data, 0, newData, lengthBit.Length, data.Length);
 				connector.SendMessage(newData);
+			}*/
+			if (!connector.Closed)
+			{
+				connector.Send(data);
 			}
 		}
 
 		public void Connect(string ip, int port)
 		{
-			connector.Connect(ip, port, 3000);
+			connector.Connect(ip, port);
 		}
 
-		public event Action<byte[]> OnDataReceived
+		public event Action<byte[]> OnDataReceived;/*
 		{
 			add
 			{
@@ -72,9 +77,9 @@ namespace Framework.Core
 			{
 				(connector as TcpConnector).OnDataReceived -= value;
 			}
-		}
+		}*/
 
-		public event Action OnConnected
+		public event Action OnConnected; /*
 		{
 			add
 			{
@@ -84,7 +89,7 @@ namespace Framework.Core
 			{
 				connector.ConnectCallback -= value;
 			}
-		}
+		}*/
 	}
 
 	public static class NetworkHelper
