@@ -99,6 +99,19 @@ namespace Protocol
 			return dataPackage;
 		}
 
+		public static DataPackage Deserialize(this ArraySegment<byte> data)
+		{
+			DataPackage dataPackage = null;
+			if (data != null)
+			{
+				using (MemoryStream ms = new MemoryStream(data.Array, data.Offset, data.Count))
+				{
+					dataPackage = ProtoBuf.Serializer.Deserialize<DataPackage>(ms);
+				}
+			}
+			return dataPackage;
+		}
+
 		public static RawData.Vector3 ToPV(this Vector3 vec)
 		{
 			var pv = new RawData.Vector3();

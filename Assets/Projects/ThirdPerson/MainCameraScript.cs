@@ -10,6 +10,7 @@ namespace Projects.ThirdPerson
 {
 	public class MainCameraScript : MonoBehaviour
 	{
+		Queue<ProtoBuf.IExtensible> networkData = new Queue<ProtoBuf.IExtensible>();
 		private void Start()
 		{
 			GameConsole.Instance.OnCommand += cmd =>
@@ -75,6 +76,18 @@ namespace Projects.ThirdPerson
 				ProtocolProcessor.MessagePump(obj);
 			};
 
+
+			NetworkManager.Instance.OnAsDataReceived += data =>
+			{
+
+				var obj = data.Deserialize().Unpack();
+				if (obj == null)
+				{
+					return;
+				}
+				this.networkData.Enqueue(obj);
+			};
+
 			NetworkManager.Instance.OnConnected += () =>
 			{
 				Debug.Log("connection build successful.");
@@ -88,7 +101,11 @@ namespace Projects.ThirdPerson
 			{
 				Application.Quit();
 			}
-			
+			if (networkData.Count > 0)
+			{
+				var obj = networkData.Dequeue();
+				ProtocolProcessor.MessagePump(obj);
+			}
 		}
 	}
 }

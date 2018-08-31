@@ -3,7 +3,7 @@ using Framework.Utils.Extensions;
 using Framework.Library.Singleton;
 using UnityEngine;
 using Framework.Utils;
-using System.Net.Sockets;
+using System.Collections;
 using System;
 
 namespace Framework.Core
@@ -65,6 +65,18 @@ namespace Framework.Core
 		public void Connect(string ip, int port)
 		{
 			connector.Connect(ip, port);
+		}
+
+		public event Action<ArraySegment<byte>> OnAsDataReceived
+		{
+			add
+			{
+				connector.onDataReceived += value;
+			}
+			remove
+			{
+				connector.onDataReceived -= value;
+			}
 		}
 
 		public event Action<byte[]> OnDataReceived;/*

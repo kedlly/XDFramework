@@ -60,7 +60,8 @@ namespace Framework.Utils
 			Socket.ConnectAsync(ReceiveEventArgs);
 		}
 
-		public event Action<EndPoint, SocketError> onConnectCompleted;
+		public event Action<SocketAsyncEventArgs> onConnectCompleted;
+		
 
 		void Connect_Completed(object send, SocketAsyncEventArgs e)
 		{
@@ -72,12 +73,14 @@ namespace Framework.Utils
 				ReceiveEventArgs.Completed += Receive_Completed;
 				Socket.ReceiveAsync(ReceiveEventArgs);
 			}
-			else
+			if (onConnectCompleted != null)
 			{
-
+				onConnectCompleted(e);
 			}
 			
 		}
+
+		public event Action<ArraySegment<byte>> onDataReceived;
 		void Receive_Completed(object sender, SocketAsyncEventArgs e)
 		{
 			if (e.BytesTransferred == 0)
@@ -88,12 +91,38 @@ namespace Framework.Utils
 			}
 			else
 			{
-				//string message = Encoding.Unicode.GetString(e.Buffer, 0, e.BytesTransferred);
-				//Console.WriteLine("Server send message:{0}", message);
 				receiver.Read(e.Buffer, 0, e.BytesTransferred);
+				checkReceiveData();
 				Socket.ReceiveAsync(ReceiveEventArgs);
 			}
 		}
+
+		byte[] receiverLengthDataBuffer = new byte[4];
+		byte[] receiverDataBuffer = new byte[128];
+		private void checkReceiveData()
+		{
+			while (receiver.receiveBuffer.Count > 0)
+			{
+				receiver.receiveBuffer.Read(receiverLengthDataBuffer, 0, receiverLengthDataBuffer.Length, true);
+				var length = System.BitConverter.ToInt32(receiverLengthDataBuffer, 0);
+				if (length > receiver.receiveBuffer.Count - 4)
+				{
+					break;
+				}
+				receiver.receiveBuffer.Read(receiverLengthDataBuffer, 0, 4);
+				if (length > receiverDataBuffer.Length)
+				{
+					receiverDataBuffer = new byte[length];
+				}
+				receiver.receiveBuffer.Read(receiverDataBuffer, 0, length);
+				if (onDataReceived != null)
+				{
+					onDataReceived(new ArraySegment<byte>(receiverDataBuffer, 0, length));
+				}
+			}
+		}
+
+
 
 		protected virtual void ReceiveData(byte[] data) { }
 
@@ -103,7 +132,6 @@ namespace Framework.Utils
 			{
 				return;
 			}
-
 			sender.Append(message);
 			if (sender.hasData)
 			{
