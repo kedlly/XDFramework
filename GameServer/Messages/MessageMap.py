@@ -2,6 +2,22 @@ from Messages.Message_pb2 import *
 from Messages.RequestMessages_pb2 import *
 from Messages.RespondMessages_pb2 import *
 
+
+from functools import wraps
+
+def PackLength(bytestr):
+	length = len(bytestr)
+	import struct
+	return struct.pack('!i', length) + bytestr
+
+def PackNetworkPackage(func_for_bytes):
+	
+	def TLV(requestOrResponseMessage):
+		return PackLength(func_for_bytes(requestOrResponseMessage))
+	
+	return TLV
+
+@PackNetworkPackage
 def Serialize(requestOrResponseMessage):
 	try:
 		msg = pack(requestOrResponseMessage)

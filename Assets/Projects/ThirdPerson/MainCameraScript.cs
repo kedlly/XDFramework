@@ -50,7 +50,17 @@ namespace Projects.ThirdPerson
 					dataObject.password = password;
 					dataObject.Pack().Serialize().Send();
 				}
-
+				if (cmds[0] == "quality")
+				{
+					QualitySettings.SetQualityLevel(int.Parse(cmds[1]));
+				}
+				if (cmds[0] == "print")
+				{
+					if (cmds[1] == "frameTime")
+					{
+						Debug.Log("deltaTime :"+Time.deltaTime + " fixedDeltaTime "+ Time.fixedDeltaTime);
+					}
+				}
 			};
 
 			ProtocolProcessor.Register<NetworkCommunication>();

@@ -114,6 +114,7 @@ def onLoginRespond(data):
 		__position = PyVector3.fromProtoVector3(data.player.movement.position)
 		Delay().schedule(240, transport.write, "1\n")
 		Delay().schedule(1, setDir, PyVector3(0,0,-3.5))
+		Delay().schedule(0.75, reportMovement)
 		
 		
 
@@ -134,7 +135,7 @@ def setDir(dir):
 	global __velocity
 	__velocity = dir
 	Delay().schedule(8, setDir, dir * -1)
-	Delay().schedule(0.75, reportMovement)
+	
 
 processors = {}
 processors[Respond_LoginAuth] = onLoginRespond

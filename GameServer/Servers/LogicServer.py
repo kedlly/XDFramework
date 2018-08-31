@@ -5,9 +5,13 @@ from twisted.internet import task
 
 from Bussiness.Service import Service, Link
 from Messages.MessageProcess import MessageProcessor
+from DataReader import DataReceivedFSM
 
 
 class LogicServerProxyProtocol(protocol.Protocol):
+	
+	def __init__(self):
+		self.receiveProcess = DataReceivedFSM(self._messageCallback)
 	
 	def connectionMade(self):
 		#self.deferred = self.factory.service.getDeferred()
@@ -33,12 +37,14 @@ class LogicServerProxyProtocol(protocol.Protocol):
 		# #self.transport.write(data)
 		#print data
 		try:
-			from Messages.MessageMap import Deserialize
-			request = Deserialize(data)
-			MessageProcessor().onReceived(self.link, request)
+			self.receiveProcess.receiveData(data)
 		except Exception as e:
 			print e
-
+			
+	def _messageCallback(self, data):
+		from Messages.MessageMap import Deserialize
+		request = Deserialize(data)
+		MessageProcessor().onReceived(self.link, request)
 
 class LogicServerFactory(protocol.ServerFactory):
 	

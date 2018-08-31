@@ -30,7 +30,7 @@ class Delay(object):
 				self.currTime += delta
 				if self.currTime > self.delay:
 					self()
-		
+		partial()
 		self._add.add(_task(delay, func, *args, **kwargs))
 	
 	def update(self, delta):

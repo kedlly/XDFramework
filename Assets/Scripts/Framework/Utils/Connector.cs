@@ -157,7 +157,6 @@ namespace Framework.Utils
 				try
 				{
 					int i = socket.Receive(bytes);
-
 					if (i <= 0)
 					{
 						socket.Close();

@@ -43,13 +43,22 @@ namespace Framework.Core
 		{
 			if (connector != null && connector.isConnect())
 			{
-				connector.SendMessage(data);
+				int length = data.Length;
+				
+				byte[] lengthBit = System.BitConverter.GetBytes(length);
+				if (System.BitConverter.IsLittleEndian)
+				{
+					Array.Reverse(lengthBit);
+				}
+				byte[] newData = new byte[lengthBit.Length + length];
+				Array.Copy(lengthBit, newData, lengthBit.Length);
+				Array.Copy(data, 0, newData, lengthBit.Length, data.Length);
+				connector.SendMessage(newData);
 			}
 		}
 
 		public void Connect(string ip, int port)
 		{
-			
 			connector.Connect(ip, port, 3000);
 		}
 
