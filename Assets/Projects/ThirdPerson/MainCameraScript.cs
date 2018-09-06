@@ -1,15 +1,16 @@
 ﻿using Framework.Core;
 using Protocol.Request;
 using Protocol;
-using System;
 using System.Collections.Generic;
 using UnityEngine;
-using Framework.Core.Runtime;
+
 
 namespace Projects.ThirdPerson
 {
 	public class MainCameraScript : MonoBehaviour
 	{
+		int index = 0;
+		byte[] buffer = new byte[1024];
 		Queue<ProtoBuf.IExtensible> networkData = new Queue<ProtoBuf.IExtensible>();
 		private void Start()
 		{
@@ -49,7 +50,11 @@ namespace Projects.ThirdPerson
 					var dataObject = new Request_LoginAuth();
 					dataObject.username = name;
 					dataObject.password = password;
-					dataObject.Pack().Serialize().Send();
+					
+					System.ArraySegment<byte> p = new System.ArraySegment<byte>(buffer);
+					dataObject.Pack().Serialize(p).Send();
+
+					//dataObject.Pack().Serialize().Send();
 				}
 				if (cmds[0] == "quality")
 				{
@@ -62,8 +67,28 @@ namespace Projects.ThirdPerson
 						Debug.Log("deltaTime :"+Time.deltaTime + " fixedDeltaTime "+ Time.fixedDeltaTime);
 					}
 				}
+				if (cmds[0] == "f")
+				{
+					(new System.ArraySegment<byte>(System.Text.Encoding.Default.GetBytes(index + "0123456789abcdef"))).Send();
+					(new System.ArraySegment<byte>(System.Text.Encoding.Default.GetBytes(index + "1OOOOOOOOOOOOOOO"))).Send();
+					(new System.ArraySegment<byte>(System.Text.Encoding.Default.GetBytes(index + "2123456789abcdef"))).Send();
+					(new System.ArraySegment<byte>(System.Text.Encoding.Default.GetBytes(index + "3KKKKKKKKKKKKKKK"))).Send();
+					(new System.ArraySegment<byte>(System.Text.Encoding.Default.GetBytes(index + "4123456789abcdef"))).Send();
+					(new System.ArraySegment<byte>(System.Text.Encoding.Default.GetBytes(index + "5TTTTTTTTTTTTTTT"))).Send();
+					(new System.ArraySegment<byte>(System.Text.Encoding.Default.GetBytes(index + "6123456789abcdef"))).Send();
+					(new System.ArraySegment<byte>(System.Text.Encoding.Default.GetBytes(index + "7RRRRRRRRRRRRRRR"))).Send();
+					(new System.ArraySegment<byte>(System.Text.Encoding.Default.GetBytes(index + "8123456789abcdef"))).Send();
+					(new System.ArraySegment<byte>(System.Text.Encoding.Default.GetBytes(index + "9MMMMMMMMMMMMMMM"))).Send();
+					(new System.ArraySegment<byte>(System.Text.Encoding.Default.GetBytes(index + "a123456789abcdef"))).Send();
+					(new System.ArraySegment<byte>(System.Text.Encoding.Default.GetBytes(index + "bPPPPPPPPPPPPPPP"))).Send();
+					(new System.ArraySegment<byte>(System.Text.Encoding.Default.GetBytes(index + "c123456789abcdef"))).Send();
+					(new System.ArraySegment<byte>(System.Text.Encoding.Default.GetBytes(index + "d123456789abcdef"))).Send();
+					(new System.ArraySegment<byte>(System.Text.Encoding.Default.GetBytes(index + "e123456789abcdef"))).Send();
+					(new System.ArraySegment<byte>(System.Text.Encoding.Default.GetBytes(index + "f123456789abcdef"))).Send();
+					index++;
+				}
 			};
-
+			
 			ProtocolProcessor.Register<NetworkCommunication>();
 			NetworkManager.Instance.OnDataReceived += data =>
 			{
@@ -73,24 +98,51 @@ namespace Projects.ThirdPerson
 				{
 					return;
 				}
+				
 				ProtocolProcessor.MessagePump(obj);
 			};
 
+			byte[] bufferLast = new byte[512];
+			byte[] bufferLast2 = new byte[512];
 
 			NetworkManager.Instance.OnAsDataReceived += data =>
 			{
-
-				var obj = data.Deserialize().Unpack();
-				if (obj == null)
+				Debug.Log("thread id:" + System.Threading.Thread.CurrentThread.ManagedThreadId + "type:"  + "Count :" + data.Count);
+				try
 				{
-					return;
+					var obj = data.Deserialize().Unpack();
+					if (obj == null)
+					{
+						return;
+					}
+					if (bufferLast != null)
+					{
+						byte[] q = bufferLast;
+						System.Array.Copy(data.Array, data.Offset, q, 0, data.Count);
+					}
+					this.networkData.Enqueue(obj);
 				}
-				this.networkData.Enqueue(obj);
+				catch (System.Exception ex)
+				{
+					byte[] q = bufferLast2;
+					byte[] p = bufferLast;
+					System.Array.Copy(data.Array, data.Offset, q, 0, data.Count);
+					
+					print(ex.Message);
+					throw;
+				}
 			};
 
-			NetworkManager.Instance.OnConnected += () =>
+			NetworkManager.Instance.OnConnected += (System.Net.Sockets.SocketAsyncEventArgs saea) =>
 			{
-				Debug.Log("connection build successful.");
+				if (saea.SocketError == System.Net.Sockets.SocketError.Success)
+				{
+					Debug.Log("connection build succeed to Endpoint:" + saea.RemoteEndPoint);
+				}
+				else
+				{
+					Debug.LogErrorFormat("connection build failed to Endpoint: {0} Reason: {1}", saea.RemoteEndPoint , saea.SocketError);
+				}
 			};
 		}
 

@@ -2,9 +2,10 @@
 using Framework.Utils.Extensions;
 using Framework.Library.Singleton;
 using UnityEngine;
-using Framework.Utils;
+using Framework.Network;
 using System.Collections;
 using System;
+using System.Net.Sockets;
 
 namespace Framework.Core
 {
@@ -18,7 +19,7 @@ namespace Framework.Core
 		}
 
 		//AAsyncConnector connector = new TcpConnector();
-		AAsyncNetworkClient connector = new GameTcpClient();
+		AAsyncNetworkClient connector = new TcpNetworkClient();
 
 		public void Initalize()
 		{
@@ -28,7 +29,7 @@ namespace Framework.Core
 		{
 			if (connector != null)
 			{
-				//connector.CloseSocket();
+				connector.Dispose();
 			}
 		}
 
@@ -41,21 +42,15 @@ namespace Framework.Core
 		}
 
 		public void SendNetworkMessage(byte[] data)
-		{/*
-			if (connector != null && connector.isConnect())
+		{
+			if (!connector.Closed)
 			{
-				int length = data.Length;
-				
-				byte[] lengthBit = System.BitConverter.GetBytes(length);
-				if (System.BitConverter.IsLittleEndian)
-				{
-					Array.Reverse(lengthBit);
-				}
-				byte[] newData = new byte[lengthBit.Length + length];
-				Array.Copy(lengthBit, newData, lengthBit.Length);
-				Array.Copy(data, 0, newData, lengthBit.Length, data.Length);
-				connector.SendMessage(newData);
-			}*/
+				connector.Send(data);
+			}
+		}
+
+		public void SendNetworkMessage(ArraySegment<byte> data)
+		{
 			if (!connector.Closed)
 			{
 				connector.Send(data);
@@ -91,17 +86,17 @@ namespace Framework.Core
 			}
 		}*/
 
-		public event Action OnConnected; /*
+		public event Action<SocketAsyncEventArgs> OnConnected
 		{
 			add
 			{
-				connector.ConnectCallback += value;
+				connector.onConnectCompleted += value;
 			}
 			remove
 			{
-				connector.ConnectCallback -= value;
+				connector.onConnectCompleted -= value;
 			}
-		}*/
+		}
 	}
 
 	public static class NetworkHelper
@@ -109,6 +104,18 @@ namespace Framework.Core
 		public static void Send(this byte[] data)
 		{
 			if (data == null)
+			{
+				Debug.LogWarning("ignore send null or zero length data uses networkHelper .");
+			}
+			else
+			{
+				NetworkManager.Instance.SendNetworkMessage(data);
+			}
+		}
+
+		public static void Send(this ArraySegment<byte> data)
+		{
+			if (data.Count == 0)
 			{
 				Debug.LogWarning("ignore send null or zero length data uses networkHelper .");
 			}

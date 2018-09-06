@@ -31,7 +31,9 @@ namespace Projects.ThirdPerson
 		}
 
 		Delay delayControl = new Delay(0.25f);
-
+		byte[] buffer = new byte[1024];
+		byte[] buffer_c = new byte[16] { 0x30, 0x31, 0x32, 0x33, 0x34, 0x35, 0x36, 0x37, 0x38, 0x39, 0x41, 0x42, 0x43, 0x44, 0x45, 0x46 };
+		int index = 0;
 		public override void onAwake()
 		{
 			delayControl.OnExit += () =>
@@ -44,8 +46,8 @@ namespace Projects.ThirdPerson
 					data.position = position.ToPV();
 					data.velocity = velocity.ToPV();
 					Request_Moving request = new Request_Moving();
-					request.movement = data;
-					request.Pack().Serialize().Send();
+					request.movement = data;												 
+					request.Pack().Serialize(new System.ArraySegment<byte>(buffer)).Send();
 					MovementComp.RefreshStateRecord();
 				}
 			};

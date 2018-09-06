@@ -200,7 +200,7 @@ public abstract class AAsyncConnector
 
 		if (sendDataQueue.Count > 0)
 		{
-			Send();
+			_Send();
 		}
 	}
 
@@ -227,7 +227,7 @@ public abstract class AAsyncConnector
 		sendDataQueue.Enqueue(req);
 	}
 
-	private void Send()
+	private void _Send()
 	{
 		if (socket == null)
 		{
@@ -779,7 +779,7 @@ public abstract class Request
 		//no need to implement as this is a request
 	}
 
-	public void Send()
+	public void _Send()
 	{
 		//SocketHelper.GetInstance().SendMessage(this);
 	}

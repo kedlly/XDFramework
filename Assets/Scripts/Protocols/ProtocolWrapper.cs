@@ -86,6 +86,20 @@ namespace Protocol
 			return msgBytes;
 		}
 
+		public static ArraySegment<byte> Serialize(this DataPackage data, ArraySegment<byte> segment)
+		{
+			ArraySegment<byte> result = default(ArraySegment<byte>);
+			if (data != null)
+			{
+				using (MemoryStream stream = new MemoryStream(segment.Array, segment.Offset, segment.Count))
+				{
+					ProtoBuf.Serializer.Serialize(stream, data);
+					result = new ArraySegment<byte>(segment.Array, segment.Offset, segment.Offset + (int)stream.Position);
+				}
+			}
+			return result;
+		}
+
 		public static DataPackage Deserialize(this byte[] data)
 		{
 			DataPackage dataPackage = null;
@@ -102,12 +116,9 @@ namespace Protocol
 		public static DataPackage Deserialize(this ArraySegment<byte> data)
 		{
 			DataPackage dataPackage = null;
-			if (data != null)
+			using (MemoryStream ms = new MemoryStream(data.Array, data.Offset, data.Count))
 			{
-				using (MemoryStream ms = new MemoryStream(data.Array, data.Offset, data.Count))
-				{
-					dataPackage = ProtoBuf.Serializer.Deserialize<DataPackage>(ms);
-				}
+				dataPackage = ProtoBuf.Serializer.Deserialize<DataPackage>(ms);
 			}
 			return dataPackage;
 		}

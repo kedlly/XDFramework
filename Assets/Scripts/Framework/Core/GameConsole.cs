@@ -269,7 +269,15 @@ namespace Framework.Core
 				{
 					GUILayout.Label(entry.Message + " || " + entry.StackTrace);
 				} else {
-					GUILayout.Label(entry.Message);
+					try
+					{
+						GUILayout.Label(entry.Message);
+					}
+					catch (System.Exception ex)
+					{
+						
+					}
+					
 				}
 			}
 			GUI.contentColor = Color.white;
@@ -302,7 +310,15 @@ namespace Framework.Core
 
 		void HandleLog (LogData logData)
 		{
-			entries.Add(logData);
+			if (logData == null)
+			{
+				Debug.Log("");
+			}
+			else
+			{
+				entries.Add(logData);
+			}
+			
 		}
 	}
 }

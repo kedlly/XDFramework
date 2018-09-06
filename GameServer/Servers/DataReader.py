@@ -68,20 +68,21 @@ class State_ReadData(object):
 		return self._remian
 	
 	def read(self, data):
-		lengthOfData = len(data)
-		if lengthOfData > self._exceptLength:
-			self._data += data[0:self._exceptLength]
-			self._remian = data[self._exceptLength:]
-			self._exceptLength = 0
-		else:
-			self._data += data[0:]
-			self._exceptLength -= lengthOfData
-			self._remian = ''
-		if len(self._remian) == 0:
-			self._remian = None
+		if self._exceptLength > 0:
+			lengthOfData = len(data)
+			if lengthOfData > self._exceptLength:
+				self._data += data[0:self._exceptLength]
+				self._remian = data[self._exceptLength:]
+				self._exceptLength = 0
+			else:
+				self._data += data[0:]
+				self._exceptLength -= lengthOfData
+				self._remian = b''
+			if len(self._remian) == 0:
+				self._remian = None
 	
 	def toNext(self):
-		return State_ReadLength() if self._remian is None else self
+		return State_ReadLength() if self._exceptLength == 0 else self
 	
 
 class DataReceivedFSM(object):
@@ -93,12 +94,25 @@ class DataReceivedFSM(object):
 	
 	def receiveData(self, data):
 		remain = data
+		
+		if type(self._state) != State_ReadLength:
+			pass
+			
 		while remain is not None:
+			# print type(self._state)
 			self._state.read(remain)
 			if self._callback is not None and self._state.data is not None:
 				self._callback(self._state.data)
+				print self._state.data
 			remain = self._state.remainData
 			self._state = self._state.toNext()
+		# print type(self._state)
+		# print "------------------"
+		# if type(self._state) != State_ReadLength:
+		# 	with open("d:\\1.txt", 'w') as f:
+		# 		f.write(data)
+		# 		f.flush()
+		# 	exit(1)
 	
 
 def toPackageHead(head):
