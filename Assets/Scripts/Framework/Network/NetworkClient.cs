@@ -210,6 +210,7 @@ namespace Framework.Network
 					senderCommandEvent.Reset();
 				}
 			}
+			UnityEngine.Debug.Log("Send Thread exit.");
 		}
 
 
