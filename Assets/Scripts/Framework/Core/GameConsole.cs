@@ -301,8 +301,23 @@ namespace Framework.Core
 				Event.current.Use();
 			}
 			GUI.SetNextControlName("CommandLine");
+			GUILayout.BeginHorizontal();
 			commandText = GUILayout.TextField(commandText);
-			
+#if UNITY_IOS || UNITY_ANDROID
+			if (commandText.IsNotNullAndEmpty())
+			{
+				if (GUILayout.Button("Send"))
+				{
+					if (OnCommand != null)
+					{
+						OnCommand(commandText);
+						commandText = "";
+					}
+				}
+			}
+#endif
+			GUILayout.EndHorizontal();
+
 			//GUI.FocusControl("CommandLine");
 			// Set the window to be draggable by the top title bar
 			GUI.DragWindow(new Rect(0, 0, 10000, 20));
