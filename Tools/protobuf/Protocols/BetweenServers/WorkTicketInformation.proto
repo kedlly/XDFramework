@@ -1,0 +1,54 @@
+syntax = "proto2";
+
+package Protocol.S2S;
+
+message WTI_Class_One
+{
+	required string WORK_WRITE_ID				= 1;	//厂站第一种工作票ID
+	required string WORK_WRITE_NO				= 2;	//工作票票号
+	required string WHETHER_EXTERIOR			= 3;	//是否外来单位
+	required string WORKBILL					= 4;	// 工单
+	required string TDSQD						= 5;	//停电申请单
+	required string DH_WRITE_NO					= 6;	//动火工作票票号
+	required string DH_WRITE_NAME				= 7;	//动火工作票名称
+	required string WORK_PRINCIPAL_NAME			= 8;	//工作负责人
+	required string PLAN_BEGIN_DATE				= 9;	//计划开始时间
+	required string DEPARTMENT_ID				= 10;	//单位和班组ID
+	required string DEPARTMENT_NAME				= 11;	//单位和班组
+	required string PLAN_END_TIME				= 12;	//计划结束时间
+	required string CZ_TYPE						= 13;	//厂站类型
+	required string CZ_TYPE_NO					= 14;	//厂站类型编号
+	required string CZ_ID						= 15;	//厂站ID
+	required string CZ_NAME						= 16;	//厂站名称
+	required string YWDW_ID						= 17;	//运行单位ID
+	required string YWDW_NAME					= 18;	//运行单位名称
+	required string WORK_PRINCIPAL_ID			= 19;	//工作负责人ID
+	required string WORK_PRINCIPAL_NAME 		= 20;	//工作负责人名称
+	required string WORK_MOBILE_PHONE			= 21;	//工作负责人电话
+	required string PLAN_START_TIME				= 22;	//计划开始时间
+	required string PLAN_END_TIME				= 23;	//计划结束时间
+	required string WORK_PERSONNEL				= 24;	//工作班人员
+	required string WORK_PERSONNEL_COUNT		= 25;	//工作班人员数量
+	required string WORK_TASK					= 26;	//工作任务
+	required string WORK_PLACE 					= 27;	//工作地点
+	required string ZDZZJHR_ID					= 28;	//指定专责监护人ID
+	required string ZDZZJHR_NAME				= 29;	//指定专责监护人姓名
+	required string YLDLQ						= 30;	//应拉断路器
+	required string YLGLKG						= 31;	//应拉隔离开关（刀闸）
+	required string YTQXGZLDY_DY_ECHL			= 32;	//应投切相关直流电源、低压及二次回路
+	required string YHJDDZ_ZSJDX_YSJYDB			= 33;	//应合接地刀闸、装设接地线、应设绝缘挡板
+	required string YSZD_YGBSP					= 34;	//应设遮栏、应挂标示牌
+	required string QTAQCS_ZYSX					= 35;	//其他安全措施和注意事项
+	required string IS_XLDCJD					= 36;	//是否要求线路对侧接地
+	required string IS_COMMUNICATION 			= 37;	//是否通信票
+	required string ECCSD_NUM					= 38;	//二次措施单数量
+	required string UNDERWRITE					= 39;	//工作票签发人
+	required string SIGN_TIME					= 40;	//签发时间
+	required string UNDERWRITE_NAME				= 41;	//工作票签发人名称
+	required string UNDERWRITE_SIGNATURE 		= 42;	//工作票会签人*
+	required string CHECK_TIME					= 43;	//会签时间
+	required string UNDERWRITE_SIGNATURE_NAME	= 44;	//工作票会签人名称*
+	required string WORK_PRIME_ID				= 45;	//值班负责人ID
+	required string WORK_PRIME_NAME				= 46;	//值班负责人姓名
+
+}
