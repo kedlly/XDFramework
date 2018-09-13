@@ -16,7 +16,7 @@ namespace Framework.Library.Configure
 
 		[DllImport("kernel32", CharSet = CharSet.Unicode)]
 		static extern int GetPrivateProfileString(string Section, string Key, string Default, StringBuilder RetVal, int Size, string FilePath);
-#elif UNITY_STANDALONE_OSX
+#elif UNITY_STANDALONE_OSX || UNITY_IOS || UNITY_ANDROID
 		static long WritePrivateProfileString(string Section, string Key, string Value, string FilePath)
 		{
 			return 0;

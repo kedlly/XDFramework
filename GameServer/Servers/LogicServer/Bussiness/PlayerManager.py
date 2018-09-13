@@ -1,6 +1,6 @@
 #coding:utf8
 
-from Singleton import Singleton
+from Core.Singleton import Singleton
 
 
 class PyVector3(object):

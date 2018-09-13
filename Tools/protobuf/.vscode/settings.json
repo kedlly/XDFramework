@@ -7,5 +7,7 @@
             "--python_out=."
         ]
     },
-    "python.pythonPath": "C:\\Program Files\\Python27\\python.exe"
+    "python.pythonPath": "C:\\Program Files\\Python27\\python.exe",
+    "csproj.enabled": false,
+    "csproj.excludeRegex": "*.proto"
 }
