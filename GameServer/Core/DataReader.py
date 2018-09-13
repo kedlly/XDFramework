@@ -103,7 +103,7 @@ class DataReceivedFSM(object):
 			self._state.read(remain)
 			if self._callback is not None and self._state.data is not None:
 				self._callback(self._state.data)
-				print self._state.data
+				#print self._state.data
 			remain = self._state.remainData
 			self._state = self._state.toNext()
 		# print type(self._state)
@@ -119,7 +119,7 @@ def toPackageHead(head):
 	import binascii
 	import struct
 	print str(binascii.b2a_hex(head))
-	print map(ord, head);
+	print map(ord, head)
 	u = struct.unpack('<i', head)
 	print u
 	return u[0];

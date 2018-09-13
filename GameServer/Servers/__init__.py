@@ -20,5 +20,3 @@ def _getInstallFunction():
 
 install = _getInstallFunction()
 install()
-
-__all__ = ['LogicServer']

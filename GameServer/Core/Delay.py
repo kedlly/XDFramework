@@ -1,4 +1,4 @@
-from Singleton import Singleton
+from Core.Singleton import Singleton
 
 class Delay(object):
 	__metaclass__ = Singleton

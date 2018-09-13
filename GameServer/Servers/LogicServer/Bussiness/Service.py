@@ -1,6 +1,6 @@
 #coding:utf8
 
-from Singleton import Singleton
+from Core.Singleton import Singleton
 from PlayerManager import Player, PlayerManager
 
 class Link(object):
@@ -54,7 +54,7 @@ class Service(object):
 			self.__linkpool.remove(link)
 			if link.player is not None:
 				PlayerManager().remove(link.player)
-				from Messages.MessageProcess import MessageProcessor
+				from Servers.LogicServer.Bussiness.MessageProcess import MessageProcessor
 				MessageProcessor().onLogout(link, None)
 			if link.transport.connected:
 				link.transport.abortConnection()
