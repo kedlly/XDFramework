@@ -131,41 +131,6 @@ namespace Protocol.RawData
     }
 
     [global::ProtoBuf.ProtoContract()]
-    public partial class Date : global::ProtoBuf.IExtensible
-    {
-        private global::ProtoBuf.IExtension __pbn__extensionData;
-        global::ProtoBuf.IExtension global::ProtoBuf.IExtensible.GetExtensionObject(bool createIfMissing)
-        {
-            return global::ProtoBuf.Extensible.GetExtensionObject(ref __pbn__extensionData, createIfMissing);
-        }
-        public Date()
-        {
-            OnConstructor();
-        }
-
-        partial void OnConstructor();
-
-        [global::ProtoBuf.ProtoMember(1, IsRequired = true)]
-        public int year { get; set; }
-
-        [global::ProtoBuf.ProtoMember(2, IsRequired = true)]
-        public int month { get; set; }
-
-        [global::ProtoBuf.ProtoMember(3, IsRequired = true)]
-        public int day { get; set; }
-
-        [global::ProtoBuf.ProtoMember(4, IsRequired = true)]
-        public int hour { get; set; }
-
-        [global::ProtoBuf.ProtoMember(5, IsRequired = true)]
-        public int minute { get; set; }
-
-        [global::ProtoBuf.ProtoMember(6, IsRequired = true)]
-        public int second { get; set; }
-
-    }
-
-    [global::ProtoBuf.ProtoContract()]
     public enum PlayerType
     {
         EPT_HUMAN = 0,

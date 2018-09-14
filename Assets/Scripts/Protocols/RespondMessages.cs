@@ -139,6 +139,26 @@ namespace Protocol.Respond
 
     }
 
+    [global::ProtoBuf.ProtoContract()]
+    public partial class Respond_WorkSheet : global::ProtoBuf.IExtensible
+    {
+        private global::ProtoBuf.IExtension __pbn__extensionData;
+        global::ProtoBuf.IExtension global::ProtoBuf.IExtensible.GetExtensionObject(bool createIfMissing)
+        {
+            return global::ProtoBuf.Extensible.GetExtensionObject(ref __pbn__extensionData, createIfMissing);
+        }
+        public Respond_WorkSheet()
+        {
+            OnConstructor();
+        }
+
+        partial void OnConstructor();
+
+        [global::ProtoBuf.ProtoMember(1, IsRequired = true)]
+        public global::Protocol.DB.Table.WTI_Class_One data { get; set; }
+
+    }
+
 }
 
 #pragma warning restore 1591, 0612, 3021
