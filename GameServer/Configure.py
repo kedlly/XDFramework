@@ -3,9 +3,6 @@
 from ConfigParser import ConfigParser, NoOptionError
 
 
-
-
-
 def __getConfigure(filepath, propertyDict):
 	config = ConfigParser()
 	config.read(filepath)
@@ -26,18 +23,17 @@ def __loadDatabaseCfg(file):
 	return db_type, options[db_type]
 
 def __getOracleDataSource(cfg_data):
-	'oracle://username:password@192.168.1.6:1521/databasename'
 	if cfg_data['NLS_LANG'] is not None:
 		import os
 		os.environ['NLS_LANG'] = cfg_data['NLS_LANG']
-	return "oracle://%s:%s@%s:%s/%s" % (cfg_data["user"], cfg_data["password"], cfg_data["ipAddr"], cfg_data["port"], cfg_data["sid"])
+	return "oracle://%s:%s@%s:%s/%s" % (cfg_data["user"], cfg_data["password"], cfg_data["host"], cfg_data["port"], cfg_data["sid"])
 
 
 __DB_CONFIGURES__ = \
 {
 #section__keys = ("A", "B", ...)
 	"Database": ("type",),
-	"Oracle": ("ipAddr", "port", "sid", "user", "password", "NLS_LANG")
+	"Oracle": ("host", "port", "sid", "user", "password", "NLS_LANG")
 }
 
 __CFG_PROCESSOR__ = \

@@ -1,10 +1,7 @@
 #coding:utf8
 
 from sqlalchemy import Column, Integer, String, create_engine, Date, Boolean
-from sqlalchemy.orm import sessionmaker
 from sqlalchemy.ext.declarative import declarative_base
-
-from Configure import DATA_SOURCE_NAME
 
 Base = declarative_base()
 
@@ -180,5 +177,95 @@ class WorkTicket_Class_Three(Base):
 	REMAKE						=	Column('REMAKE',					String(50))							 # 备注
 
 
-engine = create_engine(DATA_SOURCE_NAME, echo=True)
-Database = sessionmaker(bind=engine)
+class MachineAccount_BaseInfo(Base):
+	
+	'''台帐基本信息'''
+	
+	__tablename__ = "DEV_TZ_BASEINFO"
+	
+	ID							= Column('ID',							String(50), primary_key=True)		# 设备ID
+	DEVICE_NAME					= Column('DEVICE_NAME',					String(50))							# 设备名称
+	BASE_VOLTAGE				= Column('BASE_VOLTAGE',				String(50))							# 电压等级
+	FACTORY						= Column('FACTORY',						String(256)) 						# 生产厂家
+	DEV_TYPE					= Column('DEV_TYPE',					String(256))						# 设备型号
+	PLANT_TRANSFER_DATE			= Column('PLANT_TRANSFER_DATE',			String(50))							# 投运日期
+	LEAVE_FACTORY_DATE			= Column('LEAVE_FACTORY_DATE',			String(50))							# 出厂年月
+	IS_CAPITAL_ASSETS			= Column('IS_CAPITAL_ASSETS',			String(8))							# 是否资产级设备
+	STATE						= Column('STATE',						String(50))							# 设备当前状态
+	PROPRIETOR_COMPANY			= Column('PROPRIETOR_COMPANY',			String(256))						# 产权单位
+	CLASSIFY_FULL_PATH			= Column('CLASSIFY_FULL_PATH',			String(50))							# 设备分类全路径
+	DEV_DEPART					= Column('DEV_DEPART',					String(50))							# 设备运维部门
+	FACTORYNO					= Column('FACTORYNO',					String(50))							# 出厂编号
+	VINDICATE					= Column('VINDICATE',					String(50))							# 运维(保管)班组
+	DEV_CODE					= Column('DEV_CODE',					String(50))							# 设备身份编码
+
+class MachineAccount_Breaker_TechnicalParameter(Base):
+	
+	'''断路器技术参数'''
+	
+	__tablename__ = "DEV_TZ_PARAM_BREAKER"
+	
+	ID							= Column('ID',							String(50), primary_key=True)		# 设备ID
+	RATED_CURRENT				= Column('RATED_CURRENT',				String(50))							# 额定电流(A)
+	RATED_VOLTAGE				= Column('RATED_VOLTAGE',				String(50))							# 额定电压(kV)
+	RATED_CURRENT_DK			= Column('RATED_CURRENT_DK',			String(50)) 						# 额定断开短路电流(kA)
+	RATED_ST_WITHSTAND_CURRENT	= Column('RATED_ST_WITHSTAND_CURRENT',	String(50))							# 额定短时耐受电流(kA)
+	THERMAL_ARREST_TIME			= Column('THERMAL_ARREST_TIME',			String(50))							# 热稳定时间(s)
+	TYPE_STYLE					= Column('TYPE_STYLE',					String(50))							# 类型
+	FRACTURE_NUMBER				= Column('FRACTURE_NUMBER',				String(50))							# 断口数量
+	STABILITY_CURRENT_RATED		= Column('STABILITY_CURRENT_RATED',		String(50))							# 额定峰值耐受电流(kA)
+	YX_OPERACOUNT				= Column('YX_OPERACOUNT',				String(50))							# 允许机械操作次数(机械寿命)(次)
+	YX_DKCOUNT					= Column('YX_DKCOUNT',					String(50))							# 允许额定短路电流开断次数(电寿命)(次)
+
+
+class MachineAccount_Operation(Base):
+	
+	'''设备运维信息表'''
+	
+	__tablename__ = "DEV_TZ_OPERATION"
+	
+	ID							= Column('ID',							String(50), primary_key=True)		# 设备ID
+	PLAN_NO						= Column('PLAN_NO',						String(16))							# 计划编号
+	PLAN_TYPE					= Column('PLAN_TYPE',					String(50))							# 计划类型
+	PLAN_STATE					= Column('PLAN_STATE',					String(50)) 						# 计划状态
+	WORK_TYPE					= Column('WORK_TYPE',					String(128))						# 工作类型
+	WORK_CONTENT				= Column('WORK_CONTENT',				String(256))						# 工作内容
+	PLAN_BEGINTIME				= Column('PLAN_BEGINTIME',				String(256))						# 计划开始时间
+	PLAN_ENDTIME				= Column('PLAN_ENDTIME',				String(256))						# 计划结束时间
+	WORK_TEAM					= Column('WORK_TEAM',					String(256))						# 工作班组
+	WORKING						= Column('WORKING',						String(50))							# 工作方式
+	WORK_MASTER					= Column('WORK_MASTER',					String(50))							# 负责人
+	REAL_BEGIN_DATE				= Column('REAL_BEGIN_DATE',				String(50))							# 实际开始时间
+	REAL_END_DATE				= Column('REAL_END_DATE',				String(50))							# 实际结束时间
+	PLAN_SOURCE_TYPE			= Column('PLAN_SOURCE_TYPE',			String(50))							# 计划来源
+
+class MachineAccount_Defect(Base):
+	
+	'''设备缺陷记录表'''
+	
+	__tablename__ = "DEV_TZ_DEFECT"
+	
+	ID							= Column('ID',							String(50), primary_key=True)		# 设备ID
+	DEFECT_NO					= Column('DEFECT_NO',					String(50))							# 缺陷编号
+	DEFECT_SOURCE				= Column('DEFECT_SOURCE',				String(256))						# 缺陷来源
+	DEFECT_LEVEL				= Column('DEFECT_LEVEL',				String(50)) 						# 缺陷等级
+	DEFECT_PHENOMENON			= Column('DEFECT_PHENOMENON',			String(128))						# 缺陷表象
+	DEFECT_POSITION				= Column('DEFECT_POSITION',				String(256))						# 缺陷部位
+	DEFECT_TYPE					= Column('DEFECT_TYPE',					String(256))						# 缺陷类型
+	DEFECT_REASON				= Column('DEFECT_REASON',				String(50))							# 缺陷原因
+	STATE						= Column('STATE',						String(256))						# 缺陷状态
+	FIND_TIME					= Column('FIND_TIME',					String(50))							# 发现时间
+	DEAL_TIME					= Column('DEAL_TIME',					String(50))							# 消缺时间
+
+
+class MachineAccount_Performance(Base):
+	
+	'''设备绩效评价表 '''
+	
+	__tablename__ = "DEV_TZ_PERFORMANCE"
+	
+	ID							= Column('ID',							String(50), primary_key=True)		# 设备编号
+	DETAIL_TIME					= Column('DETAIL_TIME',					String(50))							# 评价日期
+	HEALTH_VALUE				= Column('HEALTH_VALUE',				String(50))							# 设备健康度
+	WEIGTHING					= Column('WEIGTHING',					String(50)) 						# 设备重要度
+	MAINTENANCE_LEVEL			= Column('MAINTENANCE_LEVEL',			String(50))							# 设备运维级别

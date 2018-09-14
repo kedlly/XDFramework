@@ -6,7 +6,7 @@ from twisted.internet import task
 from Servers.Core.NetworkTransport import CommunicationProtocol, ServerFactory
 
 
-class PMSProxyProtocal(CommunicationProtocol):
+class PMSProxyProtocol(CommunicationProtocol):
 	
 	def _onConnectionLost(self, reason):
 		pass
@@ -19,6 +19,8 @@ class PMSProxyProtocal(CommunicationProtocol):
 
 
 class PMSProxyFactory(ServerFactory):
+	
+	protocol = PMSProxyProtocol
 	
 	def __init__(self):
 		ServerFactory.__init__(self, None)
