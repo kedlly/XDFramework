@@ -16,6 +16,7 @@ rem call :complieRawDataFiles
 call :complieFiles . %FILES%
 call :complieFiles RawData %RawDataFiles%
 
+pause
 goto :eof
 
 :complieFiles 

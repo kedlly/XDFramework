@@ -4,6 +4,7 @@ syntax = "proto2";
 package Protocol.Respond;
 
 import "RawData/InternalData.proto";
+import "RawData/WorkTicketInformation.proto";
 
 message Respond_LoginAuth {
 	required string token = 1;
@@ -34,5 +35,6 @@ message Respond_Rotated {
 	repeated Protocol.RawData.RespRotated rotations = 1;
 }
 
-
-
+message Respond_WorkSheet {
+	required Protocol.DB.Table.WTI_Class_One data = 1;
+}

@@ -1,8 +1,17 @@
 syntax = "proto2";
 
-import "InternalData.proto";
-
 package Protocol.DB.Table;
+
+message Date
+{
+	required int32 year = 1;
+	required int32 month = 2;
+	required int32 day = 3;
+	required int32 hour = 4;
+	required int32 minute = 5;
+	required int32 second = 6;
+}
+
 
 message WTI_Class_One
 {
@@ -72,8 +81,8 @@ message WTI_Class_Two
 	required	string	WORK_MASTER_UID					= 13;	//工作负责人ID
 	required	string	WORK_MASTER_UNAME				= 14;	//工作负责人姓名
 	required	string	WORK_MASTER_UPHONE				= 15;	//负责人电话
-	required	Protocol.RawData.Date	PLAN_BEGIN_DATE					= 16;	//计划开始时间
-	required	Protocol.RawData.Date	PLAN_END_TIME					= 17;	//计划结束时间
+	required	Date	PLAN_BEGIN_DATE					= 16;	//计划开始时间
+	required	Date	PLAN_END_TIME					= 17;	//计划结束时间
 	required	string	WORK_MEMBER						= 18;	//工作班人员
 	required	string	WORK_TASK						= 19;	//工作任务
 	required	string	WORK_PLACE						= 20;	//工作地点
@@ -86,20 +95,20 @@ message WTI_Class_Two
 	required	string	SECONDBILL_COUNT				= 27;	//二次措施单数量
 	required	string	TICKET_SIGN_UID					= 28;	//工作票签发人ID
 	required	string	TICKET_SIGN_UNAME				= 29;	//工作票签发人
-	required	Protocol.RawData.Date	TICKET_CREAT_TIME				= 30;	//签发时间
+	required	Date	TICKET_CREAT_TIME				= 30;	//签发时间
 	required	string	WATCH_UID						= 31;	//值班负责人ID
 	required	string	WATCH_UNAME						= 32;	//值班负责人
-	required	Protocol.RawData.Date	RECEIVE_TIME					= 33;	//收到工作票的时间
+	required	Date	RECEIVE_TIME					= 33;	//收到工作票的时间
 	required	bool	WHETHER_MEET_SAFTY				= 34;	//是否满足工作要求的安全措施
 	required	string	SUPPLEMENT_SAFTY				= 35;	//需补充或调整的安全措施
 	required	string	ELE_GENERATRIX_WIRE				= 36;	//带电的母线、导线 
 	required	string	ELE_SWITCH						= 37;	//带电的隔离开关
 	required	string	ELE_PART						= 38;	//其他保留的带电部位
 	required	string	PERMISSION_OTHER_CARE			= 39;	//其他安全注意事项 
-	required	Protocol.RawData.Date	PERMISSION_TIME					= 40;	//现场满足工作要求时间
+	required	Date	PERMISSION_TIME					= 40;	//现场满足工作要求时间
 	required	string	WORK_PERMISSION_UID				= 41;	//工作许可人ID
 	required	string	WORK_PERMISSION_UNME			= 42;	//工作许可人
-	required	Protocol.RawData.Date	WORK_END_TIME					= 43;	//工作结束时间
+	required	Date	WORK_END_TIME					= 43;	//工作结束时间
 	required	string	CHANGE_SIGN_UID					= 44;	//工作票签发人ID
 	required	string	CHANGE_SIGN_UNAME				= 45;	//工作票签发人
 	required	string	CHANGE_PRINCIPAL_UID			= 46;	//原工作负责人ID
@@ -108,12 +117,12 @@ message WTI_Class_Two
 	required	string	CHANGE_NEW_PRINCIPAL_UNAME		= 49;	//现工作负责人
 	required	string	ADD_CONTENT_PERMISSION_UID		= 50;	//工作许可人ID
 	required	string	ADD_CONTENT_PERMISSION_UNAME	= 51;	//工作许可人
-	required	Protocol.RawData.Date	CHANGE_TIME						= 52;	//同意变更时间
-	required	Protocol.RawData.Date	DELAY_TIME						= 53;	//有效期延长到
-	required	Protocol.RawData.Date	WRITE_TIME						= 54;	//填写时间
+	required	Date	CHANGE_TIME						= 52;	//同意变更时间
+	required	Date	DELAY_TIME						= 53;	//有效期延长到
+	required	Date	WRITE_TIME						= 54;	//填写时间
 	required	string	ADD_CONTENT_DETAIL				= 55;	//增加的工作内容
 	required	string	ADD_CONTENT_DETAIL_TIME			= 56;	//增加的工作内容时间
-	required	Protocol.RawData.Date	SAFE_GIVE_TIME					= 57;	//安全交代时间
+	required	Date	SAFE_GIVE_TIME					= 57;	//安全交代时间
 	required	string	WHETHER_QUALIFIED				= 58;	//是否合格
 	required	string	REMAKE							= 59;	//备注
 
@@ -136,25 +145,25 @@ message WTI_Class_Three
 	required	string	WORK_MASTER_UID					= 12;	//工作负责人ID			
 	required	string	WORK_MASTER_UNAME				= 13;	//工作负责人姓名			
 	required	string	WORK_MASTER_UPHONE				= 14;	//负责人电话			
-	required	Protocol.RawData.Date	PLAN_BEGIN_DATE					= 15;	//计划开始时间			
-	required	Protocol.RawData.Date	PLAN_END_TIME					= 16;	//计划结束时间			
+	required	Date	PLAN_BEGIN_DATE					= 15;	//计划开始时间			
+	required	Date	PLAN_END_TIME					= 16;	//计划结束时间			
 	required	string	WORK_MEMBER						= 17;	//工作班人员			
 	required	string	WORK_TASK						= 18;	//工作任务				
 	required	string	WORK_PLACE						= 19;	//工作地点				
 	required	string	SAFTY_AND_CARE					= 20;	//工作要求的安全措施 		
 	required	string	WATCH_UID						= 21;	//值班负责人ID			
 	required	string	WATCH_UNAME						= 22;	//值班负责人			
-	required	Protocol.RawData.Date	RECEIVE_TIME					= 23;	//收到工作票的时间		
+	required	Date	RECEIVE_TIME					= 23;	//收到工作票的时间		
 	required	bool	WHETHER_MEET_SAFTY				= 24;	//是否满足工作要求的安全措施
 	required	string	SUPPLEMENT_SAFTY				= 25;	//需补充或调整的安全措施	
 	required	string	ELE_GENERATRIX_WIRE				= 26;	//带电的母线、导线 		
 	required	string	ELE_SWITCH						= 27;	//带电的隔离开关			
 	required	string	ELE_PART						= 28;	//其他保留的带电部位		
 	required	string	PERMISSION_OTHER_CARE			= 29;	//其他安全注意事项 		
-	required	Protocol.RawData.Date	PERMISSION_TIME					= 30;	//现场满足工作要求时间	
+	required	Date	PERMISSION_TIME					= 30;	//现场满足工作要求时间	
 	required	string	WORK_PERMISSION_UID				= 31;	//工作许可人ID			
 	required	string	WORK_PERMISSION_UNME			= 32;	//工作许可人			
-	required	Protocol.RawData.Date	WORK_END_TIME					= 33;	//工作结束时间			
+	required	Date	WORK_END_TIME					= 33;	//工作结束时间			
 	required	string	CHANGE_SIGN_UID					= 34;	//工作票签发人ID			
 	required	string	CHANGE_SIGN_UNAME				= 35;	//工作票签发人			
 	required	string	CHANGE_PRINCIPAL_UID			= 36;	//原工作负责人ID			
@@ -163,12 +172,12 @@ message WTI_Class_Three
 	required	string	CHANGE_NEW_PRINCIPAL_UNAME		= 39;	//现工作负责人			
 	required	string	ADD_CONTENT_PERMISSION_UID		= 40;	//工作许可人ID			
 	required	string	ADD_CONTENT_PERMISSION_UNAME	= 41;	//工作许可人			
-	required	Protocol.RawData.Date	CHANGE_TIME						= 42;	//同意变更时间			
-	required	Protocol.RawData.Date	DELAY_TIME						= 43;	//有效期延长到			
-	required	Protocol.RawData.Date	WRITE_TIME						= 44;	//填写时间				
+	required	Date	CHANGE_TIME						= 42;	//同意变更时间			
+	required	Date	DELAY_TIME						= 43;	//有效期延长到			
+	required	Date	WRITE_TIME						= 44;	//填写时间				
 	required	string	ADD_CONTENT_DETAIL				= 45;	//增加的工作内容			
-	required	Protocol.RawData.Date	ADD_CONTENT_DETAIL_TIME			= 46;	//增加的工作内容时间		
-	required	Protocol.RawData.Date	SAFE_GIVE_TIME					= 47;	//安全交代时间			
+	required	Date	ADD_CONTENT_DETAIL_TIME			= 46;	//增加的工作内容时间		
+	required	Date	SAFE_GIVE_TIME					= 47;	//安全交代时间			
 	required	bool	WHETHER_QUALIFIED				= 48;	//是否合格				
 	required	string	REMAKE							= 49;	//备注					
 
@@ -176,4 +185,6 @@ message WTI_Class_Three
 
 
 }
+
+
 
