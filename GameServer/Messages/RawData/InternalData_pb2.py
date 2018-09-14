@@ -20,7 +20,7 @@ DESCRIPTOR = _descriptor.FileDescriptor(
   package='Protocol.RawData',
   syntax='proto2',
   serialized_options=None,
-  serialized_pb=_b('\n\x12InternalData.proto\x12\x10Protocol.RawData\"*\n\x07Vector3\x12\t\n\x01x\x18\x01 \x02(\x02\x12\t\n\x01y\x18\x02 \x02(\x02\x12\t\n\x01z\x18\x03 \x02(\x02\"\x8b\x01\n\nPlayerInfo\x12\x0b\n\x03pid\x18\x01 \x02(\x05\x12\x0c\n\x04name\x18\x02 \x02(\t\x12\x30\n\nplayerType\x18\x03 \x02(\x0e\x32\x1c.Protocol.RawData.PlayerType\x12\x30\n\x08movement\x18\x04 \x01(\x0b\x32\x1e.Protocol.RawData.MovementData\"h\n\x0cMovementData\x12+\n\x08position\x18\x01 \x01(\x0b\x32\x19.Protocol.RawData.Vector3\x12+\n\x08velocity\x18\x02 \x01(\x0b\x32\x19.Protocol.RawData.Vector3\"M\n\x0cRespMovement\x12\x0b\n\x03pid\x18\x01 \x02(\x05\x12\x30\n\x08movement\x18\x02 \x02(\x0b\x32\x1e.Protocol.RawData.MovementData\"H\n\x0bRespRotated\x12\x0b\n\x03pid\x18\x01 \x02(\x05\x12,\n\tdirection\x18\x02 \x02(\x0b\x32\x19.Protocol.RawData.Vector3*7\n\nPlayerType\x12\r\n\tEPT_HUMAN\x10\x00\x12\r\n\tEPT_ROBOT\x10\x01\x12\x0b\n\x07\x45PT_UAV\x10\x02')
+  serialized_pb=_b('\n\x12InternalData.proto\x12\x10Protocol.RawData\"*\n\x07Vector3\x12\t\n\x01x\x18\x01 \x02(\x02\x12\t\n\x01y\x18\x02 \x02(\x02\x12\t\n\x01z\x18\x03 \x02(\x02\"\x8b\x01\n\nPlayerInfo\x12\x0b\n\x03pid\x18\x01 \x02(\x05\x12\x0c\n\x04name\x18\x02 \x02(\t\x12\x30\n\nplayerType\x18\x03 \x02(\x0e\x32\x1c.Protocol.RawData.PlayerType\x12\x30\n\x08movement\x18\x04 \x01(\x0b\x32\x1e.Protocol.RawData.MovementData\"h\n\x0cMovementData\x12+\n\x08position\x18\x01 \x01(\x0b\x32\x19.Protocol.RawData.Vector3\x12+\n\x08velocity\x18\x02 \x01(\x0b\x32\x19.Protocol.RawData.Vector3\"M\n\x0cRespMovement\x12\x0b\n\x03pid\x18\x01 \x02(\x05\x12\x30\n\x08movement\x18\x02 \x02(\x0b\x32\x1e.Protocol.RawData.MovementData\"H\n\x0bRespRotated\x12\x0b\n\x03pid\x18\x01 \x02(\x05\x12,\n\tdirection\x18\x02 \x02(\x0b\x32\x19.Protocol.RawData.Vector3\"^\n\x04\x44\x61te\x12\x0c\n\x04year\x18\x01 \x02(\x05\x12\r\n\x05month\x18\x02 \x02(\x05\x12\x0b\n\x03\x64\x61y\x18\x03 \x02(\x05\x12\x0c\n\x04hour\x18\x04 \x02(\x05\x12\x0e\n\x06minute\x18\x05 \x02(\x05\x12\x0e\n\x06second\x18\x06 \x02(\x05*7\n\nPlayerType\x12\r\n\tEPT_HUMAN\x10\x00\x12\r\n\tEPT_ROBOT\x10\x01\x12\x0b\n\x07\x45PT_UAV\x10\x02')
 )
 
 _PLAYERTYPE = _descriptor.EnumDescriptor(
@@ -44,8 +44,8 @@ _PLAYERTYPE = _descriptor.EnumDescriptor(
   ],
   containing_type=None,
   serialized_options=None,
-  serialized_start=485,
-  serialized_end=540,
+  serialized_start=581,
+  serialized_end=636,
 )
 _sym_db.RegisterEnumDescriptor(_PLAYERTYPE)
 
@@ -266,6 +266,72 @@ _RESPROTATED = _descriptor.Descriptor(
   serialized_end=483,
 )
 
+
+_DATE = _descriptor.Descriptor(
+  name='Date',
+  full_name='Protocol.RawData.Date',
+  filename=None,
+  file=DESCRIPTOR,
+  containing_type=None,
+  fields=[
+    _descriptor.FieldDescriptor(
+      name='year', full_name='Protocol.RawData.Date.year', index=0,
+      number=1, type=5, cpp_type=1, label=2,
+      has_default_value=False, default_value=0,
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      serialized_options=None, file=DESCRIPTOR),
+    _descriptor.FieldDescriptor(
+      name='month', full_name='Protocol.RawData.Date.month', index=1,
+      number=2, type=5, cpp_type=1, label=2,
+      has_default_value=False, default_value=0,
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      serialized_options=None, file=DESCRIPTOR),
+    _descriptor.FieldDescriptor(
+      name='day', full_name='Protocol.RawData.Date.day', index=2,
+      number=3, type=5, cpp_type=1, label=2,
+      has_default_value=False, default_value=0,
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      serialized_options=None, file=DESCRIPTOR),
+    _descriptor.FieldDescriptor(
+      name='hour', full_name='Protocol.RawData.Date.hour', index=3,
+      number=4, type=5, cpp_type=1, label=2,
+      has_default_value=False, default_value=0,
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      serialized_options=None, file=DESCRIPTOR),
+    _descriptor.FieldDescriptor(
+      name='minute', full_name='Protocol.RawData.Date.minute', index=4,
+      number=5, type=5, cpp_type=1, label=2,
+      has_default_value=False, default_value=0,
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      serialized_options=None, file=DESCRIPTOR),
+    _descriptor.FieldDescriptor(
+      name='second', full_name='Protocol.RawData.Date.second', index=5,
+      number=6, type=5, cpp_type=1, label=2,
+      has_default_value=False, default_value=0,
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      serialized_options=None, file=DESCRIPTOR),
+  ],
+  extensions=[
+  ],
+  nested_types=[],
+  enum_types=[
+  ],
+  serialized_options=None,
+  is_extendable=False,
+  syntax='proto2',
+  extension_ranges=[],
+  oneofs=[
+  ],
+  serialized_start=485,
+  serialized_end=579,
+)
+
 _PLAYERINFO.fields_by_name['playerType'].enum_type = _PLAYERTYPE
 _PLAYERINFO.fields_by_name['movement'].message_type = _MOVEMENTDATA
 _MOVEMENTDATA.fields_by_name['position'].message_type = _VECTOR3
@@ -277,6 +343,7 @@ DESCRIPTOR.message_types_by_name['PlayerInfo'] = _PLAYERINFO
 DESCRIPTOR.message_types_by_name['MovementData'] = _MOVEMENTDATA
 DESCRIPTOR.message_types_by_name['RespMovement'] = _RESPMOVEMENT
 DESCRIPTOR.message_types_by_name['RespRotated'] = _RESPROTATED
+DESCRIPTOR.message_types_by_name['Date'] = _DATE
 DESCRIPTOR.enum_types_by_name['PlayerType'] = _PLAYERTYPE
 _sym_db.RegisterFileDescriptor(DESCRIPTOR)
 
@@ -314,6 +381,13 @@ RespRotated = _reflection.GeneratedProtocolMessageType('RespRotated', (_message.
   # @@protoc_insertion_point(class_scope:Protocol.RawData.RespRotated)
   ))
 _sym_db.RegisterMessage(RespRotated)
+
+Date = _reflection.GeneratedProtocolMessageType('Date', (_message.Message,), dict(
+  DESCRIPTOR = _DATE,
+  __module__ = 'InternalData_pb2'
+  # @@protoc_insertion_point(class_scope:Protocol.RawData.Date)
+  ))
+_sym_db.RegisterMessage(Date)
 
 
 # @@protoc_insertion_point(module_scope)
