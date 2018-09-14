@@ -2,11 +2,11 @@
 @echo off
 
 set BAT_DIR=%~dp0
-set DIR=%BAT_DIR%..\Protocals
-set CS_OUT=%BAT_DIR%..\..\..\Assets\Scripts\Protocals
+set DIR=%BAT_DIR%..\Protocols
+set CS_OUT=%BAT_DIR%..\..\..\Assets\Scripts\Protocols
 set PY_OUT=%BAT_DIR%..\..\..\GameServer\Messages
 set Files=Message.proto RequestMessages.proto RespondMessages.proto
-set RawDataFiles=InternalData.proto
+set RawDataFiles=InternalData.proto WorkTicketInformation.proto
 
 rem .\Windows\protogen -I..\Protocals\ +langver=4.0 +names=original --csharp_out=..\..\..\Assets\Scripts\Protocals\ %Files%
 
@@ -27,7 +27,7 @@ goto :eof
         ) else (
             rem rem generate cs code
                                                                                                                         @echo on
-            %BAT_DIR%\Windows\protogen -I%DIR% +langver=4.0 +names=original --csharp_out=%CS_OUT% %subDir%\%1
+            %BAT_DIR%\Windows\protogen -I%DIR%\%subDir% +langver=4.0 +names=original --csharp_out=%CS_OUT% %subDir%\%1
                                                                                                                         @echo off
             rem generate python code
             if not exist %PY_OUT%\%subDir% (
@@ -35,6 +35,7 @@ goto :eof
                 echo '''Module File''' > %PY_OUT%\RawData\__init__.py
              )
                                                                                                                         @echo on
+            rem echo ***  protoc.exe -I%DIR%\%subDir% --python_out=%PY_OUT%\%subDir% %1
             protoc.exe -I%DIR%\%subDir% --python_out=%PY_OUT%\%subDir% %1
             if %ERRORLEVEL% == 0 (
                 echo compile %DIR%\%subDir%\%1 succeed when generating python code

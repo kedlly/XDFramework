@@ -44,3 +44,13 @@ message RespRotated
 }
 
 
+message Date
+{
+	required int32 year = 1;
+	required int32 month = 2;
+	required int32 day = 3;
+	required int32 hour = 4;
+	required int32 minute = 5;
+	required int32 second = 6;
+}
+
