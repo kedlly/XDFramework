@@ -27,7 +27,7 @@ goto :eof
         ) else (
             rem rem generate cs code
                                                                                                                         @echo on
-            %BAT_DIR%\Windows\protogen -I%DIR%\%subDir% +langver=4.0 +names=original --csharp_out=%CS_OUT% %subDir%\%1
+            %BAT_DIR%\Windows\protogen -I%DIR%\%subDir% +langver=4.0 +names=original --csharp_out=%CS_OUT%\%subDir% %1
                                                                                                                         @echo off
             rem generate python code
             if not exist %PY_OUT%\%subDir% (
