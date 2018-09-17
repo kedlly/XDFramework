@@ -13,6 +13,7 @@ _sym_db = _symbol_database.Default()
 
 
 from RawData import InternalData_pb2 as RawData_dot_InternalData__pb2
+from RawData import WorkTicketInformation_pb2 as RawData_dot_WorkTicketInformation__pb2
 
 
 DESCRIPTOR = _descriptor.FileDescriptor(
@@ -20,9 +21,9 @@ DESCRIPTOR = _descriptor.FileDescriptor(
   package='Protocol.Respond',
   syntax='proto2',
   serialized_options=None,
-  serialized_pb=_b('\n\x15RespondMessages.proto\x12\x10Protocol.Respond\x1a\x1aRawData/InternalData.proto\"\x95\x01\n\x11Respond_LoginAuth\x12\r\n\x05token\x18\x01 \x02(\t\x12\x0f\n\x07sceneId\x18\x02 \x02(\x05\x12,\n\x06player\x18\x03 \x02(\x0b\x32\x1c.Protocol.RawData.PlayerInfo\x12\x32\n\x0cneighborhood\x18\x04 \x03(\x0b\x32\x1c.Protocol.RawData.PlayerInfo\"\x1d\n\x0eRespond_Logout\x12\x0b\n\x03pid\x18\x01 \x02(\x05\"F\n\x0eRespond_Moving\x12\x34\n\x0cmovementList\x18\x01 \x03(\x0b\x32\x1e.Protocol.RawData.RespMovement\"L\n\x16Respond_PlayerAppeared\x12\x32\n\x0cneighborhood\x18\x01 \x03(\x0b\x32\x1c.Protocol.RawData.PlayerInfo\".\n\x19Respond_PlayerDisappeared\x12\x11\n\tplayerIds\x18\x01 \x03(\x05\"C\n\x0fRespond_Rotated\x12\x30\n\trotations\x18\x01 \x03(\x0b\x32\x1d.Protocol.RawData.RespRotated')
+  serialized_pb=_b('\n\x15RespondMessages.proto\x12\x10Protocol.Respond\x1a\x1aRawData/InternalData.proto\x1a#RawData/WorkTicketInformation.proto\"\x95\x01\n\x11Respond_LoginAuth\x12\r\n\x05token\x18\x01 \x02(\t\x12\x0f\n\x07sceneId\x18\x02 \x02(\x05\x12,\n\x06player\x18\x03 \x02(\x0b\x32\x1c.Protocol.RawData.PlayerInfo\x12\x32\n\x0cneighborhood\x18\x04 \x03(\x0b\x32\x1c.Protocol.RawData.PlayerInfo\"\x1d\n\x0eRespond_Logout\x12\x0b\n\x03pid\x18\x01 \x02(\x05\"F\n\x0eRespond_Moving\x12\x34\n\x0cmovementList\x18\x01 \x03(\x0b\x32\x1e.Protocol.RawData.RespMovement\"L\n\x16Respond_PlayerAppeared\x12\x32\n\x0cneighborhood\x18\x01 \x03(\x0b\x32\x1c.Protocol.RawData.PlayerInfo\".\n\x19Respond_PlayerDisappeared\x12\x11\n\tplayerIds\x18\x01 \x03(\x05\"C\n\x0fRespond_Rotated\x12\x30\n\trotations\x18\x01 \x03(\x0b\x32\x1d.Protocol.RawData.RespRotated\"C\n\x11Respond_WorkSheet\x12.\n\x04\x64\x61ta\x18\x01 \x02(\x0b\x32 .Protocol.DB.Table.WTI_Class_One')
   ,
-  dependencies=[RawData_dot_InternalData__pb2.DESCRIPTOR,])
+  dependencies=[RawData_dot_InternalData__pb2.DESCRIPTOR,RawData_dot_WorkTicketInformation__pb2.DESCRIPTOR,])
 
 
 
@@ -74,8 +75,8 @@ _RESPOND_LOGINAUTH = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=72,
-  serialized_end=221,
+  serialized_start=109,
+  serialized_end=258,
 )
 
 
@@ -105,8 +106,8 @@ _RESPOND_LOGOUT = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=223,
-  serialized_end=252,
+  serialized_start=260,
+  serialized_end=289,
 )
 
 
@@ -136,8 +137,8 @@ _RESPOND_MOVING = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=254,
-  serialized_end=324,
+  serialized_start=291,
+  serialized_end=361,
 )
 
 
@@ -167,8 +168,8 @@ _RESPOND_PLAYERAPPEARED = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=326,
-  serialized_end=402,
+  serialized_start=363,
+  serialized_end=439,
 )
 
 
@@ -198,8 +199,8 @@ _RESPOND_PLAYERDISAPPEARED = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=404,
-  serialized_end=450,
+  serialized_start=441,
+  serialized_end=487,
 )
 
 
@@ -229,8 +230,39 @@ _RESPOND_ROTATED = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=452,
-  serialized_end=519,
+  serialized_start=489,
+  serialized_end=556,
+)
+
+
+_RESPOND_WORKSHEET = _descriptor.Descriptor(
+  name='Respond_WorkSheet',
+  full_name='Protocol.Respond.Respond_WorkSheet',
+  filename=None,
+  file=DESCRIPTOR,
+  containing_type=None,
+  fields=[
+    _descriptor.FieldDescriptor(
+      name='data', full_name='Protocol.Respond.Respond_WorkSheet.data', index=0,
+      number=1, type=11, cpp_type=10, label=2,
+      has_default_value=False, default_value=None,
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      serialized_options=None, file=DESCRIPTOR),
+  ],
+  extensions=[
+  ],
+  nested_types=[],
+  enum_types=[
+  ],
+  serialized_options=None,
+  is_extendable=False,
+  syntax='proto2',
+  extension_ranges=[],
+  oneofs=[
+  ],
+  serialized_start=558,
+  serialized_end=625,
 )
 
 _RESPOND_LOGINAUTH.fields_by_name['player'].message_type = RawData_dot_InternalData__pb2._PLAYERINFO
@@ -238,12 +270,14 @@ _RESPOND_LOGINAUTH.fields_by_name['neighborhood'].message_type = RawData_dot_Int
 _RESPOND_MOVING.fields_by_name['movementList'].message_type = RawData_dot_InternalData__pb2._RESPMOVEMENT
 _RESPOND_PLAYERAPPEARED.fields_by_name['neighborhood'].message_type = RawData_dot_InternalData__pb2._PLAYERINFO
 _RESPOND_ROTATED.fields_by_name['rotations'].message_type = RawData_dot_InternalData__pb2._RESPROTATED
+_RESPOND_WORKSHEET.fields_by_name['data'].message_type = RawData_dot_WorkTicketInformation__pb2._WTI_CLASS_ONE
 DESCRIPTOR.message_types_by_name['Respond_LoginAuth'] = _RESPOND_LOGINAUTH
 DESCRIPTOR.message_types_by_name['Respond_Logout'] = _RESPOND_LOGOUT
 DESCRIPTOR.message_types_by_name['Respond_Moving'] = _RESPOND_MOVING
 DESCRIPTOR.message_types_by_name['Respond_PlayerAppeared'] = _RESPOND_PLAYERAPPEARED
 DESCRIPTOR.message_types_by_name['Respond_PlayerDisappeared'] = _RESPOND_PLAYERDISAPPEARED
 DESCRIPTOR.message_types_by_name['Respond_Rotated'] = _RESPOND_ROTATED
+DESCRIPTOR.message_types_by_name['Respond_WorkSheet'] = _RESPOND_WORKSHEET
 _sym_db.RegisterFileDescriptor(DESCRIPTOR)
 
 Respond_LoginAuth = _reflection.GeneratedProtocolMessageType('Respond_LoginAuth', (_message.Message,), dict(
@@ -287,6 +321,13 @@ Respond_Rotated = _reflection.GeneratedProtocolMessageType('Respond_Rotated', (_
   # @@protoc_insertion_point(class_scope:Protocol.Respond.Respond_Rotated)
   ))
 _sym_db.RegisterMessage(Respond_Rotated)
+
+Respond_WorkSheet = _reflection.GeneratedProtocolMessageType('Respond_WorkSheet', (_message.Message,), dict(
+  DESCRIPTOR = _RESPOND_WORKSHEET,
+  __module__ = 'RespondMessages_pb2'
+  # @@protoc_insertion_point(class_scope:Protocol.Respond.Respond_WorkSheet)
+  ))
+_sym_db.RegisterMessage(Respond_WorkSheet)
 
 
 # @@protoc_insertion_point(module_scope)

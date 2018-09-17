@@ -12,7 +12,6 @@ from google.protobuf import symbol_database as _symbol_database
 _sym_db = _symbol_database.Default()
 
 
-import InternalData_pb2 as InternalData__pb2
 
 
 DESCRIPTOR = _descriptor.FileDescriptor(
@@ -20,11 +19,76 @@ DESCRIPTOR = _descriptor.FileDescriptor(
   package='Protocol.DB.Table',
   syntax='proto2',
   serialized_options=None,
-  serialized_pb=_b('\n\x1bWorkTicketInformation.proto\x12\x11Protocol.DB.Table\x1a\x12InternalData.proto\"\xcc\x07\n\rWTI_Class_One\x12\x15\n\rWORK_WRITE_ID\x18\x01 \x02(\t\x12\x15\n\rWORK_WRITE_NO\x18\x02 \x02(\t\x12\x18\n\x10WHETHER_EXTERIOR\x18\x03 \x02(\t\x12\x10\n\x08WORKBILL\x18\x04 \x02(\t\x12\r\n\x05TDSQD\x18\x05 \x02(\t\x12\x13\n\x0b\x44H_WRITE_NO\x18\x06 \x02(\t\x12\x15\n\rDH_WRITE_NAME\x18\x07 \x02(\t\x12\x1b\n\x13WORK_PRINCIPAL_NAME\x18\x08 \x02(\t\x12\x17\n\x0fPLAN_BEGIN_DATE\x18\t \x02(\t\x12\x15\n\rDEPARTMENT_ID\x18\n \x02(\t\x12\x17\n\x0f\x44\x45PARTMENT_NAME\x18\x0b \x02(\t\x12\x0f\n\x07\x43Z_TYPE\x18\x0c \x02(\t\x12\x12\n\nCZ_TYPE_NO\x18\r \x02(\t\x12\r\n\x05\x43Z_ID\x18\x0e \x02(\t\x12\x0f\n\x07\x43Z_NAME\x18\x0f \x02(\t\x12\x0f\n\x07YWDW_ID\x18\x10 \x02(\t\x12\x11\n\tYWDW_NAME\x18\x11 \x02(\t\x12\x19\n\x11WORK_PRINCIPAL_ID\x18\x12 \x02(\t\x12\x19\n\x11WORK_MOBILE_PHONE\x18\x13 \x02(\t\x12\x15\n\rPLAN_END_TIME\x18\x14 \x02(\t\x12\x16\n\x0eWORK_PERSONNEL\x18\x15 \x02(\t\x12\x1c\n\x14WORK_PERSONNEL_COUNT\x18\x16 \x02(\t\x12\x11\n\tWORK_TASK\x18\x17 \x02(\t\x12\x12\n\nWORK_PLACE\x18\x18 \x02(\t\x12\x12\n\nZDZZJHR_ID\x18\x19 \x02(\t\x12\x14\n\x0cZDZZJHR_NAME\x18\x1a \x02(\t\x12\r\n\x05YLDLQ\x18\x1b \x02(\t\x12\x0e\n\x06YLGLKG\x18\x1c \x02(\t\x12\x19\n\x11YTQXGZLDY_DY_ECHL\x18\x1d \x02(\t\x12\x1b\n\x13YHJDDZ_ZSJDX_YSJYDB\x18\x1e \x02(\t\x12\x12\n\nYSZD_YGBSP\x18\x1f \x02(\t\x12\x13\n\x0bQTAQCS_ZYSX\x18  \x02(\t\x12\x11\n\tIS_XLDCJD\x18! \x02(\t\x12\x18\n\x10IS_COMMUNICATION\x18\" \x02(\t\x12\x11\n\tECCSD_NUM\x18# \x02(\t\x12\x12\n\nUNDERWRITE\x18$ \x02(\t\x12\x11\n\tSIGN_TIME\x18% \x02(\t\x12\x17\n\x0fUNDERWRITE_NAME\x18& \x02(\t\x12\x1c\n\x14UNDERWRITE_SIGNATURE\x18\' \x02(\t\x12\x12\n\nCHECK_TIME\x18( \x02(\t\x12!\n\x19UNDERWRITE_SIGNATURE_NAME\x18) \x02(\t\x12\x15\n\rWORK_PRIME_ID\x18* \x02(\t\x12\x17\n\x0fWORK_PRIME_NAME\x18+ \x02(\t\"\xd8\r\n\rWTI_Class_Two\x12\x15\n\rWORK_WRITE_ID\x18\x01 \x02(\t\x12\x15\n\rWORK_WRITE_NO\x18\x02 \x02(\t\x12\x18\n\x10WHETHER_EXTERIOR\x18\x03 \x02(\t\x12\x10\n\x08WORKBILL\x18\x04 \x02(\t\x12\x13\n\x0b\x44H_WRITE_NO\x18\x05 \x02(\t\x12\x15\n\rDH_WRITE_NAME\x18\x06 \x02(\t\x12\x1f\n\x17IS_COMMUNICATION_TICKET\x18\x07 \x02(\x08\x12\x17\n\x0f\x44\x45PARTMENT_NAME\x18\x08 \x02(\t\x12\x17\n\x0fSUBSTATION_TYPE\x18\t \x02(\t\x12\x15\n\rSUBSTATION_ID\x18\n \x02(\t\x12\x17\n\x0fSUBSTATION_NAME\x18\x0b \x02(\t\x12\x16\n\x0eOPERATION_UNIT\x18\x0c \x02(\t\x12\x17\n\x0fWORK_MASTER_UID\x18\r \x02(\t\x12\x19\n\x11WORK_MASTER_UNAME\x18\x0e \x02(\t\x12\x1a\n\x12WORK_MASTER_UPHONE\x18\x0f \x02(\t\x12/\n\x0fPLAN_BEGIN_DATE\x18\x10 \x02(\x0b\x32\x16.Protocol.RawData.Date\x12-\n\rPLAN_END_TIME\x18\x11 \x02(\x0b\x32\x16.Protocol.RawData.Date\x12\x13\n\x0bWORK_MEMBER\x18\x12 \x02(\t\x12\x11\n\tWORK_TASK\x18\x13 \x02(\t\x12\x12\n\nWORK_PLACE\x18\x14 \x02(\t\x12\x1a\n\x12HIGHP_DEVICE_STATE\x18\x15 \x02(\t\x12\x1a\n\x12POWER_CIRCLE_STATE\x18\x16 \x02(\t\x12\x1b\n\x13\x44\x43POWER_LOWP_CIRCLE\x18\x17 \x02(\t\x12\x11\n\tBILLBOARD\x18\x18 \x02(\t\x12\x12\n\nOTHER_CARE\x18\x19 \x02(\t\x12\x15\n\rIS_SECONDBILL\x18\x1a \x02(\t\x12\x18\n\x10SECONDBILL_COUNT\x18\x1b \x02(\t\x12\x17\n\x0fTICKET_SIGN_UID\x18\x1c \x02(\t\x12\x19\n\x11TICKET_SIGN_UNAME\x18\x1d \x02(\t\x12\x31\n\x11TICKET_CREAT_TIME\x18\x1e \x02(\x0b\x32\x16.Protocol.RawData.Date\x12\x11\n\tWATCH_UID\x18\x1f \x02(\t\x12\x13\n\x0bWATCH_UNAME\x18  \x02(\t\x12,\n\x0cRECEIVE_TIME\x18! \x02(\x0b\x32\x16.Protocol.RawData.Date\x12\x1a\n\x12WHETHER_MEET_SAFTY\x18\" \x02(\x08\x12\x18\n\x10SUPPLEMENT_SAFTY\x18# \x02(\t\x12\x1b\n\x13\x45LE_GENERATRIX_WIRE\x18$ \x02(\t\x12\x12\n\nELE_SWITCH\x18% \x02(\t\x12\x10\n\x08\x45LE_PART\x18& \x02(\t\x12\x1d\n\x15PERMISSION_OTHER_CARE\x18\' \x02(\t\x12/\n\x0fPERMISSION_TIME\x18( \x02(\x0b\x32\x16.Protocol.RawData.Date\x12\x1b\n\x13WORK_PERMISSION_UID\x18) \x02(\t\x12\x1c\n\x14WORK_PERMISSION_UNME\x18* \x02(\t\x12-\n\rWORK_END_TIME\x18+ \x02(\x0b\x32\x16.Protocol.RawData.Date\x12\x17\n\x0f\x43HANGE_SIGN_UID\x18, \x02(\t\x12\x19\n\x11\x43HANGE_SIGN_UNAME\x18- \x02(\t\x12\x1c\n\x14\x43HANGE_PRINCIPAL_UID\x18. \x02(\t\x12\x1e\n\x16\x43HANGE_PRINCIPAL_UNAME\x18/ \x02(\t\x12 \n\x18\x43HANGE_NEW_PRINCIPAL_UID\x18\x30 \x02(\t\x12\"\n\x1a\x43HANGE_NEW_PRINCIPAL_UNAME\x18\x31 \x02(\t\x12\"\n\x1a\x41\x44\x44_CONTENT_PERMISSION_UID\x18\x32 \x02(\t\x12$\n\x1c\x41\x44\x44_CONTENT_PERMISSION_UNAME\x18\x33 \x02(\t\x12+\n\x0b\x43HANGE_TIME\x18\x34 \x02(\x0b\x32\x16.Protocol.RawData.Date\x12*\n\nDELAY_TIME\x18\x35 \x02(\x0b\x32\x16.Protocol.RawData.Date\x12*\n\nWRITE_TIME\x18\x36 \x02(\x0b\x32\x16.Protocol.RawData.Date\x12\x1a\n\x12\x41\x44\x44_CONTENT_DETAIL\x18\x37 \x02(\t\x12\x1f\n\x17\x41\x44\x44_CONTENT_DETAIL_TIME\x18\x38 \x02(\t\x12.\n\x0eSAFE_GIVE_TIME\x18\x39 \x02(\x0b\x32\x16.Protocol.RawData.Date\x12\x19\n\x11WHETHER_QUALIFIED\x18: \x02(\t\x12\x0e\n\x06REMAKE\x18; \x02(\t\"\xd5\x0b\n\x0fWTI_Class_Three\x12\x15\n\rWORK_WRITE_ID\x18\x01 \x02(\t\x12\x15\n\rWORK_WRITE_NO\x18\x02 \x02(\t\x12\x18\n\x10WHETHER_EXTERIOR\x18\x03 \x02(\t\x12\x10\n\x08WORKBILL\x18\x04 \x02(\t\x12\x13\n\x0b\x44H_WRITE_NO\x18\x05 \x02(\t\x12\x15\n\rDH_WRITE_NAME\x18\x06 \x02(\t\x12\x17\n\x0f\x44\x45PARTMENT_NAME\x18\x07 \x02(\t\x12\x17\n\x0fSUBSTATION_TYPE\x18\x08 \x02(\t\x12\x15\n\rSUBSTATION_ID\x18\t \x02(\t\x12\x17\n\x0fSUBSTATION_NAME\x18\n \x02(\t\x12\x16\n\x0eOPERATION_UNIT\x18\x0b \x02(\t\x12\x17\n\x0fWORK_MASTER_UID\x18\x0c \x02(\t\x12\x19\n\x11WORK_MASTER_UNAME\x18\r \x02(\t\x12\x1a\n\x12WORK_MASTER_UPHONE\x18\x0e \x02(\t\x12/\n\x0fPLAN_BEGIN_DATE\x18\x0f \x02(\x0b\x32\x16.Protocol.RawData.Date\x12-\n\rPLAN_END_TIME\x18\x10 \x02(\x0b\x32\x16.Protocol.RawData.Date\x12\x13\n\x0bWORK_MEMBER\x18\x11 \x02(\t\x12\x11\n\tWORK_TASK\x18\x12 \x02(\t\x12\x12\n\nWORK_PLACE\x18\x13 \x02(\t\x12\x16\n\x0eSAFTY_AND_CARE\x18\x14 \x02(\t\x12\x11\n\tWATCH_UID\x18\x15 \x02(\t\x12\x13\n\x0bWATCH_UNAME\x18\x16 \x02(\t\x12,\n\x0cRECEIVE_TIME\x18\x17 \x02(\x0b\x32\x16.Protocol.RawData.Date\x12\x1a\n\x12WHETHER_MEET_SAFTY\x18\x18 \x02(\x08\x12\x18\n\x10SUPPLEMENT_SAFTY\x18\x19 \x02(\t\x12\x1b\n\x13\x45LE_GENERATRIX_WIRE\x18\x1a \x02(\t\x12\x12\n\nELE_SWITCH\x18\x1b \x02(\t\x12\x10\n\x08\x45LE_PART\x18\x1c \x02(\t\x12\x1d\n\x15PERMISSION_OTHER_CARE\x18\x1d \x02(\t\x12/\n\x0fPERMISSION_TIME\x18\x1e \x02(\x0b\x32\x16.Protocol.RawData.Date\x12\x1b\n\x13WORK_PERMISSION_UID\x18\x1f \x02(\t\x12\x1c\n\x14WORK_PERMISSION_UNME\x18  \x02(\t\x12-\n\rWORK_END_TIME\x18! \x02(\x0b\x32\x16.Protocol.RawData.Date\x12\x17\n\x0f\x43HANGE_SIGN_UID\x18\" \x02(\t\x12\x19\n\x11\x43HANGE_SIGN_UNAME\x18# \x02(\t\x12\x1c\n\x14\x43HANGE_PRINCIPAL_UID\x18$ \x02(\t\x12\x1e\n\x16\x43HANGE_PRINCIPAL_UNAME\x18% \x02(\t\x12 \n\x18\x43HANGE_NEW_PRINCIPAL_UID\x18& \x02(\t\x12\"\n\x1a\x43HANGE_NEW_PRINCIPAL_UNAME\x18\' \x02(\t\x12\"\n\x1a\x41\x44\x44_CONTENT_PERMISSION_UID\x18( \x02(\t\x12$\n\x1c\x41\x44\x44_CONTENT_PERMISSION_UNAME\x18) \x02(\t\x12+\n\x0b\x43HANGE_TIME\x18* \x02(\x0b\x32\x16.Protocol.RawData.Date\x12*\n\nDELAY_TIME\x18+ \x02(\x0b\x32\x16.Protocol.RawData.Date\x12*\n\nWRITE_TIME\x18, \x02(\x0b\x32\x16.Protocol.RawData.Date\x12\x1a\n\x12\x41\x44\x44_CONTENT_DETAIL\x18- \x02(\t\x12\x37\n\x17\x41\x44\x44_CONTENT_DETAIL_TIME\x18. \x02(\x0b\x32\x16.Protocol.RawData.Date\x12.\n\x0eSAFE_GIVE_TIME\x18/ \x02(\x0b\x32\x16.Protocol.RawData.Date\x12\x19\n\x11WHETHER_QUALIFIED\x18\x30 \x02(\x08\x12\x0e\n\x06REMAKE\x18\x31 \x02(\t')
-  ,
-  dependencies=[InternalData__pb2.DESCRIPTOR,])
+  serialized_pb=_b('\n\x1bWorkTicketInformation.proto\x12\x11Protocol.DB.Table\"^\n\x04\x44\x61te\x12\x0c\n\x04year\x18\x01 \x02(\x05\x12\r\n\x05month\x18\x02 \x02(\x05\x12\x0b\n\x03\x64\x61y\x18\x03 \x02(\x05\x12\x0c\n\x04hour\x18\x04 \x02(\x05\x12\x0e\n\x06minute\x18\x05 \x02(\x05\x12\x0e\n\x06second\x18\x06 \x02(\x05\"\xcc\x07\n\rWTI_Class_One\x12\x15\n\rWORK_WRITE_ID\x18\x01 \x02(\t\x12\x15\n\rWORK_WRITE_NO\x18\x02 \x02(\t\x12\x18\n\x10WHETHER_EXTERIOR\x18\x03 \x02(\t\x12\x10\n\x08WORKBILL\x18\x04 \x02(\t\x12\r\n\x05TDSQD\x18\x05 \x02(\t\x12\x13\n\x0b\x44H_WRITE_NO\x18\x06 \x02(\t\x12\x15\n\rDH_WRITE_NAME\x18\x07 \x02(\t\x12\x1b\n\x13WORK_PRINCIPAL_NAME\x18\x08 \x02(\t\x12\x17\n\x0fPLAN_BEGIN_DATE\x18\t \x02(\t\x12\x15\n\rDEPARTMENT_ID\x18\n \x02(\t\x12\x17\n\x0f\x44\x45PARTMENT_NAME\x18\x0b \x02(\t\x12\x0f\n\x07\x43Z_TYPE\x18\x0c \x02(\t\x12\x12\n\nCZ_TYPE_NO\x18\r \x02(\t\x12\r\n\x05\x43Z_ID\x18\x0e \x02(\t\x12\x0f\n\x07\x43Z_NAME\x18\x0f \x02(\t\x12\x0f\n\x07YWDW_ID\x18\x10 \x02(\t\x12\x11\n\tYWDW_NAME\x18\x11 \x02(\t\x12\x19\n\x11WORK_PRINCIPAL_ID\x18\x12 \x02(\t\x12\x19\n\x11WORK_MOBILE_PHONE\x18\x13 \x02(\t\x12\x15\n\rPLAN_END_TIME\x18\x14 \x02(\t\x12\x16\n\x0eWORK_PERSONNEL\x18\x15 \x02(\t\x12\x1c\n\x14WORK_PERSONNEL_COUNT\x18\x16 \x02(\t\x12\x11\n\tWORK_TASK\x18\x17 \x02(\t\x12\x12\n\nWORK_PLACE\x18\x18 \x02(\t\x12\x12\n\nZDZZJHR_ID\x18\x19 \x02(\t\x12\x14\n\x0cZDZZJHR_NAME\x18\x1a \x02(\t\x12\r\n\x05YLDLQ\x18\x1b \x02(\t\x12\x0e\n\x06YLGLKG\x18\x1c \x02(\t\x12\x19\n\x11YTQXGZLDY_DY_ECHL\x18\x1d \x02(\t\x12\x1b\n\x13YHJDDZ_ZSJDX_YSJYDB\x18\x1e \x02(\t\x12\x12\n\nYSZD_YGBSP\x18\x1f \x02(\t\x12\x13\n\x0bQTAQCS_ZYSX\x18  \x02(\t\x12\x11\n\tIS_XLDCJD\x18! \x02(\t\x12\x18\n\x10IS_COMMUNICATION\x18\" \x02(\t\x12\x11\n\tECCSD_NUM\x18# \x02(\t\x12\x12\n\nUNDERWRITE\x18$ \x02(\t\x12\x11\n\tSIGN_TIME\x18% \x02(\t\x12\x17\n\x0fUNDERWRITE_NAME\x18& \x02(\t\x12\x1c\n\x14UNDERWRITE_SIGNATURE\x18\' \x02(\t\x12\x12\n\nCHECK_TIME\x18( \x02(\t\x12!\n\x19UNDERWRITE_SIGNATURE_NAME\x18) \x02(\t\x12\x15\n\rWORK_PRIME_ID\x18* \x02(\t\x12\x17\n\x0fWORK_PRIME_NAME\x18+ \x02(\t\"\xe2\r\n\rWTI_Class_Two\x12\x15\n\rWORK_WRITE_ID\x18\x01 \x02(\t\x12\x15\n\rWORK_WRITE_NO\x18\x02 \x02(\t\x12\x18\n\x10WHETHER_EXTERIOR\x18\x03 \x02(\t\x12\x10\n\x08WORKBILL\x18\x04 \x02(\t\x12\x13\n\x0b\x44H_WRITE_NO\x18\x05 \x02(\t\x12\x15\n\rDH_WRITE_NAME\x18\x06 \x02(\t\x12\x1f\n\x17IS_COMMUNICATION_TICKET\x18\x07 \x02(\x08\x12\x17\n\x0f\x44\x45PARTMENT_NAME\x18\x08 \x02(\t\x12\x17\n\x0fSUBSTATION_TYPE\x18\t \x02(\t\x12\x15\n\rSUBSTATION_ID\x18\n \x02(\t\x12\x17\n\x0fSUBSTATION_NAME\x18\x0b \x02(\t\x12\x16\n\x0eOPERATION_UNIT\x18\x0c \x02(\t\x12\x17\n\x0fWORK_MASTER_UID\x18\r \x02(\t\x12\x19\n\x11WORK_MASTER_UNAME\x18\x0e \x02(\t\x12\x1a\n\x12WORK_MASTER_UPHONE\x18\x0f \x02(\t\x12\x30\n\x0fPLAN_BEGIN_DATE\x18\x10 \x02(\x0b\x32\x17.Protocol.DB.Table.Date\x12.\n\rPLAN_END_TIME\x18\x11 \x02(\x0b\x32\x17.Protocol.DB.Table.Date\x12\x13\n\x0bWORK_MEMBER\x18\x12 \x02(\t\x12\x11\n\tWORK_TASK\x18\x13 \x02(\t\x12\x12\n\nWORK_PLACE\x18\x14 \x02(\t\x12\x1a\n\x12HIGHP_DEVICE_STATE\x18\x15 \x02(\t\x12\x1a\n\x12POWER_CIRCLE_STATE\x18\x16 \x02(\t\x12\x1b\n\x13\x44\x43POWER_LOWP_CIRCLE\x18\x17 \x02(\t\x12\x11\n\tBILLBOARD\x18\x18 \x02(\t\x12\x12\n\nOTHER_CARE\x18\x19 \x02(\t\x12\x15\n\rIS_SECONDBILL\x18\x1a \x02(\t\x12\x18\n\x10SECONDBILL_COUNT\x18\x1b \x02(\t\x12\x17\n\x0fTICKET_SIGN_UID\x18\x1c \x02(\t\x12\x19\n\x11TICKET_SIGN_UNAME\x18\x1d \x02(\t\x12\x32\n\x11TICKET_CREAT_TIME\x18\x1e \x02(\x0b\x32\x17.Protocol.DB.Table.Date\x12\x11\n\tWATCH_UID\x18\x1f \x02(\t\x12\x13\n\x0bWATCH_UNAME\x18  \x02(\t\x12-\n\x0cRECEIVE_TIME\x18! \x02(\x0b\x32\x17.Protocol.DB.Table.Date\x12\x1a\n\x12WHETHER_MEET_SAFTY\x18\" \x02(\x08\x12\x18\n\x10SUPPLEMENT_SAFTY\x18# \x02(\t\x12\x1b\n\x13\x45LE_GENERATRIX_WIRE\x18$ \x02(\t\x12\x12\n\nELE_SWITCH\x18% \x02(\t\x12\x10\n\x08\x45LE_PART\x18& \x02(\t\x12\x1d\n\x15PERMISSION_OTHER_CARE\x18\' \x02(\t\x12\x30\n\x0fPERMISSION_TIME\x18( \x02(\x0b\x32\x17.Protocol.DB.Table.Date\x12\x1b\n\x13WORK_PERMISSION_UID\x18) \x02(\t\x12\x1c\n\x14WORK_PERMISSION_UNME\x18* \x02(\t\x12.\n\rWORK_END_TIME\x18+ \x02(\x0b\x32\x17.Protocol.DB.Table.Date\x12\x17\n\x0f\x43HANGE_SIGN_UID\x18, \x02(\t\x12\x19\n\x11\x43HANGE_SIGN_UNAME\x18- \x02(\t\x12\x1c\n\x14\x43HANGE_PRINCIPAL_UID\x18. \x02(\t\x12\x1e\n\x16\x43HANGE_PRINCIPAL_UNAME\x18/ \x02(\t\x12 \n\x18\x43HANGE_NEW_PRINCIPAL_UID\x18\x30 \x02(\t\x12\"\n\x1a\x43HANGE_NEW_PRINCIPAL_UNAME\x18\x31 \x02(\t\x12\"\n\x1a\x41\x44\x44_CONTENT_PERMISSION_UID\x18\x32 \x02(\t\x12$\n\x1c\x41\x44\x44_CONTENT_PERMISSION_UNAME\x18\x33 \x02(\t\x12,\n\x0b\x43HANGE_TIME\x18\x34 \x02(\x0b\x32\x17.Protocol.DB.Table.Date\x12+\n\nDELAY_TIME\x18\x35 \x02(\x0b\x32\x17.Protocol.DB.Table.Date\x12+\n\nWRITE_TIME\x18\x36 \x02(\x0b\x32\x17.Protocol.DB.Table.Date\x12\x1a\n\x12\x41\x44\x44_CONTENT_DETAIL\x18\x37 \x02(\t\x12\x1f\n\x17\x41\x44\x44_CONTENT_DETAIL_TIME\x18\x38 \x02(\t\x12/\n\x0eSAFE_GIVE_TIME\x18\x39 \x02(\x0b\x32\x17.Protocol.DB.Table.Date\x12\x19\n\x11WHETHER_QUALIFIED\x18: \x02(\t\x12\x0e\n\x06REMAKE\x18; \x02(\t\"\xdf\x0b\n\x0fWTI_Class_Three\x12\x15\n\rWORK_WRITE_ID\x18\x01 \x02(\t\x12\x15\n\rWORK_WRITE_NO\x18\x02 \x02(\t\x12\x18\n\x10WHETHER_EXTERIOR\x18\x03 \x02(\t\x12\x10\n\x08WORKBILL\x18\x04 \x02(\t\x12\x13\n\x0b\x44H_WRITE_NO\x18\x05 \x02(\t\x12\x15\n\rDH_WRITE_NAME\x18\x06 \x02(\t\x12\x17\n\x0f\x44\x45PARTMENT_NAME\x18\x07 \x02(\t\x12\x17\n\x0fSUBSTATION_TYPE\x18\x08 \x02(\t\x12\x15\n\rSUBSTATION_ID\x18\t \x02(\t\x12\x17\n\x0fSUBSTATION_NAME\x18\n \x02(\t\x12\x16\n\x0eOPERATION_UNIT\x18\x0b \x02(\t\x12\x17\n\x0fWORK_MASTER_UID\x18\x0c \x02(\t\x12\x19\n\x11WORK_MASTER_UNAME\x18\r \x02(\t\x12\x1a\n\x12WORK_MASTER_UPHONE\x18\x0e \x02(\t\x12\x30\n\x0fPLAN_BEGIN_DATE\x18\x0f \x02(\x0b\x32\x17.Protocol.DB.Table.Date\x12.\n\rPLAN_END_TIME\x18\x10 \x02(\x0b\x32\x17.Protocol.DB.Table.Date\x12\x13\n\x0bWORK_MEMBER\x18\x11 \x02(\t\x12\x11\n\tWORK_TASK\x18\x12 \x02(\t\x12\x12\n\nWORK_PLACE\x18\x13 \x02(\t\x12\x16\n\x0eSAFTY_AND_CARE\x18\x14 \x02(\t\x12\x11\n\tWATCH_UID\x18\x15 \x02(\t\x12\x13\n\x0bWATCH_UNAME\x18\x16 \x02(\t\x12-\n\x0cRECEIVE_TIME\x18\x17 \x02(\x0b\x32\x17.Protocol.DB.Table.Date\x12\x1a\n\x12WHETHER_MEET_SAFTY\x18\x18 \x02(\x08\x12\x18\n\x10SUPPLEMENT_SAFTY\x18\x19 \x02(\t\x12\x1b\n\x13\x45LE_GENERATRIX_WIRE\x18\x1a \x02(\t\x12\x12\n\nELE_SWITCH\x18\x1b \x02(\t\x12\x10\n\x08\x45LE_PART\x18\x1c \x02(\t\x12\x1d\n\x15PERMISSION_OTHER_CARE\x18\x1d \x02(\t\x12\x30\n\x0fPERMISSION_TIME\x18\x1e \x02(\x0b\x32\x17.Protocol.DB.Table.Date\x12\x1b\n\x13WORK_PERMISSION_UID\x18\x1f \x02(\t\x12\x1c\n\x14WORK_PERMISSION_UNME\x18  \x02(\t\x12.\n\rWORK_END_TIME\x18! \x02(\x0b\x32\x17.Protocol.DB.Table.Date\x12\x17\n\x0f\x43HANGE_SIGN_UID\x18\" \x02(\t\x12\x19\n\x11\x43HANGE_SIGN_UNAME\x18# \x02(\t\x12\x1c\n\x14\x43HANGE_PRINCIPAL_UID\x18$ \x02(\t\x12\x1e\n\x16\x43HANGE_PRINCIPAL_UNAME\x18% \x02(\t\x12 \n\x18\x43HANGE_NEW_PRINCIPAL_UID\x18& \x02(\t\x12\"\n\x1a\x43HANGE_NEW_PRINCIPAL_UNAME\x18\' \x02(\t\x12\"\n\x1a\x41\x44\x44_CONTENT_PERMISSION_UID\x18( \x02(\t\x12$\n\x1c\x41\x44\x44_CONTENT_PERMISSION_UNAME\x18) \x02(\t\x12,\n\x0b\x43HANGE_TIME\x18* \x02(\x0b\x32\x17.Protocol.DB.Table.Date\x12+\n\nDELAY_TIME\x18+ \x02(\x0b\x32\x17.Protocol.DB.Table.Date\x12+\n\nWRITE_TIME\x18, \x02(\x0b\x32\x17.Protocol.DB.Table.Date\x12\x1a\n\x12\x41\x44\x44_CONTENT_DETAIL\x18- \x02(\t\x12\x38\n\x17\x41\x44\x44_CONTENT_DETAIL_TIME\x18. \x02(\x0b\x32\x17.Protocol.DB.Table.Date\x12/\n\x0eSAFE_GIVE_TIME\x18/ \x02(\x0b\x32\x17.Protocol.DB.Table.Date\x12\x19\n\x11WHETHER_QUALIFIED\x18\x30 \x02(\x08\x12\x0e\n\x06REMAKE\x18\x31 \x02(\t')
+)
 
 
+
+
+_DATE = _descriptor.Descriptor(
+  name='Date',
+  full_name='Protocol.DB.Table.Date',
+  filename=None,
+  file=DESCRIPTOR,
+  containing_type=None,
+  fields=[
+    _descriptor.FieldDescriptor(
+      name='year', full_name='Protocol.DB.Table.Date.year', index=0,
+      number=1, type=5, cpp_type=1, label=2,
+      has_default_value=False, default_value=0,
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      serialized_options=None, file=DESCRIPTOR),
+    _descriptor.FieldDescriptor(
+      name='month', full_name='Protocol.DB.Table.Date.month', index=1,
+      number=2, type=5, cpp_type=1, label=2,
+      has_default_value=False, default_value=0,
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      serialized_options=None, file=DESCRIPTOR),
+    _descriptor.FieldDescriptor(
+      name='day', full_name='Protocol.DB.Table.Date.day', index=2,
+      number=3, type=5, cpp_type=1, label=2,
+      has_default_value=False, default_value=0,
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      serialized_options=None, file=DESCRIPTOR),
+    _descriptor.FieldDescriptor(
+      name='hour', full_name='Protocol.DB.Table.Date.hour', index=3,
+      number=4, type=5, cpp_type=1, label=2,
+      has_default_value=False, default_value=0,
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      serialized_options=None, file=DESCRIPTOR),
+    _descriptor.FieldDescriptor(
+      name='minute', full_name='Protocol.DB.Table.Date.minute', index=4,
+      number=5, type=5, cpp_type=1, label=2,
+      has_default_value=False, default_value=0,
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      serialized_options=None, file=DESCRIPTOR),
+    _descriptor.FieldDescriptor(
+      name='second', full_name='Protocol.DB.Table.Date.second', index=5,
+      number=6, type=5, cpp_type=1, label=2,
+      has_default_value=False, default_value=0,
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      serialized_options=None, file=DESCRIPTOR),
+  ],
+  extensions=[
+  ],
+  nested_types=[],
+  enum_types=[
+  ],
+  serialized_options=None,
+  is_extendable=False,
+  syntax='proto2',
+  extension_ranges=[],
+  oneofs=[
+  ],
+  serialized_start=50,
+  serialized_end=144,
+)
 
 
 _WTI_CLASS_ONE = _descriptor.Descriptor(
@@ -347,8 +411,8 @@ _WTI_CLASS_ONE = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=71,
-  serialized_end=1043,
+  serialized_start=147,
+  serialized_end=1119,
 )
 
 
@@ -784,8 +848,8 @@ _WTI_CLASS_TWO = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=1046,
-  serialized_end=2798,
+  serialized_start=1122,
+  serialized_end=2884,
 )
 
 
@@ -1151,34 +1215,42 @@ _WTI_CLASS_THREE = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=2801,
-  serialized_end=4294,
+  serialized_start=2887,
+  serialized_end=4390,
 )
 
-_WTI_CLASS_TWO.fields_by_name['PLAN_BEGIN_DATE'].message_type = InternalData__pb2._DATE
-_WTI_CLASS_TWO.fields_by_name['PLAN_END_TIME'].message_type = InternalData__pb2._DATE
-_WTI_CLASS_TWO.fields_by_name['TICKET_CREAT_TIME'].message_type = InternalData__pb2._DATE
-_WTI_CLASS_TWO.fields_by_name['RECEIVE_TIME'].message_type = InternalData__pb2._DATE
-_WTI_CLASS_TWO.fields_by_name['PERMISSION_TIME'].message_type = InternalData__pb2._DATE
-_WTI_CLASS_TWO.fields_by_name['WORK_END_TIME'].message_type = InternalData__pb2._DATE
-_WTI_CLASS_TWO.fields_by_name['CHANGE_TIME'].message_type = InternalData__pb2._DATE
-_WTI_CLASS_TWO.fields_by_name['DELAY_TIME'].message_type = InternalData__pb2._DATE
-_WTI_CLASS_TWO.fields_by_name['WRITE_TIME'].message_type = InternalData__pb2._DATE
-_WTI_CLASS_TWO.fields_by_name['SAFE_GIVE_TIME'].message_type = InternalData__pb2._DATE
-_WTI_CLASS_THREE.fields_by_name['PLAN_BEGIN_DATE'].message_type = InternalData__pb2._DATE
-_WTI_CLASS_THREE.fields_by_name['PLAN_END_TIME'].message_type = InternalData__pb2._DATE
-_WTI_CLASS_THREE.fields_by_name['RECEIVE_TIME'].message_type = InternalData__pb2._DATE
-_WTI_CLASS_THREE.fields_by_name['PERMISSION_TIME'].message_type = InternalData__pb2._DATE
-_WTI_CLASS_THREE.fields_by_name['WORK_END_TIME'].message_type = InternalData__pb2._DATE
-_WTI_CLASS_THREE.fields_by_name['CHANGE_TIME'].message_type = InternalData__pb2._DATE
-_WTI_CLASS_THREE.fields_by_name['DELAY_TIME'].message_type = InternalData__pb2._DATE
-_WTI_CLASS_THREE.fields_by_name['WRITE_TIME'].message_type = InternalData__pb2._DATE
-_WTI_CLASS_THREE.fields_by_name['ADD_CONTENT_DETAIL_TIME'].message_type = InternalData__pb2._DATE
-_WTI_CLASS_THREE.fields_by_name['SAFE_GIVE_TIME'].message_type = InternalData__pb2._DATE
+_WTI_CLASS_TWO.fields_by_name['PLAN_BEGIN_DATE'].message_type = _DATE
+_WTI_CLASS_TWO.fields_by_name['PLAN_END_TIME'].message_type = _DATE
+_WTI_CLASS_TWO.fields_by_name['TICKET_CREAT_TIME'].message_type = _DATE
+_WTI_CLASS_TWO.fields_by_name['RECEIVE_TIME'].message_type = _DATE
+_WTI_CLASS_TWO.fields_by_name['PERMISSION_TIME'].message_type = _DATE
+_WTI_CLASS_TWO.fields_by_name['WORK_END_TIME'].message_type = _DATE
+_WTI_CLASS_TWO.fields_by_name['CHANGE_TIME'].message_type = _DATE
+_WTI_CLASS_TWO.fields_by_name['DELAY_TIME'].message_type = _DATE
+_WTI_CLASS_TWO.fields_by_name['WRITE_TIME'].message_type = _DATE
+_WTI_CLASS_TWO.fields_by_name['SAFE_GIVE_TIME'].message_type = _DATE
+_WTI_CLASS_THREE.fields_by_name['PLAN_BEGIN_DATE'].message_type = _DATE
+_WTI_CLASS_THREE.fields_by_name['PLAN_END_TIME'].message_type = _DATE
+_WTI_CLASS_THREE.fields_by_name['RECEIVE_TIME'].message_type = _DATE
+_WTI_CLASS_THREE.fields_by_name['PERMISSION_TIME'].message_type = _DATE
+_WTI_CLASS_THREE.fields_by_name['WORK_END_TIME'].message_type = _DATE
+_WTI_CLASS_THREE.fields_by_name['CHANGE_TIME'].message_type = _DATE
+_WTI_CLASS_THREE.fields_by_name['DELAY_TIME'].message_type = _DATE
+_WTI_CLASS_THREE.fields_by_name['WRITE_TIME'].message_type = _DATE
+_WTI_CLASS_THREE.fields_by_name['ADD_CONTENT_DETAIL_TIME'].message_type = _DATE
+_WTI_CLASS_THREE.fields_by_name['SAFE_GIVE_TIME'].message_type = _DATE
+DESCRIPTOR.message_types_by_name['Date'] = _DATE
 DESCRIPTOR.message_types_by_name['WTI_Class_One'] = _WTI_CLASS_ONE
 DESCRIPTOR.message_types_by_name['WTI_Class_Two'] = _WTI_CLASS_TWO
 DESCRIPTOR.message_types_by_name['WTI_Class_Three'] = _WTI_CLASS_THREE
 _sym_db.RegisterFileDescriptor(DESCRIPTOR)
+
+Date = _reflection.GeneratedProtocolMessageType('Date', (_message.Message,), dict(
+  DESCRIPTOR = _DATE,
+  __module__ = 'WorkTicketInformation_pb2'
+  # @@protoc_insertion_point(class_scope:Protocol.DB.Table.Date)
+  ))
+_sym_db.RegisterMessage(Date)
 
 WTI_Class_One = _reflection.GeneratedProtocolMessageType('WTI_Class_One', (_message.Message,), dict(
   DESCRIPTOR = _WTI_CLASS_ONE,
