@@ -57,6 +57,25 @@ namespace Framework.Utils.Extensions
 			return obj.GetType().ImplementsInterface<T>();
 		}
 
+		public static bool ImplementsGenericInterface(this Type type, Type GenericType)
+		{
+			return type.GetGenericInterfaces().Where(_type => _type.GetGenericTypeDefinition() == GenericType).Count() > 0;
+		}
+
+		public static IEnumerable<Type> GetGenericInterfaces(this Type type)
+		{
+			return type.IsInterface ? null : type.GetInterfaces().Where(_type => _type.IsGenericType);
+		}
+
+		public static Type CreateGenericClassType(this Type unboundGenericType, params Type[] genericArgs)
+		{
+			if (unboundGenericType.IsGenericTypeDefinition)
+			{
+				return unboundGenericType.MakeGenericType(genericArgs);
+			}
+			return unboundGenericType;
+		}
+
 
 		//可转换类型列表
 		public static readonly List<Type> convertableTypes = new List<Type>

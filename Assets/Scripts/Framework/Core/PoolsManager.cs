@@ -4,10 +4,11 @@ using Framework.Library.ObjectPool;
 using System.Collections.Generic;
 using System.Collections;
 using Framework.Utils.Extensions;
+using Framework.Library.ObjectPool.Policies;
 
 namespace Framework.Core
 {
-	[PathInHierarchyAttribute("/[Game]/Systems"), DisallowMultipleComponent]
+	[PathInHierarchy("/[Game]/Systems"), DisallowMultipleComponent]
 	public sealed class PoolsManager : ToSingletonBehavior<PoolsManager>
 	{
 
@@ -18,22 +19,40 @@ namespace Framework.Core
 			base.OnSingletonInit();
 
 			//this.CreatePool<GameObject>("item1",new BulltFactory());
-			this.CreatePool<GameObject, BulltFactory>("item1");
-			
+			//this.CreatePool<GameObject, BulltFactory>("item1");
+			//this.CreatePool<GameObject>("item1", new BulltFactory());
+			this.CreatePool<GameObject
+					//, BulltFactory
+					, Library.ObjectPool.Policies.DictionaryMemory.PoolBufferPolicy<GameObject>
+				>("item1");
 		}
 
-		class BulltFactory : IObjectFactory<GameObject>
+		class PostObject : IPoolable
 		{
-			GameObject IObjectFactory<GameObject>.Create()
+			void IPoolable.OnAllocated()
+			{
+				Debug.Log("OnAllocated.....");
+			}
+
+			void IPoolable.OnRecycled()
+			{
+				Debug.Log("OnAllocated_____");
+			}
+			public GameObject go;
+		}
+
+		class BulltFactory : IObjectFactory<PostObject>
+		{
+			PostObject IObjectFactory<PostObject>.Create()
 			{
 				var obj = Instantiate(PoolsManager.Instance.bulltObj );
 				obj.SetActive(false);
-				return obj;
+				return new PostObject() { go = obj };
 			}
 
-			void IObjectFactory<GameObject>.Release(GameObject go)
+			void IObjectFactory<PostObject>.Release(PostObject go)
 			{
-				Destroy(go);
+				Destroy(go.go);
 			}
 		}
 
@@ -53,43 +72,41 @@ namespace Framework.Core
 			
 		}
 
-		public IObjectPool<T> CreatePool<T>(string name, IObjectFactory<T> factory) where T : class
+		public IObjectPool<T> CreatePool<T>(string name, IObjectFactory<T> factory = null) where T : class
 		{
 			var pool = GetObjectPool<T>(name);
 			if(pool == null)
 			{
-				if(factory != null)
-				{
-					pool = new SimpleObjectPool<T>(factory);
-					poolsInGame.Add(name, pool);
-				}
-			}
-			return pool;
-		}
-
-		public IMemoryPool CreatePool<T, U>(string name) 
-			where T : class 
-			where U : IObjectFactory<T>, new()
-		{
-			var pool = GetObjectPool<T>(name);
-			if(pool == null)
-			{
-				pool = AutoPool<T, U>.Pool as IObjectPool<T>;
+				pool = factory.CreatePool();
 				poolsInGame.Add(name, pool);
 			}
 			return pool;
 		}
 
-		public IObjectPool<T> CreatePoolablePool<T>(string name, IObjectFactory<T> factory) where T : class, IPoolable
+		public IObjectPool<TObject> CreatePool<TObject, TFactory, TBufferPolicy>(string name)
+			where TFactory : IObjectFactory<TObject>, new()
+			where TBufferPolicy : BufferPolicy<TObject>
+			where TObject : class
 		{
-			var pool = GetObjectPool<T>(name);
+			var pool = GetObjectPool<TObject>(name);
+			if(pool == null)
+			{
+				pool = new TFactory().CreatePool<TObject, TBufferPolicy>();
+				poolsInGame.Add(name, pool);
+			}
+			return pool;
+		}
+
+		public IObjectPool<TObject> CreatePool<TObject, TBufferPolicy>(string name)
+			where TBufferPolicy : BufferPolicy<TObject>
+			where TObject : class
+		{
+			var pool = GetObjectPool<TObject>(name);
 			if (pool == null)
 			{
-				if(factory != null)
-				{
-					pool = new PoolableObjectPool<T>(factory);
-					poolsInGame.Add(name, pool);
-				}
+				IObjectFactory<TObject> itf = null;
+				pool = itf.CreatePool<TObject, TBufferPolicy>();
+				poolsInGame.Add(name, pool);
 			}
 			return pool;
 		}
@@ -155,7 +172,7 @@ namespace Framework.Core
 			}
 		}
 
-		private void _Update()
+		private void Update()
 		{
 			if (Input.GetKeyDown(KeyCode.A))
 			{
@@ -168,6 +185,10 @@ namespace Framework.Core
 			if (Input.GetKeyDown(KeyCode.C))
 			{
 				Instance.ReleaseAllUnusedPoolableObjects();
+			}
+			if (Input.GetKeyDown(KeyCode.D))
+			{
+				System.GC.Collect();
 			}
 		}
 	}

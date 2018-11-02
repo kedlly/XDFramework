@@ -2,7 +2,7 @@
 using UnityEditor;
 using UnityEngine;
 
-namespace Assets.Scripts.Editor
+namespace XDDQFrameWork.Scripts.Editor
 {
 	[CustomPropertyDrawer(typeof(ConditionalHideAttribute))]
 	class ConditionalHidePropertyDrawer : PropertyDrawer

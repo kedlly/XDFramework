@@ -122,8 +122,8 @@ namespace Framework.Core
 	/// 包括FPS，内存使用情况，日志GUI输出
 	/// </summary>
 	/// 
-	[PathInHierarchy("/[Game]/Console"), DisallowMultipleComponent]
-	public class GameConsole : ToSingletonBehavior<GameConsole>
+	[PathInHierarchy("/[Game]/Application"), DisallowMultipleComponent]
+	public class GameConsole : ToSingletonBehavior<GameConsole>, IConsole
 	{
 
 		/// <summary>
@@ -162,12 +162,41 @@ namespace Framework.Core
 		GUIContent scrollToBottomLabel = new GUIContent("ScrollToBottom", "Scroll bar always at bottom");
 
 
-		public event Action<string> OnCommand; 
+		event Action<string> OnCommandText;
+
+		private event Action<string> OnTextItem;
+
+		event Action<string> IConsole.OnText
+		{
+			add
+			{
+				OnTextItem += value;
+			}
+
+			remove
+			{
+				OnTextItem -= value;
+			}
+		}
 
 		private void Awake()
 		{
 			this.fpsCounter = new FPSCounter(this);
 			this.memoryDetector = new MemoryDetector(this);
+			OnCommandText += GameConsole_OnCommand;
+			Debug.Log("AC.Awake");
+		}
+
+		private void GameConsole_OnCommand(string text)
+		{
+			var isCommand = CheckCommand(text);
+			if (!isCommand)
+			{
+				if (OnTextItem != null)
+				{
+					OnTextItem(text);
+				}
+			}
 		}
 
 		private void Start()
@@ -239,14 +268,15 @@ namespace Framework.Core
 		/// </summary>
 		void ConsoleWindow (int windowID)
 		{
+			int count = entries.Count;
 			if (scrollToBottom) {
-				GUILayout.BeginScrollView (Vector2.up * entries.Count * 100.0f);
+				GUILayout.BeginScrollView (Vector2.up * count * 100.0f);
 			}
 			else {
 				scrollPos = GUILayout.BeginScrollView (scrollPos);
 			}
 			// Go through each logged entry
-			for (int i = 0; i < entries.Count; i++) {
+			for (int i = 0; i < count; i++) {
 				LogData entry = entries[i];
 				// If this message is the same as the last one and the collapse feature is chosen, skip it
 				if (collapse && i > 0 && entry.Message == entries[i - 1].Message) {
@@ -285,17 +315,20 @@ namespace Framework.Core
 			GUILayout.BeginHorizontal();
 			// Clear button
 			if (GUILayout.Button(clearLabel)) {
-				entries.Clear();
+				lock (locker)
+				{
+					entries.Clear();
+				}
 			}
 			// Collapse toggle
 			collapse = GUILayout.Toggle(collapse, collapseLabel, GUILayout.ExpandWidth(false));
 			scrollToBottom = GUILayout.Toggle (scrollToBottom, scrollToBottomLabel, GUILayout.ExpandWidth (false));
 			GUILayout.EndHorizontal();
-			if (commandText.IsNotNullAndEmpty() && Event.current.type == EventType.KeyDown && Event.current.keyCode == KeyCode.Return)
+			if (commandText.IsNotNullAndEmpty() && Event.current.type == UnityEngine.EventType.KeyDown && Event.current.keyCode == KeyCode.Return)
 			{
-				if (OnCommand != null)
+				if (OnCommandText != null)
 				{
-					OnCommand(commandText);
+					OnCommandText(commandText);
 					commandText = "";
 				}
 				Event.current.Use();
@@ -308,9 +341,9 @@ namespace Framework.Core
 			{
 				if (GUILayout.Button("Send"))
 				{
-					if (OnCommand != null)
+					if (OnCommandText != null)
 					{
-						OnCommand(commandText);
+						OnCommandText(commandText);
 						commandText = "";
 					}
 				}
@@ -323,17 +356,82 @@ namespace Framework.Core
 			GUI.DragWindow(new Rect(0, 0, 10000, 20));
 		}
 
+		static object locker = new object();
 		void HandleLog (LogData logData)
 		{
-			if (logData == null)
+			lock(locker)
 			{
-				Debug.Log("");
+				if (logData == null)
+				{
+					Debug.Log("");
+				}
+				else
+				{
+					entries.Add(logData);
+				}
 			}
-			else
+		}
+
+		Dictionary<char, Dictionary<string, Action<string[]>>> CommandDict = new Dictionary<char, Dictionary<string, Action<string[]>>>();
+		void IConsole.Register(char PrefixChar, string cmdText, Action<string[]> commandProcessor)
+		{
+			Dictionary<string, Action<string[]>> targetCommandCollection = null;
+			if (!CommandDict.ContainsKey(PrefixChar))
 			{
-				entries.Add(logData);
+				targetCommandCollection = new Dictionary<string, Action<string[]>>();
+				CommandDict[PrefixChar] = targetCommandCollection;
 			}
-			
+			CommandDict[PrefixChar].Add(cmdText, commandProcessor);
+
+		}
+
+		void IConsole.Unregister(char PrefixChar, string cmdText)
+		{
+			Dictionary<string, Action<string[]>> targetCommandCollection = CommandDict.ContainsKey(PrefixChar) ?
+				CommandDict[PrefixChar] : null;
+			if (targetCommandCollection != null)
+			{
+				if (targetCommandCollection.ContainsKey(cmdText))
+				{
+					targetCommandCollection.Remove(cmdText);
+				}
+			}
+		}
+
+		protected virtual bool CheckCommand(string inputText)
+		{
+			bool isCommand = false;
+			if (inputText.IsNotNullAndEmpty())
+			{
+				var cmdPrefix = inputText[0];
+				var inputContent = inputText.Substring(1);
+				if (CommandDict.ContainsKey(cmdPrefix) && inputContent.IsNotNullAndEmpty())
+				{
+					var cmdLine = inputContent.SplitAndTrim(' ');
+					var cmdText = cmdLine[0];
+					var actions = CommandDict[cmdPrefix];
+					if (actions.ContainsKey(cmdText))
+					{
+						var processor = actions[cmdText];
+						if (processor != null)
+						{
+							processor(cmdLine);
+							isCommand = true;
+						}
+					}
+				}
+			}
+			return isCommand;
+		}
+
+		private void OnDestroy()
+		{
+			var c = Framework.Application.Console;
+			if (c == this as IConsole)
+			{
+				Debug.LogWarning("Console object is deleted. must not use it again.");
+			}
+			Debug.Log("AC.OnDestroy");
 		}
 	}
 }

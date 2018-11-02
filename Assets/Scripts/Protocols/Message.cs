@@ -63,6 +63,12 @@ namespace Protocol.Transport
         PlayerDisappeared = 4,
         Rotated = 5,
         Logout = 6,
+        WorkSheet = 7,
+        StationList = 8,
+        EnterSubstation = 9,
+        MachineAccountInfo = 10,
+        SubstationList = 1000,
+        WorkTickets = 1001,
     }
 
 }

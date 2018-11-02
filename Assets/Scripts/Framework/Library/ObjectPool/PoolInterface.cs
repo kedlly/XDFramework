@@ -6,8 +6,8 @@ namespace Framework.Library.ObjectPool
 {
 	public interface IPoolable
 	{
-		void OnAllocate();
-		void OnRecycle();
+		void OnAllocated();
+		void OnRecycled();
 	}
 
 	public interface IMemoryPool
@@ -16,7 +16,8 @@ namespace Framework.Library.ObjectPool
 		int UnusedObjectCount { get; }
 		int TotalObjectCount { get; }
 		void ReleaseUnusedObjects();
-		
+		// use this function carefully please. maybe some activated object also released, then the TotalObjectCount is 0, pool is empty now
+		void ReleaseAllObjects();
 	}
 
 	public interface IObjectPool<T> : IMemoryPool

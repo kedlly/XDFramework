@@ -1,7 +1,6 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 
-
 namespace Framework.Core.ReferenceCount
 {
 	public interface IResourceFactory<out T>

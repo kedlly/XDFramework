@@ -104,7 +104,7 @@ namespace Framework.Editor
 			Handles.color = color;
 			Matrix4x4 oldMat = Handles.matrix;
 			Handles.matrix = Handles.matrix * data.matrix;
-			fun(0, Vector3.zero, Quaternion.identity, 1, EventType.Repaint);
+			fun(0, Vector3.zero, Quaternion.identity, 1, UnityEngine.EventType.Repaint);
 			Handles.matrix = oldMat;
 			Handles.color = oldColor;
 		}

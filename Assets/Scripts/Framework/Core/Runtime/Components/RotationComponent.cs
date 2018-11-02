@@ -59,9 +59,10 @@ namespace Framework.Core.Runtime
 		void UpdateRotation()
 		{
 			Direction = Direction.normalized;
+			this.Direction = selfTrans.rotation * Vector3.forward;
 			//selfTrans.rotation = Quaternion.Lerp(selfTrans.rotation, Quaternion.LookRotation(Direction, Vector3.up), Time.deltaTime * Speed);
 			//Debug.Log(((IManageredObject)this).IsActiving);
-			
+
 		}
 	}
 }

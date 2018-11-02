@@ -3,10 +3,65 @@ using Protocol.Request;
 using Protocol;
 using System.Collections.Generic;
 using UnityEngine;
-
+using Framework.Library.ObjectPool;
 
 namespace Projects.ThirdPerson
 {
+	public class Factory<T> : Framework.Library.ObjectPool.IObjectFactory<T> 
+		where T : class, new()
+	{
+		T IObjectFactory<T>.Create()
+		{
+			return new T();
+		}
+
+		void IObjectFactory<T>.Release(T obj)
+		{
+			throw new System.NotImplementedException();
+		}
+	}
+
+	class PostObject : IPoolable
+	{
+		void IPoolable.OnAllocated()
+		{
+			Debug.Log("OnAllocated.....");
+		}
+
+		void IPoolable.OnRecycled()
+		{
+			Debug.Log("OnAllocated_____");
+		}
+	}
+
+	public class Factory2 : IObjectFactory<GameObject>, IObjectFactory<object>
+	{
+		GameObject IObjectFactory<GameObject>.Create()
+		{
+			return new GameObject("Normal");
+		}
+
+		object IObjectFactory<object>.Create()
+		{
+			throw new System.NotImplementedException();
+		}
+
+		void IObjectFactory<GameObject>.Release(GameObject obj)
+		{
+			throw new System.NotImplementedException();
+		}
+
+		void IObjectFactory<object>.Release(object obj)
+		{
+			throw new System.NotImplementedException();
+		}
+	}
+
+	public class Factory3 : Factory2
+	{
+
+	}
+
 	public class MainCameraScript : MonoBehaviour
 	{
 		int index = 0;
@@ -14,6 +69,7 @@ namespace Projects.ThirdPerson
 		Queue<ProtoBuf.IExtensible> networkData = new Queue<ProtoBuf.IExtensible>();
 		private void Start()
 		{
+			/*
 			GameConsole.Instance.OnCommand += cmd =>
 			{
 				switch (cmd)
@@ -88,7 +144,25 @@ namespace Projects.ThirdPerson
 					index++;
 				}
 			};
-			
+			*/
+			Framework.Framework.Application.Console.OnText += delegate (string s)
+			{
+				Debug.Log(s);
+			};
+
+			var pbf2 = new Factory<PostObject>().CreatePool();
+ 			pbf2.Allocate();
+ 			pbf2.Allocate();
+
+// 			var pbf = new Factory2();
+// 			pbf.Allocate();
+// 			pbf.Allocate();
+
+			Framework.Framework.Application.Console.Register('!', "hello", delegate (string[] s)
+			{
+				Debug.Log(string.Join("/", s));
+			});
+
 			ProtocolProcessor.Register<NetworkCommunication>();
 			NetworkManager.Instance.OnDataReceived += data =>
 			{
@@ -105,35 +179,29 @@ namespace Projects.ThirdPerson
 			byte[] bufferLast = new byte[512];
 			byte[] bufferLast2 = new byte[512];
 
-			NetworkManager.Instance.OnAsDataReceived += data =>
-			{
-				Debug.Log("thread id:" + System.Threading.Thread.CurrentThread.ManagedThreadId + "type:"  + "Count :" + data.Count);
-				try
-				{
-					var obj = data.Deserialize().Unpack();
-					if (obj == null)
-					{
-						return;
-					}
-					if (bufferLast != null)
-					{
-						byte[] q = bufferLast;
-						System.Array.Copy(data.Array, data.Offset, q, 0, data.Count);
-					}
-					this.networkData.Enqueue(obj);
-				}
-				catch (System.Exception ex)
-				{
-					byte[] q = bufferLast2;
-					byte[] p = bufferLast;
-					System.Array.Copy(data.Array, data.Offset, q, 0, data.Count);
-					
-					print(ex.Message);
-					throw;
-				}
-			};
+            NetworkManager.Instance.OnAsDataReceived += data => {
+                Debug.Log("thread id:" + System.Threading.Thread.CurrentThread.ManagedThreadId + "type:" + "Count :" + data.Count);
+                try {
+                    var obj = data.Deserialize().Unpack();
+                    if (obj == null) {
+                        return;
+                    }
+                    if (bufferLast != null) {
+                        byte[] q = bufferLast;
+                        System.Array.Copy(data.Array, data.Offset, q, 0, data.Count);
+                    }
+                    this.networkData.Enqueue(obj);
+                } catch (System.Exception ex) {
+                    byte[] q = bufferLast2;
+                    byte[] p = bufferLast;
+                    System.Array.Copy(data.Array, data.Offset, q, 0, data.Count);
 
-			NetworkManager.Instance.OnConnected += (System.Net.Sockets.SocketAsyncEventArgs saea) =>
+                    print(ex.Message);
+                    throw;
+                }
+            };
+
+            NetworkManager.Instance.OnConnected += (System.Net.Sockets.SocketAsyncEventArgs saea) =>
 			{
 				if (saea.SocketError == System.Net.Sockets.SocketError.Success)
 				{

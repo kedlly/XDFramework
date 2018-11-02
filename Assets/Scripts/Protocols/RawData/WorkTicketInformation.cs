@@ -51,31 +51,11 @@ namespace Protocol.DB.Table
         }
         public WTI_Class_One()
         {
+            EQUIPMENT_ID = new global::System.Collections.Generic.List<string>();
             OnConstructor();
         }
 
         partial void OnConstructor();
-
-        [global::ProtoBuf.ProtoMember(1, IsRequired = true)]
-        public string WORK_WRITE_ID { get; set; }
-
-        [global::ProtoBuf.ProtoMember(2, IsRequired = true)]
-        public string WORK_WRITE_NO { get; set; }
-
-        [global::ProtoBuf.ProtoMember(3, IsRequired = true)]
-        public string WHETHER_EXTERIOR { get; set; }
-
-        [global::ProtoBuf.ProtoMember(4, IsRequired = true)]
-        public string WORKBILL { get; set; }
-
-        [global::ProtoBuf.ProtoMember(5, IsRequired = true)]
-        public string TDSQD { get; set; }
-
-        [global::ProtoBuf.ProtoMember(6, IsRequired = true)]
-        public string DH_WRITE_NO { get; set; }
-
-        [global::ProtoBuf.ProtoMember(7, IsRequired = true)]
-        public string DH_WRITE_NAME { get; set; }
 
         [global::ProtoBuf.ProtoMember(8, IsRequired = true)]
         public string WORK_PRINCIPAL_NAME { get; set; }
@@ -84,43 +64,22 @@ namespace Protocol.DB.Table
         public string PLAN_BEGIN_DATE { get; set; }
 
         [global::ProtoBuf.ProtoMember(10, IsRequired = true)]
-        public string DEPARTMENT_ID { get; set; }
+        public string DEPARTMENT_NAME { get; set; }
 
         [global::ProtoBuf.ProtoMember(11, IsRequired = true)]
-        public string DEPARTMENT_NAME { get; set; }
+        public string PLAN_END_TIME { get; set; }
 
         [global::ProtoBuf.ProtoMember(12, IsRequired = true)]
         public string CZ_TYPE { get; set; }
 
-        [global::ProtoBuf.ProtoMember(13, IsRequired = true)]
-        public string CZ_TYPE_NO { get; set; }
-
-        [global::ProtoBuf.ProtoMember(14, IsRequired = true)]
-        public string CZ_ID { get; set; }
-
         [global::ProtoBuf.ProtoMember(15, IsRequired = true)]
         public string CZ_NAME { get; set; }
-
-        [global::ProtoBuf.ProtoMember(16, IsRequired = true)]
-        public string YWDW_ID { get; set; }
 
         [global::ProtoBuf.ProtoMember(17, IsRequired = true)]
         public string YWDW_NAME { get; set; }
 
-        [global::ProtoBuf.ProtoMember(18, IsRequired = true)]
-        public string WORK_PRINCIPAL_ID { get; set; }
-
-        [global::ProtoBuf.ProtoMember(19, IsRequired = true)]
-        public string WORK_MOBILE_PHONE { get; set; }
-
-        [global::ProtoBuf.ProtoMember(20, IsRequired = true)]
-        public string PLAN_END_TIME { get; set; }
-
         [global::ProtoBuf.ProtoMember(21, IsRequired = true)]
         public string WORK_PERSONNEL { get; set; }
-
-        [global::ProtoBuf.ProtoMember(22, IsRequired = true)]
-        public string WORK_PERSONNEL_COUNT { get; set; }
 
         [global::ProtoBuf.ProtoMember(23, IsRequired = true)]
         public string WORK_TASK { get; set; }
@@ -128,62 +87,8 @@ namespace Protocol.DB.Table
         [global::ProtoBuf.ProtoMember(24, IsRequired = true)]
         public string WORK_PLACE { get; set; }
 
-        [global::ProtoBuf.ProtoMember(25, IsRequired = true)]
-        public string ZDZZJHR_ID { get; set; }
-
-        [global::ProtoBuf.ProtoMember(26, IsRequired = true)]
-        public string ZDZZJHR_NAME { get; set; }
-
-        [global::ProtoBuf.ProtoMember(27, IsRequired = true)]
-        public string YLDLQ { get; set; }
-
-        [global::ProtoBuf.ProtoMember(28, IsRequired = true)]
-        public string YLGLKG { get; set; }
-
-        [global::ProtoBuf.ProtoMember(29, IsRequired = true)]
-        public string YTQXGZLDY_DY_ECHL { get; set; }
-
-        [global::ProtoBuf.ProtoMember(30, IsRequired = true)]
-        public string YHJDDZ_ZSJDX_YSJYDB { get; set; }
-
-        [global::ProtoBuf.ProtoMember(31, IsRequired = true)]
-        public string YSZD_YGBSP { get; set; }
-
-        [global::ProtoBuf.ProtoMember(32, IsRequired = true)]
-        public string QTAQCS_ZYSX { get; set; }
-
-        [global::ProtoBuf.ProtoMember(33, IsRequired = true)]
-        public string IS_XLDCJD { get; set; }
-
-        [global::ProtoBuf.ProtoMember(34, IsRequired = true)]
-        public string IS_COMMUNICATION { get; set; }
-
-        [global::ProtoBuf.ProtoMember(35, IsRequired = true)]
-        public string ECCSD_NUM { get; set; }
-
-        [global::ProtoBuf.ProtoMember(36, IsRequired = true)]
-        public string UNDERWRITE { get; set; }
-
-        [global::ProtoBuf.ProtoMember(37, IsRequired = true)]
-        public string SIGN_TIME { get; set; }
-
-        [global::ProtoBuf.ProtoMember(38, IsRequired = true)]
-        public string UNDERWRITE_NAME { get; set; }
-
-        [global::ProtoBuf.ProtoMember(39, IsRequired = true)]
-        public string UNDERWRITE_SIGNATURE { get; set; }
-
-        [global::ProtoBuf.ProtoMember(40, IsRequired = true)]
-        public string CHECK_TIME { get; set; }
-
-        [global::ProtoBuf.ProtoMember(41, IsRequired = true)]
-        public string UNDERWRITE_SIGNATURE_NAME { get; set; }
-
-        [global::ProtoBuf.ProtoMember(42, IsRequired = true)]
-        public string WORK_PRIME_ID { get; set; }
-
-        [global::ProtoBuf.ProtoMember(43, IsRequired = true)]
-        public string WORK_PRIME_NAME { get; set; }
+        [global::ProtoBuf.ProtoMember(44)]
+        public global::System.Collections.Generic.List<string> EQUIPMENT_ID { get; private set; }
 
     }
 
@@ -542,6 +447,53 @@ namespace Protocol.DB.Table
 
         [global::ProtoBuf.ProtoMember(49, IsRequired = true)]
         public string REMAKE { get; set; }
+
+    }
+
+    [global::ProtoBuf.ProtoContract()]
+    public partial class StringPair : global::ProtoBuf.IExtensible
+    {
+        private global::ProtoBuf.IExtension __pbn__extensionData;
+        global::ProtoBuf.IExtension global::ProtoBuf.IExtensible.GetExtensionObject(bool createIfMissing)
+        {
+            return global::ProtoBuf.Extensible.GetExtensionObject(ref __pbn__extensionData, createIfMissing);
+        }
+        public StringPair()
+        {
+            OnConstructor();
+        }
+
+        partial void OnConstructor();
+
+        [global::ProtoBuf.ProtoMember(1, IsRequired = true)]
+        public string key { get; set; }
+
+        [global::ProtoBuf.ProtoMember(2, IsRequired = true)]
+        public string value { get; set; }
+
+    }
+
+    [global::ProtoBuf.ProtoContract()]
+    public partial class StringPairGourp : global::ProtoBuf.IExtensible
+    {
+        private global::ProtoBuf.IExtension __pbn__extensionData;
+        global::ProtoBuf.IExtension global::ProtoBuf.IExtensible.GetExtensionObject(bool createIfMissing)
+        {
+            return global::ProtoBuf.Extensible.GetExtensionObject(ref __pbn__extensionData, createIfMissing);
+        }
+        public StringPairGourp()
+        {
+            data = new global::System.Collections.Generic.List<StringPair>();
+            OnConstructor();
+        }
+
+        partial void OnConstructor();
+
+        [global::ProtoBuf.ProtoMember(1, IsRequired = true)]
+        public string name { get; set; }
+
+        [global::ProtoBuf.ProtoMember(2)]
+        public global::System.Collections.Generic.List<StringPair> data { get; private set; }
 
     }
 

@@ -149,13 +149,56 @@ namespace Protocol.Respond
         }
         public Respond_WorkSheet()
         {
+            data = new global::System.Collections.Generic.List<global::Protocol.DB.Table.WTI_Class_One>();
             OnConstructor();
         }
 
         partial void OnConstructor();
 
-        [global::ProtoBuf.ProtoMember(1, IsRequired = true)]
-        public global::Protocol.DB.Table.WTI_Class_One data { get; set; }
+        [global::ProtoBuf.ProtoMember(1)]
+        public global::System.Collections.Generic.List<global::Protocol.DB.Table.WTI_Class_One> data { get; private set; }
+
+    }
+
+    [global::ProtoBuf.ProtoContract()]
+    public partial class Respond_StationList : global::ProtoBuf.IExtensible
+    {
+        private global::ProtoBuf.IExtension __pbn__extensionData;
+        global::ProtoBuf.IExtension global::ProtoBuf.IExtensible.GetExtensionObject(bool createIfMissing)
+        {
+            return global::ProtoBuf.Extensible.GetExtensionObject(ref __pbn__extensionData, createIfMissing);
+        }
+        public Respond_StationList()
+        {
+            list = new global::System.Collections.Generic.List<global::Protocol.RawData.StationData>();
+            OnConstructor();
+        }
+
+        partial void OnConstructor();
+
+        [global::ProtoBuf.ProtoMember(1)]
+        public global::System.Collections.Generic.List<global::Protocol.RawData.StationData> list { get; private set; }
+
+    }
+
+    [global::ProtoBuf.ProtoContract()]
+    public partial class Respond_MachineAccountInfo : global::ProtoBuf.IExtensible
+    {
+        private global::ProtoBuf.IExtension __pbn__extensionData;
+        global::ProtoBuf.IExtension global::ProtoBuf.IExtensible.GetExtensionObject(bool createIfMissing)
+        {
+            return global::ProtoBuf.Extensible.GetExtensionObject(ref __pbn__extensionData, createIfMissing);
+        }
+        public Respond_MachineAccountInfo()
+        {
+            group = new global::System.Collections.Generic.List<global::Protocol.DB.Table.StringPairGourp>();
+            OnConstructor();
+        }
+
+        partial void OnConstructor();
+
+        [global::ProtoBuf.ProtoMember(1)]
+        public global::System.Collections.Generic.List<global::Protocol.DB.Table.StringPairGourp> group { get; private set; }
 
     }
 

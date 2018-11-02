@@ -77,51 +77,59 @@ namespace Framework.Network.DataRecevier
 
 		public void ReceiveData(ArraySegment<byte> segment)
 		{
-			var remained = segment;
-			while (remained.Count > 0)
-			{
-				if (_state == State.ReadLength)
-				{
-					ArraySegment<byte> lengthSeg = doRead(remained, lengthDataRemainedCount, out remained);
-					Array.Copy(lengthSeg.Array, lengthSeg.Offset, lengthDataBuffer, lengthDataBuffer.Length - lengthDataRemainedCount, lengthSeg.Count);
-					lengthDataRemainedCount = lengthDataRemainedCount - lengthSeg.Count;
-					if (lengthDataRemainedCount == 0)
-					{
-						if (System.BitConverter.IsLittleEndian)
-						{
-							Array.Reverse(lengthDataBuffer);
-						}
-						length = System.BitConverter.ToInt32(lengthDataBuffer, 0);
-						receiveBuffer.Write(lengthDataBuffer);
-						_state = State.ReadData;
-					}
-				}
-				if (_state == State.ReadData)
-				{
-					if (remained.Count > 0)
-					{
-						if (remained.Count >= length)
-						{
-							var dataSegment = doRead(remained, length, out remained);
-							receiveBuffer.Write(dataSegment.Array, dataSegment.Offset, dataSegment.Count);
-							length = 0;
-							_state = State.ReadLength;
-							lengthDataRemainedCount = lengthDataBuffer.Length;
-						}
-						else
-						{
-							receiveBuffer.Write(remained.Array, remained.Offset, remained.Count);
-							length -= remained.Count;
-							remained = new ArraySegment<byte>(remained.Array, remained.Offset + remained.Count, 0);
-						}
-					}
-				}
-			}
+		    //lock (locker)
+		    {
+		        var remained = segment;
+		        while (remained.Count > 0)
+		        {
+		            if (_state == State.ReadLength)
+		            {
+		                ArraySegment<byte> lengthSeg = doRead(remained, lengthDataRemainedCount, out remained);
+		                Array.Copy(lengthSeg.Array, lengthSeg.Offset, lengthDataBuffer,
+		                    lengthDataBuffer.Length - lengthDataRemainedCount, lengthSeg.Count);
+		                lengthDataRemainedCount = lengthDataRemainedCount - lengthSeg.Count;
+		                if (lengthDataRemainedCount == 0)
+		                {
+		                    if (System.BitConverter.IsLittleEndian)
+		                    {
+		                        Array.Reverse(lengthDataBuffer);
+		                    }
+		                    length = System.BitConverter.ToInt32(lengthDataBuffer, 0);
+							if (length < 0 || length > 1 * 1024 * 1024)
+							{
+								throw new Exception("bad data.");
+							}
+		                    receiveBuffer.Write(lengthDataBuffer);
+		                    _state = State.ReadData;
+		                }
+		            }
+		            if (_state == State.ReadData)
+		            {
+		                if (remained.Count > 0)
+		                {
+		                    if (remained.Count >= length)
+		                    {
+		                        var dataSegment = doRead(remained, length, out remained);
+		                        receiveBuffer.Write(dataSegment.Array, dataSegment.Offset, dataSegment.Count);
+		                        length = 0;
+		                        _state = State.ReadLength;
+		                        lengthDataRemainedCount = lengthDataBuffer.Length;
+		                    }
+		                    else
+		                    {
+		                        receiveBuffer.Write(remained.Array, remained.Offset, remained.Count);
+		                        length -= remained.Count;
+		                        remained = new ArraySegment<byte>(remained.Array, remained.Offset + remained.Count, 0);
+		                    }
+		                }
+		            }
+		        }
 
-			if (remained.Count > 0)
-			{
-				throw new Exception("------------");
-			}
+		        if (remained.Count > 0)
+		        {
+		            throw new Exception("------------");
+		        }
+		    }
 		}
 
 		private static ArraySegment<byte> doRead(ArraySegment<byte> data, int length, out ArraySegment<byte> remainedSegment)

@@ -131,6 +131,35 @@ namespace Protocol.RawData
     }
 
     [global::ProtoBuf.ProtoContract()]
+    public partial class StationData : global::ProtoBuf.IExtensible
+    {
+        private global::ProtoBuf.IExtension __pbn__extensionData;
+        global::ProtoBuf.IExtension global::ProtoBuf.IExtensible.GetExtensionObject(bool createIfMissing)
+        {
+            return global::ProtoBuf.Extensible.GetExtensionObject(ref __pbn__extensionData, createIfMissing);
+        }
+        public StationData()
+        {
+            OnConstructor();
+        }
+
+        partial void OnConstructor();
+
+        [global::ProtoBuf.ProtoMember(1, IsRequired = true)]
+        public int pid { get; set; }
+
+        [global::ProtoBuf.ProtoMember(2, IsRequired = true)]
+        public string name { get; set; }
+
+        [global::ProtoBuf.ProtoMember(3, IsRequired = true)]
+        public Vector3 iconpos { get; set; }
+
+        [global::ProtoBuf.ProtoMember(4, IsRequired = true)]
+        public string sceneName { get; set; }
+
+    }
+
+    [global::ProtoBuf.ProtoContract()]
     public enum PlayerType
     {
         EPT_HUMAN = 0,

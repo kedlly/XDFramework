@@ -4,91 +4,106 @@ using Framework.Library.Singleton;
 using Framework.Library.Log;
 using System.IO;
 using Framework.Utils.Extensions;
+using System;
 
 namespace Framework.Core
 {
-
-	static partial class RuntimeInitializeBeforeSceneLoad
+	[PathInHierarchy("/[Game]/Application"), DisallowMultipleComponent]
+	public sealed class ApplicationManager : ToSingletonBehavior<ApplicationManager>, IApplication
 	{
-		[RuntimeInitializeOnLoadMethod(RuntimeInitializeLoadType.BeforeSceneLoad)]
-		static void InitApplicationManager()
+		event Action IApplication.LowMemory
 		{
-			ApplicationManager.Instance.initalizeUnity();
-			ApplicationManager.Instance.InitGame();
-		}
-	}
-
-	[PathInHierarchy("/[Game]/Systems"), DisallowMultipleComponent]
-	public sealed class ApplicationManager : ToSingletonBehavior<ApplicationManager>
-	{
-		private class ApplicationLogger : ToSingleton<ApplicationLogger>
-		{
-#if UNITY_EDITOR
-			string mDevicePersistentPath = Application.dataPath + "/../PersistentPath";
-#elif UNITY_STANDALONE_WIN
-			string mDevicePersistentPath = Application.dataPath + "/PersistentPath";
-#elif UNITY_STANDALONE_OSX
-			string mDevicePersistentPath = Application.dataPath + "/PersistentPath";
-#else
-			string mDevicePersistentPath = Application.persistentDataPath;
-#endif
-
-			const string LogPath = "Logs";
-
-			public LogUtil.ILogHelper LogHelper { get; private set; }
-
-			private ApplicationLogger()
+			add
 			{
-
+				_LowMemoryCallback += value;
 			}
 
-			public void Init()
+			remove
 			{
-				LogHelper = new FileLogOutput(Path.Combine(mDevicePersistentPath, LogPath));
-				Application.logMessageReceivedThreaded += LogCallback;
-				LogUtil.SetLogHelper(LogHelper);
-			}
-
-			void LogCallback(string condition, string stackTrace, LogType type)
-			{
-				if (LogHelper == null)
-				{
-					return;
-				}
-				LogHelper.Log(
-					new LogData
-					{
-						Message = condition
-						, StackTrace = stackTrace
-						, Level = type
-					}
-				);
-			}
-
-			protected override void OnSingletonInit()
-			{
-				
-			}
-
-			protected override void OnDispose()
-			{
-				LogUtil.SetLogHelper(null);
-				Application.logMessageReceivedThreaded -= LogCallback;
-				if(LogHelper != null)
-				{
-					LogHelper.CleanAllHandle();
-					LogHelper.Close();
-					LogHelper = null;
-				}
-				base.OnDispose();
+				_LowMemoryCallback -= value;
 			}
 		}
+
+		private event Action _LowMemoryCallback;
+
+		event Action IApplication.OnQuit
+		{
+			add
+			{
+				_OnAppQuit += value;
+			}
+
+			remove
+			{
+				_OnAppQuit -= value;
+			}
+		}
+
+		private event Action _OnAppQuit;
+
+		event Func<bool> IApplication.WantsToQuit
+		{
+			add
+			{
+				_WantsToQuit += value;
+			}
+
+			remove
+			{
+				_WantsToQuit -= value;
+			}
+		}
+
+		private event Func<bool> _WantsToQuit;
 
 		private void Awake()
 		{
+			Debug.Log("AM.Awake");
 			//初始化日志
 			ApplicationLogger.Instance.Init();
+			_helper = ApplicationLogger.Instance;
+			Application.lowMemory += delegate ()
+			{
+				if (_LowMemoryCallback != null)
+				{
+					_LowMemoryCallback();
+				}
+			};
+#if UNITY_2018_1_OR_NEWER
+			//必定执行
+			//Application.wantsToQuit == false 时不会执行OnApplicationQuit
+
+			Application.quitting += delegate ()
+			{
+				if (_OnAppQuit != null)
+				{
+					_OnAppQuit();
+				}
+				UnityEngine.Debug.Log("-><-");
+			};
+
+			Application.wantsToQuit += delegate ()
+			{
+				if (_WantsToQuit != null)
+				{
+					return _WantsToQuit();
+				}
+				return true;
+			};
+#else
+#endif
 		}
+
+#if !UNITY_2018_1_OR_NEWER
+		private void OnApplicationQuit()
+		{
+			if (_OnAppQuit != null)
+			{
+				_OnAppQuit();
+			}
+			Debug.Log("OnApplicationQuit");
+		}
+#endif
 
 		private void OnDestroy()
 		{
@@ -98,7 +113,17 @@ namespace Framework.Core
 		protected override void OnDispose()
 		{
 			base.OnDispose();
-			ApplicationLogger.Instance.Dispose();
+			if (_console != null)
+			{
+				GameConsole.Instance.Dispose();
+				_console = null;
+			}
+			if (_helper != null)
+			{
+				ApplicationLogger.Instance.Dispose();
+				_helper = null;
+			}
+			Debug.Log("AM.OnDestroy");
 		}
 
 		protected override void OnSingletonInit() // after awake called
@@ -106,47 +131,37 @@ namespace Framework.Core
 			base.OnSingletonInit();
 		}
 
-		public void initalizeUnity()
+		private IAppConfigure itf_configure = null;
+
+		IConsole _console = null;
+		IConsole IApplication.Console { get { return _console; } }
+		ILoggerHelper _helper = null;
+
+		IAppConfigure IApplication.AppConfigure	{ get { return itf_configure; } }
+
+		ILoggerHelper IApplication.Logger
 		{
-			//Application.backgroundLoadingPriority = ThreadPriority.High;
-			Application.lowMemory += delegate ()
+			get
 			{
-
-			};
-
-			//必定执行
-			//Application.wantsToQuit == false 时不会执行OnApplicationQuit
-			Application.quitting += delegate ()
-			{
-				UnityEngine.Debug.Log("-><-");
-			};
-
-			Application.wantsToQuit += delegate ()
-			{
-				return true;
-			};
-
-			Application.targetFrameRate = 60;
-			
+				return _helper;
+			}
 		}
 
-		private void OnApplicationQuit() {
-			Debug.Log("OnApplicationQuit");
+		void IApplication.Initialize(IAppConfigure configure)
+		{
+			itf_configure = configure;
 		}
 
-		public void InitGame()
+		void IApplication.InitGamePlay(int frameRate)
 		{
+			Application.targetFrameRate = frameRate;
 			GameManager.Instance.Initalize();
-			GameConsole.Instance.Initlize();
-			/*
-			GameObject o = null;
-			o.AddSubObject("A");
-			o.AddSubObject("A");
-			o.AddSubObject("A");
-			var q = o.AddSubObject("A/B/C/D").AddSubObject("O/P/Q");q.AddSubObject("b");
-			DontDestroyOnLoad(o.AddSubObject("A"));
-			o.AddSubObject("A/E/F/C");
-			o.AddSubObject("A/E/Q/C");*/
+			if (_console == null)
+			{
+				GameConsole.Instance.Initlize();
+				_console = GameConsole.Instance;
+			}
 		}
+
 	}
 }

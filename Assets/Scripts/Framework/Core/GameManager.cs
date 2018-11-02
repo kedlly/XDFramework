@@ -8,15 +8,12 @@ using System;
 namespace Framework.Core
 {
 
-	[PathInHierarchy("/[Game]/GameManager"), DisallowMultipleComponent]
+	[PathInHierarchy("/[Game]/GamePlay"), DisallowMultipleComponent]
 	public sealed class GameManager : ToSingletonBehavior<GameManager>
 	{
 		protected override void OnSingletonInit()
 		{
-			GameConsole.Instance.OnCommand += str =>
-			{
-				Debug.Log(str);
-			};
+			
 		}
 
 		protected override void OnDispose()

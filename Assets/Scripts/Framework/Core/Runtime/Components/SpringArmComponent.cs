@@ -209,11 +209,43 @@ namespace Framework.Core.Runtime
 				}
 				else
 				{
+#if UNITY_2018_OR_NEWER
 					var rotation = keepDirection ? originalHandMat.rotation : transform.rotation * originalSelfMat.inverse.rotation * originalHandMat.rotation;
 					hand.rotation = Quaternion.RotateTowards(hand.rotation, rotation, handRotateSpeed * Time.deltaTime);
+#else
+					Vector3 pos, scale;
+					Quaternion oriHandRotation;
+					Quaternion oriSelfInvRotation;
+					GetTRS(originalHandMat, out pos, out oriHandRotation, out scale);
+					GetTRS(originalSelfMat.inverse, out pos, out oriSelfInvRotation, out scale);
+					var rotation = keepDirection ? oriHandRotation : transform.rotation * oriSelfInvRotation * oriHandRotation;
+					hand.rotation = Quaternion.RotateTowards(hand.rotation, rotation, handRotateSpeed * Time.deltaTime);
+#endif
 				}
 			}
 		}
+#if UNITY_2018_OR_NEWER
+#else
+		private static void GetTRS(Matrix4x4 mat, out Vector3 position, out Quaternion rotation, out Vector3 localScale)
+		{
+			// Extract new local position
+			position = mat.GetColumn(3);
+
+			// Extract new local rotation
+			rotation = Quaternion.LookRotation(
+				mat.GetColumn(2),
+				mat.GetColumn(1)
+			);
+
+			// Extract new local scale
+			localScale = new Vector3(
+				mat.GetColumn(0).magnitude,
+				mat.GetColumn(1).magnitude,
+				mat.GetColumn(2).magnitude
+			);
+
+		}
+#endif
 
 		private void OnDrawGizmos()
 		{

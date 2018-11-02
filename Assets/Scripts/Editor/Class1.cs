@@ -24,17 +24,17 @@ namespace Framework.Editor
 			Handles.DrawBezier(script.PointA, script.PointB, script.TangentA, script.TangentB, Color.red, null, 5);
 			Handles.zTest = UnityEngine.Rendering.CompareFunction.Less;
 			Handles.color = new Color(1,0,0,0.05f);
-			Handles.SphereHandleCap(0, script.transform.position, Quaternion.identity, radius1 * 2, EventType.Repaint);
+			Handles.SphereHandleCap(0, script.transform.position, Quaternion.identity, radius1 * 2, UnityEngine.EventType.Repaint);
 			Handles.color = new Color(1, 0, 0, 1f);
 			//Handles.CircleHandleCap(2, script.transform.position, Quaternion.identity, radius1, EventType.Repaint);
 			radius1 = Handles.RadiusHandle(Quaternion.identity, script.transform.position, radius1, true);
 			Handles.color = new Color(1, 0, 0, 0.1f);
-			Handles.SphereHandleCap(1, script.transform.position, Quaternion.identity, radius2, EventType.Repaint);
+			Handles.SphereHandleCap(1, script.transform.position, Quaternion.identity, radius2, UnityEngine.EventType.Repaint);
 			Handles.DrawSolidDisc(script.transform.position, Vector3.up, 15);
 			Handles.color = new Color(1, 1, 0, 1f);
 			Handles.DrawWireArc(script.transform.position, Vector3.up, Vector3.right * radius1, 45f, 6f);
 			Handles.color = new Color(1, 0, 1, 0.2f);
-			Handles.CylinderHandleCap(10, script.transform.position, Quaternion.identity, 1, EventType.Repaint);
+			Handles.CylinderHandleCap(10, script.transform.position, Quaternion.identity, 1, UnityEngine.EventType.Repaint);
 		}
 	}
 }

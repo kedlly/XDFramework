@@ -173,6 +173,7 @@ namespace Framework.Network
 			{
 				sendingThread = new Thread(thread_func);
 				sendingThread.Start();
+				sendingThread.IsBackground = true;
 			}
 			senderCommandEvent.Set();
 		}
