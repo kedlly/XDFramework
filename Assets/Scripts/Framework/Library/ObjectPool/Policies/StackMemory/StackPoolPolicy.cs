@@ -12,13 +12,26 @@ namespace Framework.Library.ObjectPool.Policies.StackMemory
 
 		protected override int UnusedObjectCount { get { return _stackPool.Count; } }
 
-		protected override int TotalObjectCount { get { return _stackPool.Count; } }
+		protected override int TotalObjectCount { get { return totalObjectCount; } }
 
 		public StackPolicy(IObjectFactory<T> factory = null) : base(factory) { }
 
-		protected override T OnAllocate()
+		private int totalObjectCount = 0;
+
+		protected override T OnAllocate(T template)
 		{
-			return _stackPool.Count > 0 ? _stackPool.Pop() : ObjectFactory.Create();
+			T obj = null;
+			if (_stackPool.Count > 0)
+			{
+				obj = _stackPool.Pop();
+			}
+			else
+			{
+				obj = ObjectFactory.Create();
+				ObjectFactory.Copy(obj, template);
+				totalObjectCount++;
+			}
+			return obj;
 		}
 
 		protected override bool OnRecycle(T obj)
@@ -27,18 +40,21 @@ namespace Framework.Library.ObjectPool.Policies.StackMemory
 			return true;
 		}
 
-		protected override void OnReleaseUnusedObjects()
+		protected override void OnReleaseUnusedObjects(int count)
 		{
-			while (_stackPool.Count > 0)
+			count = count == -1 || count > _stackPool.Count ? _stackPool.Count : count;
+			while (count > 0)
 			{
 				var obj = _stackPool.Pop();
 				ObjectFactory.Release(obj);
+				count--;
 			}
 		}
 
 		protected override void OnReleaseAllObjects()
 		{
-			OnReleaseUnusedObjects();
+			OnReleaseUnusedObjects(-1);
+			totalObjectCount = 0;
 		}
 	}
 

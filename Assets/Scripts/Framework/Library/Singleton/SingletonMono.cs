@@ -2,11 +2,12 @@
 using UnityEngine;
 using System.Reflection;
 using Framework.Utils.Extensions;
+using System;
 
 namespace Framework.Library.Singleton
 {
 	[Obfuscation(ApplyToMembers = true, Exclude = true, Feature = "renaming")]
-	public class SingletonBehaviour<T> where T : MonoBehaviour, ISingleton
+	internal class SingletonBehaviour<T> where T : MonoBehaviour, ISingleton
 	{
 		private struct InstanceTagData
 		{
@@ -106,7 +107,13 @@ namespace Framework.Library.Singleton
 		public void Dispose()
 		{
 			OnDispose();
+			if (OnEventDispose != null)
+			{
+				OnEventDispose();
+			}
 		}
+
+		public event Action OnEventDispose;
 
 		protected virtual void OnSingletonInit() {}
 

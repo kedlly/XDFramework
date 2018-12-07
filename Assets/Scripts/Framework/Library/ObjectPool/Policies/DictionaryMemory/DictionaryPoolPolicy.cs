@@ -1,84 +1,127 @@
-﻿using System;
+﻿using Framework.Utils.Extensions;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 
 namespace Framework.Library.ObjectPool.Policies.DictionaryMemory
 {
-	public class DictionaryPolicy<T> : BufferPolicy<T> where T : class
+	
+	public abstract class ADictionaryPolicy<T> : BufferPolicy<T> where T : class
 	{
 		private const int capacity = 8;
+		protected override int UnusedObjectCount { get { return releaseCache.Count; } }
 
-		Dictionary<T, bool> dictCache = new Dictionary<T, bool>(capacity); // T, isRecycled
+		protected override int TotalObjectCount { get { return Cache.Count + releaseCache.Count; } }
 
-		protected override int UnusedObjectCount {  get { return dictCache.Count(it => !it.Value); } }
+		private Dictionary<T, int> Cache = new Dictionary<T, int>(capacity);
+		private HashSet<T> releaseCache = new HashSet<T>();
 
-		protected override int TotalObjectCount { get { return dictCache.Count; } }
+		public ADictionaryPolicy(IObjectFactory<T> factory = null) : base(factory) { }
 
-		public DictionaryPolicy(IObjectFactory<T> factory = null) : base(factory)	{ }
-
-		protected override T OnAllocate()
+		protected T OnAllocateByRefcount(T template)
 		{
-			T obj = null;
-			var it = dictCache.GetEnumerator();
-			while(it.MoveNext())
+			T newObj = PickInCache(template);
+			if (newObj == null)
 			{
-				if(it.Current.Value)
+				newObj = ReuseOrCreateItem(template);
+				Cache[newObj] = 0;
+			}
+			Cache[newObj]++;
+			return newObj;
+		}
+
+		protected T OnAllocateNormal(T template)
+		{
+			T newObj = ReuseOrCreateItem(template);
+			Cache[newObj] = 1;
+			return newObj;
+		}
+
+		private T ReuseOrCreateItem(T template)
+		{
+			T newObj = PickInReleaseCache(template);
+			if (newObj != null)
+			{
+				releaseCache.Remove(newObj);
+				if (newObj != template)
 				{
-					obj = it.Current.Key;
-					break;
+					ObjectFactory.Copy(newObj, template);
 				}
 			}
-			if(obj == null)
+			else
 			{
-				obj = ObjectFactory.Create();
+				newObj = ObjectFactory.Create();
+				ObjectFactory.Copy(newObj, template);
 			}
-			dictCache[obj] = false;
-			return obj;
+			return newObj;
+		}
+
+		private T PickInReleaseCache(T template)
+		{
+			if (releaseCache.Count > 0)
+			{
+				if (template != null && releaseCache.Contains(template))
+				{
+					return template;
+				}
+				return releaseCache.First();
+			}
+			return null;
+		}
+
+		private T PickInCache(T template)
+		{
+			return template != null && Cache.ContainsKey(template) ? template : null;
 		}
 
 		protected override bool OnRecycle(T obj)
 		{
-			bool result = false;
-			if(dictCache.ContainsKey(obj) && !dictCache[obj])
+			if (Cache.ContainsKey(obj))
 			{
-				dictCache[obj] = true;
-				result = true;
-			}
-			return result;
-		}
-
-		List<T> tmpRelease = new List<T>();
-		Dictionary<T, bool> tmpStorage = new Dictionary<T, bool>();
-
-		protected override void OnReleaseUnusedObjects()
-		{
-			var it = dictCache.GetEnumerator();
-			while(it.MoveNext())
-			{
-				if(it.Current.Value)
+				Cache[obj]--;
+				if (Cache[obj] == 0)
 				{
-					tmpRelease.Add(it.Current.Key);
+					Cache.Remove(obj);
+					releaseCache.Add(obj);
 				}
-				else
-				{
-					tmpStorage[it.Current.Key] = false;
-				}
+				return true;
 			}
-			var tmpRef = dictCache;
-			dictCache = tmpStorage;
-			tmpStorage = tmpRef;
-			tmpRelease.ForEach(value => ObjectFactory.Release(value));
-			tmpRelease.Clear();
-			tmpStorage.Clear();
+			return false;
 		}
 
 		protected override void OnReleaseAllObjects()
 		{
-			foreach (var item in dictCache)
+			Cache.ForEach(it => ObjectFactory.Release(it.Key));
+			Cache.Clear();
+			releaseCache.ForEach(it => ObjectFactory.Release(it));
+			releaseCache.Clear();
+		}
+
+		protected override void OnReleaseUnusedObjects(int count = -1)
+		{
+			if (count == -1 || count > releaseCache.Count)
 			{
-				ObjectFactory.Release(item.Key);
+				count = releaseCache.Count;
 			}
-			dictCache.Clear();
+			if (count > 0)
+			{
+				releaseCache.Take(count).ToArray().ForEach(it =>
+				{
+					releaseCache.Remove(it);
+					ObjectFactory.Release(it);
+				});
+			}
+		}
+	}
+
+
+	public class DictionaryPolicy<T> : ADictionaryPolicy<T> where T : class
+	{
+		public DictionaryPolicy(IObjectFactory<T> factory) : base(factory) { }
+
+		protected override T OnAllocate(T objectTemplate = null)
+		{
+			return OnAllocateNormal(objectTemplate);
 		}
 	}
 

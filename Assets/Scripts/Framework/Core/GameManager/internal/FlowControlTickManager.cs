@@ -4,7 +4,7 @@ using Framework.Core.Attributes;
 
 namespace Framework.Core
 {
-	[ManagerTemplate("internalFlowControlTickManager", AutoRegister = true)]
+	[ManagerTemplate(AutoRegister = true)]
 	internal class FlowControlTickManager : AMananger
 	{
 

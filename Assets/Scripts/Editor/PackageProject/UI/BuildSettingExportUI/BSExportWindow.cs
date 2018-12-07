@@ -2,7 +2,7 @@
 using UnityEngine;
 
 
-namespace Assets.Editor.ProjectBuilder
+namespace XDDQFrameWork.Editor.ProjectBuilder
 {
 	class ExportBuildSettingWindow : EditorWindow
 	{

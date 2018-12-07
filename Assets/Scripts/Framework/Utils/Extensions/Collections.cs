@@ -1,4 +1,4 @@
-﻿using Framework.Library.Log;
+﻿
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -39,6 +39,27 @@ namespace Framework.Utils.Extensions
 			}
 
 			return selfArray;
+		}
+
+		public static T Find<T>(this T[] array, Predicate<T> match, T expect)
+		{
+			if (array == null)
+			{
+				throw new ArgumentNullException("array");
+			}
+
+			if (match == null)
+			{
+				throw new ArgumentNullException("match");
+			}
+			for (int i = 0; i < array.Length; i++)
+			{
+				if (match(array[i]))
+				{
+					return array[i];
+				}
+			}
+			return expect;
 		}
 
 		public static int FindIndex<T>(this T[] array, Predicate<T> p)
@@ -274,24 +295,12 @@ namespace Framework.Utils.Extensions
 		}
 
 
-		public static void RemoveAll<TKey, TValue>(this Dictionary<TKey, TValue> dict, Predicate<KeyValuePair<TKey, TValue>> predicate)
-		{
-			List<TKey> targetKeys = new List<TKey>();
-			var dictE = dict.GetEnumerator();
-
-			while(dictE.MoveNext())
-			{
-				var current = dictE.Current;
-				if(predicate(current))
-				{
-					targetKeys.Add(current.Key);
-				}
-			}
-			dictE.Dispose();
-
-			targetKeys.ForEach(key => dict.Remove(key));
+		public static void RemoveAll<TKey, TValue>(this Dictionary<TKey, TValue> dict, Func<KeyValuePair<TKey, TValue>, bool> predicate)
+		{ 
+			dict.Where(it => predicate(it)).Select(it => it.Key).ToArray().ForEach(key => dict.Remove(key));
 		}
-
+		
+		
 		#endregion
 
 	}

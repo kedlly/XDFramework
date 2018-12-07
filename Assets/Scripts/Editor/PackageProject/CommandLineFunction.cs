@@ -1,7 +1,7 @@
 ﻿
 
 
-using Assets.Editor.ProjectBuilder;
+using XDDQFrameWork.Editor.ProjectBuilder;
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;

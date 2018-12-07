@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
-using Assets.Editor.ProjectBuilder;
+using XDDQFrameWork.Editor.ProjectBuilder;
 using UnityEngine;
 using UnityEditor;
 
@@ -10,21 +10,6 @@ namespace Plugin.PackageProject
 {
     public static class XDProjectMenu
 	{
-		[MenuItem("XDProject/test")]
-		private static void test()
-		{
-			var o = GameObject.Find("TTT");
-			Debug.Log(o);
-			if (EditorApplication.isPlaying)
-			{
-				o = new GameObject("TTT");
-				o.AddComponent<FSMComponent>();
-			}
-			if (o != null)
-			{
-				o.AddComponent<NewBehaviourScript2>();
-			}
-		}
 
 		[MenuItem("XDProject/ExportProjectSettings")]
 		private static void ExportProjectSettings()

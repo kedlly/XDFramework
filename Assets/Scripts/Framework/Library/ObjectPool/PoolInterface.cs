@@ -13,6 +13,8 @@ namespace Framework.Library.ObjectPool
 	public interface IMemoryPool
 	{
 		Type ObjectType { get; }
+		int ReserveDeepth { get; set; }
+		int MaxDeepth { get; set; }
 		int UnusedObjectCount { get; }
 		int TotalObjectCount { get; }
 		void ReleaseUnusedObjects();
@@ -20,17 +22,25 @@ namespace Framework.Library.ObjectPool
 		void ReleaseAllObjects();
 	}
 
-	public interface IObjectPool<T> : IMemoryPool
+	public interface IObjectPool<T> : IMemoryPool where T : class
 	{
-		T Allocate();
-
+		IObjectFactory<T> ObjectFactory { get; }
+		T Allocate(T objectTemplate = null);
 		bool Recycle(T obj);
 	}
 
-	public interface IObjectFactory<T>
+	public interface IObjectFactory<T> where T : class
 	{
 		T Create();
+		void Copy(T target, T template);
 		void Release(T obj);
+	}
+
+	public interface IReferenceTrack
+	{
+		void Retain(object owner);
+		void Release(object owner);
+		int  RetainCount { get; }
 	}
 
 }

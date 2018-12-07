@@ -122,8 +122,9 @@ namespace Framework.Core
 	/// 包括FPS，内存使用情况，日志GUI输出
 	/// </summary>
 	/// 
-	[PathInHierarchy("/[Game]/Application"), DisallowMultipleComponent]
-	public class GameConsole : ToSingletonBehavior<GameConsole>, IConsole
+	//[PathInHierarchy("/[Game]/Application"), DisallowMultipleComponent]
+	//public class GameConsole : ToSingletonBehavior<GameConsole>, IConsole
+	public class GameConsole : MonoBehaviour, IConsole
 	{
 
 		/// <summary>
@@ -146,10 +147,11 @@ namespace Framework.Core
 		/// </summary>
 		private MemoryDetector memoryDetector = null;
 		private bool showGUI = false;
-		List<LogData> entries = new List<LogData>();
+		List<LogData> entries = new List<LogData>(MaxRecordCount + 1);
 		Vector2 scrollPos;
 		bool scrollToBottom = true;
 		bool collapse;
+		public const int MaxRecordCount = 200;
 #if UNITY_IOS
 		bool mTouching = false;
 #endif
@@ -161,30 +163,13 @@ namespace Framework.Core
 		GUIContent collapseLabel = new GUIContent("Collapse", "Hide repeated messages.");
 		GUIContent scrollToBottomLabel = new GUIContent("ScrollToBottom", "Scroll bar always at bottom");
 
-
-		event Action<string> OnCommandText;
-
-		private event Action<string> OnTextItem;
-
-		event Action<string> IConsole.OnText
-		{
-			add
-			{
-				OnTextItem += value;
-			}
-
-			remove
-			{
-				OnTextItem -= value;
-			}
-		}
+		public event Action<string> OnText;
 
 		private void Awake()
 		{
 			this.fpsCounter = new FPSCounter(this);
 			this.memoryDetector = new MemoryDetector(this);
-			OnCommandText += GameConsole_OnCommand;
-			Debug.Log("AC.Awake");
+			Debug.Log("ApplicationConsole.Awake");
 		}
 
 		private void GameConsole_OnCommand(string text)
@@ -192,9 +177,9 @@ namespace Framework.Core
 			var isCommand = CheckCommand(text);
 			if (!isCommand)
 			{
-				if (OnTextItem != null)
+				if (OnText != null)
 				{
-					OnTextItem(text);
+					OnText(text);
 				}
 			}
 		}
@@ -268,92 +253,80 @@ namespace Framework.Core
 		/// </summary>
 		void ConsoleWindow (int windowID)
 		{
-			int count = entries.Count;
-			if (scrollToBottom) {
-				GUILayout.BeginScrollView (Vector2.up * count * 100.0f);
-			}
-			else {
-				scrollPos = GUILayout.BeginScrollView (scrollPos);
-			}
-			// Go through each logged entry
-			for (int i = 0; i < count; i++) {
-				LogData entry = entries[i];
-				// If this message is the same as the last one and the collapse feature is chosen, skip it
-				if (collapse && i > 0 && entry.Message == entries[i - 1].Message) {
-					continue;
-				}
-				// Change the text colour according to the log type
-				switch (entry.Level) {
-					case LogType.Error:
-					case LogType.Exception:
-						GUI.contentColor = Color.red;
-						break;
-					case LogType.Warning:
-						GUI.contentColor = Color.yellow;
-						break;
-					default:
-						GUI.contentColor = Color.white;
-						break;
-				}
-				if (entry.Level == LogType.Exception)
+			lock (locker)
+			{
+				int count = entries.Count;
+				if (scrollToBottom)
 				{
-					GUILayout.Label(entry.Message + " || " + entry.StackTrace);
-				} else {
-					try
+					GUILayout.BeginScrollView(Vector2.up * count * 100.0f);
+				}
+				else
+				{
+					scrollPos = GUILayout.BeginScrollView(scrollPos);
+				}
+				// Go through each logged entry
+				for (int i = 0; i < count; i++)
+				{
+					LogData entry = entries[i];
+					// If this message is the same as the last one and the collapse feature is chosen, skip it
+					if (collapse && i > 0 && entry.Message == entries[i - 1].Message)
 					{
-						GUILayout.Label(entry.Message);
+						continue;
 					}
-					catch (System.Exception ex)
+					// Change the text color according to the log type
+					switch (entry.Level)
 					{
-						
+						case LogType.Error:
+						case LogType.Exception:
+							GUI.contentColor = Color.red;
+							break;
+						case LogType.Warning:
+							GUI.contentColor = Color.yellow;
+							break;
+						default:
+							GUI.contentColor = Color.white;
+							break;
 					}
 					
+					GUILayout.Label(entry.Level != LogType.Exception ? entry.Message : entry.Message + " || " + entry.StackTrace);
 				}
-			}
-			GUI.contentColor = Color.white;
-			GUILayout.EndScrollView();
-			GUILayout.BeginHorizontal();
-			// Clear button
-			if (GUILayout.Button(clearLabel)) {
-				lock (locker)
+				GUI.contentColor = Color.white;
+				GUILayout.EndScrollView();
+				GUILayout.BeginHorizontal();
+				// Clear button
+				if (GUILayout.Button(clearLabel))
 				{
 					entries.Clear();
 				}
-			}
-			// Collapse toggle
-			collapse = GUILayout.Toggle(collapse, collapseLabel, GUILayout.ExpandWidth(false));
-			scrollToBottom = GUILayout.Toggle (scrollToBottom, scrollToBottomLabel, GUILayout.ExpandWidth (false));
-			GUILayout.EndHorizontal();
-			if (commandText.IsNotNullAndEmpty() && Event.current.type == UnityEngine.EventType.KeyDown && Event.current.keyCode == KeyCode.Return)
-			{
-				if (OnCommandText != null)
+				// Collapse toggle
+				collapse = GUILayout.Toggle(collapse, collapseLabel, GUILayout.ExpandWidth(false));
+				scrollToBottom = GUILayout.Toggle (scrollToBottom, scrollToBottomLabel, GUILayout.ExpandWidth(false));
+				GUILayout.EndHorizontal();
+				if (commandText.IsNotNullAndEmpty() && Event.current.type == UnityEngine.EventType.KeyDown && Event.current.keyCode == KeyCode.Return)
 				{
-					OnCommandText(commandText);
+					GameConsole_OnCommand(commandText);
 					commandText = "";
+					Event.current.Use();
 				}
-				Event.current.Use();
-			}
-			GUI.SetNextControlName("CommandLine");
-			GUILayout.BeginHorizontal();
-			commandText = GUILayout.TextField(commandText);
+				GUI.SetNextControlName("CommandLine");
+				GUILayout.BeginHorizontal();
+				commandText = GUILayout.TextField(commandText);
 #if UNITY_IOS || UNITY_ANDROID
-			if (commandText.IsNotNullAndEmpty())
-			{
-				if (GUILayout.Button("Send"))
+				if (commandText.IsNotNullAndEmpty())
 				{
-					if (OnCommandText != null)
+					if (GUILayout.Button("Send"))
 					{
-						OnCommandText(commandText);
+						GameConsole_OnCommand(commandText);
 						commandText = "";
 					}
 				}
-			}
 #endif
-			GUILayout.EndHorizontal();
+				GUILayout.EndHorizontal();
 
-			//GUI.FocusControl("CommandLine");
-			// Set the window to be draggable by the top title bar
-			GUI.DragWindow(new Rect(0, 0, 10000, 20));
+				//GUI.FocusControl("CommandLine");
+				// Set the window to be draggable by the top title bar
+				GUI.DragWindow(new Rect(0, 0, 10000, 20));
+			}
 		}
 
 		static object locker = new object();
@@ -368,6 +341,10 @@ namespace Framework.Core
 				else
 				{
 					entries.Add(logData);
+					if (entries.Count > MaxRecordCount)
+					{
+						entries.RemoveAt(0);
+					}
 				}
 			}
 		}
@@ -381,8 +358,11 @@ namespace Framework.Core
 				targetCommandCollection = new Dictionary<string, Action<string[]>>();
 				CommandDict[PrefixChar] = targetCommandCollection;
 			}
+			if (CommandDict[PrefixChar].ContainsKey(cmdText))
+			{
+				throw new Exception("cannot register same command more than once.");
+			}
 			CommandDict[PrefixChar].Add(cmdText, commandProcessor);
-
 		}
 
 		void IConsole.Unregister(char PrefixChar, string cmdText)
@@ -426,12 +406,13 @@ namespace Framework.Core
 
 		private void OnDestroy()
 		{
-			var c = Framework.Application.Console;
-			if (c == this as IConsole)
-			{
-				Debug.LogWarning("Console object is deleted. must not use it again.");
-			}
-			Debug.Log("AC.OnDestroy");
+			Debug.Log("ApplicationConsole.OnDestroy");
+			Dispose();
+		}
+
+		public void Dispose()
+		{
+			
 		}
 	}
 }

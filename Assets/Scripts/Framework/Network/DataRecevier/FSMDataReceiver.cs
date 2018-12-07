@@ -1,6 +1,7 @@
 ﻿
 using Framework.Library;
 using System;
+using Framework.Core.FlowControl;
 
 namespace Framework.Network.DataRecevier
 {
@@ -9,7 +10,7 @@ namespace Framework.Network.DataRecevier
 	{
 		public RingBuffer<byte> receiveBuffer { get; private set; }
 
-		public FSMDataReceiver(int ringBufferSize = 2048)
+		public FSMDataReceiver(int ringBufferSize = 2 * 1024 * 1024)
 		{
 			receiveBuffer = new RingBuffer<byte>(ringBufferSize);
 		}
@@ -75,6 +76,7 @@ namespace Framework.Network.DataRecevier
 			return default(ArraySegment<byte>);
 		}
 
+	    private object locker = new object();
 		public void ReceiveData(ArraySegment<byte> segment)
 		{
 		    //lock (locker)

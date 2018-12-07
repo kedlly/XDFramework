@@ -10,4 +10,5 @@ namespace Framework.Core.ReferenceCount
 		void Add();
 		void Release();
 	}
+	
 }

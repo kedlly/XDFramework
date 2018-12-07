@@ -21,6 +21,12 @@ namespace Framework.Editor
 				, BuildAssetBundleOptions.ForceRebuildAssetBundle | BuildAssetBundleOptions.StrictMode | BuildAssetBundleOptions.ChunkBasedCompression
 				, BuildTarget.StandaloneWindows64);
 		}
+
+		[MenuItem("Tool/cleanCache")]
+		static void cleanCache()
+		{
+			Caching.ClearCache();
+		}
 	}
 
 	

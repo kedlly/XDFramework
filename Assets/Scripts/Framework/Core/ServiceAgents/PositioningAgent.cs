@@ -7,7 +7,6 @@ using Framework.Library.Singleton;
 
 namespace Framework.Client.ServiceAgents
 {
-	[RequireComponent(typeof(LevelInfoLoader))]
 	[DisallowMultipleComponent]
 	public class PositioningAgent : ToSingletonBehavior<PositioningAgent>
 	{
