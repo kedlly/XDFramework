@@ -1,7 +1,6 @@
 ﻿using UnityEngine;
 using UnityEditor;
 using Framework.Core.Runtime;
-using System.Collections.Generic;
 using System.IO;
 
 namespace Framework.Editor

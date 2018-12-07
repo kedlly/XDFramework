@@ -49,7 +49,7 @@ namespace Framework.Core.Runtime
 		}
 #if true
 		void OnEnable() {
-			ms = GameManager.Instance.GetSubManager<MovementSystem>();
+			ms = FrameworkUtils.GamePlay.GetSubManager<MovementSystem>();
 			if (ms != null)
 			{
 				ms.Register(this);

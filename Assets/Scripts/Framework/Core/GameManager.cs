@@ -4,6 +4,7 @@ using Framework.Utils.Extensions;
 using System.Collections.Generic;
 using Framework.Core.Attributes;
 using System;
+using System.Linq;
 
 namespace Framework.Core
 {
@@ -29,29 +30,33 @@ namespace Framework.Core
 			}
 		}
 
+		private void OnDestroy()
+		{
+			Dispose();
+		}
+
 		private GameManager() {}
 
 		public void Initalize()
 		{
-			//GameManagerBehaviour.Instance.Initalize();
+			AutoRegisterManagers();
+			NetworkManager.Instance.Initalize();
+		}
+
+		private void AutoRegisterManagers()
+		{
 			var managers = System.AppDomain.CurrentDomain.GetAllTypesImplementsInterface<IManager>();
 			foreach (var mt in managers)
 			{
-				if (mt.IsAbstract)
-				{
-					continue;
-				}
 				var mtaTarget = getFirstMTA(mt);
 				if (mtaTarget != null && mtaTarget.AutoRegister)
 				{
 					AddSubManager(mt);
 				}
 			}
-
-			NetworkManager.Instance.Initalize();
 		}
 
-		Dictionary<string, IManager> objMangers = new Dictionary<string, IManager>();
+		Dictionary<Type, IManager> objMangers = new Dictionary<Type, IManager>();
 
 		public void Update()
 		{
@@ -59,15 +64,6 @@ namespace Framework.Core
 			{
 				manager.Value.Tick();
 			}
-		}
-
-		public IManager GetSubManager(string name)
-		{
-			if (objMangers.ContainsKey(name))
-			{
-				return objMangers[name];
-			}
-			return null;
 		}
 
 		public void AddSubManager<T>() where T : IManager, new()
@@ -86,7 +82,7 @@ namespace Framework.Core
 			if (mtas.Length > 1)
 			{
 				Debug.LogWarningFormat("Manager Type: {0} has more then one ManagerTemplateAttribute, use the first one with name :"
-						, managerType.FullName, mtas[0].Name);
+						, managerType.FullName);
 			}
 			return mtas[0];
 		}
@@ -95,31 +91,21 @@ namespace Framework.Core
 		{
 			if (managerType.IsAbstract || !managerType.ImplementsInterface<IManager>())
 			{
+				Debug.LogError("Manager Create Failed. Manager Type : {1} is abstract or not implement interface IManager.".FormatEx(managerType.FullName));
 				return;
-			}
-			
-			ManagerTemplateAttribute mtaTarget = getFirstMTA(managerType);
-			string managerName =  null;
-			if (mtaTarget == null || mtaTarget.Name.IsNullOrEmpty())
-			{
-				managerName = managerType.FullName;
-			}
-			else
-			{
-				managerName = mtaTarget.Name;
 			}
 			var managerInstance = createSubManagerInstance(managerType);
 			if (managerInstance == null)
 			{
-				Debug.LogError("Manager Create Failed. {0}/{1}".FormatEx(mtaTarget.Name, managerType.FullName));
+				Debug.LogError("Manager Create Failed with type:{1}".FormatEx(managerType.FullName));
 				return;
 			}
-			objMangers.Add(managerName, managerInstance);
+			objMangers.Add(managerType, managerInstance);
 		}
 
 		private IManager createSubManagerInstance(Type managerType)
 		{
-			return System.Activator.CreateInstance(managerType, true) as IManager;
+			return Activator.CreateInstance(managerType, true) as IManager;
 		}
 
 		public T GetSubManager<T>() where T : class, IManager
@@ -132,14 +118,14 @@ namespace Framework.Core
 			IManager target = null;
 			if (managerType.ImplementsInterface<IManager>())
 			{
-				foreach (var manager in objMangers.Values)
+				if (!objMangers.TryGetValue(managerType, out target))
 				{
-					target = manager;
-					if (target.GetType() == managerType)
-					{
-						break;
-					}
+					throw new Exception("Not Exist IManager object in GameManager with Type: " + managerType.FullName);
 				}
+			}
+			else
+			{
+				throw new Exception("Error Manager Type : " + managerType.FullName + " which is not implement interface : IManager.");
 			}
 			return target;
 		}
@@ -156,20 +142,9 @@ namespace Framework.Core
 				return;
 			}
 
-			ManagerTemplateAttribute mtaTarget = getFirstMTA(managerType);
-			string managerName =  null;
-			if (mtaTarget == null || mtaTarget.Name.IsNullOrEmpty())
+			if (objMangers.ContainsKey(managerType))
 			{
-				managerName = managerType.FullName;
-			}
-			else
-			{
-				managerName = mtaTarget.Name;
-			}
-			
-			if (objMangers.ContainsKey(managerName))
-			{
-				objMangers.Remove(managerName);
+				objMangers.Remove(managerType);
 			}
 		}
 
@@ -178,21 +153,11 @@ namespace Framework.Core
 			RemoveSubManager(typeof(T));
 		}
 
-		public U[] GetRelationedObjects<T, U>()
+		public IEnumerable<U> GetRelationedObjects<T, U>()
 			where T : class, IManager
 			where U : class, IManageredObject
 		{
-			List<U> items = new List<U>();
-			var subManager = GetSubManager<T>();
-			foreach (var item in subManager)
-			{
-				var U_item = item as U;
-				if (U_item != null)
-				{
-					items.Add(U_item);
-				}
-			}
-			return items.ToArray();
+			return GetSubManager<T>().OfType<U>();
 		}
 
 	}

@@ -1,5 +1,5 @@
 ﻿
-namespace Framework.System.Communication
+namespace Framework._System.Communication
 {
 	interface ITCPRequest
 	{

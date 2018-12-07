@@ -7,7 +7,7 @@ using System.IO;
 using System.Collections.Generic;
 using System.Xml.XPath;
 
-namespace Assets.Editor.ProjectBuilder
+namespace XDDQFrameWork.Editor.ProjectBuilder
 {
 
 	public static class DataCollection

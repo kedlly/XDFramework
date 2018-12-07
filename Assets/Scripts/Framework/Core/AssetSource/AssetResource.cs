@@ -1,13 +1,106 @@
 ﻿using Framework.Core.FlowControl;
+using Framework.Library.ObjectPool;
 using Framework.Utils.Extensions;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using UnityEngine;
+using UObject = UnityEngine.Object;
 
 namespace Framework.Core
 {
+	public interface IAssetBundle<out T> where T : UObject
+	{
+		bool IsDependenciesAllLoaded { get; }
+		T GetResource();
+		T GetResource(string name);
+	}
+
+	
+
+
+	public class AssetBundleCluster : IPoolable
+	{
+		public string TagName { get; private set; }
+		private bool allocFromPool { get; set; }
+		Dictionary<string, AssetBundle> cacheDict = new Dictionary<string, AssetBundle>(8);
+		public void AddRequiredAssetBundle(string abPath, string uri)
+		{
+			cacheDict.Add(abPath, null);
+		}
+		public void LoadRequiredAssetBundles(bool isAsync = true)
+		{
+			if (isAsync)
+			{
+				LoadAsync();
+			}
+			else
+			{
+				Load();
+			}
+		}
+
+
+		private AssetBundleCreateRequest abcr;
+		private void LoadAsync()
+		{
+			//WWW.LoadFromCacheOrDownload()
+			//abcr = AssetBundle.LoadFromFileAsync()
+			
+		}
+
+		private void Load()
+		{
+
+		}
+
+		public void OnAllocated()
+		{
+			//AssetBundle.GetAllLoadedAssetBundles();
+		}
+
+		public void OnRecycled()
+		{
+			cacheDict.Clear();
+			TagName = null;
+		}
+
+		public void SetTagName(string name)
+		{
+			TagName = name;
+		}
+
+		public void Unload(bool force = false) { }
+		public static AssetBundleCluster Allocate()
+		{
+			var obj = ObjectCache.GlobalCache.Allocate<AssetBundleCluster>();
+			obj.allocFromPool = true;
+			return obj;
+		}
+		public void Recycle()
+		{
+			if (this.allocFromPool)
+			{
+				Recycle(this);
+			}
+			else
+			{
+				OnRecycled();
+			}
+		}
+
+		public static void Recycle(AssetBundleCluster abc)
+		{
+			if (abc != null && abc.allocFromPool)
+			{
+				ObjectCache.GlobalCache.Recycle(abc);
+			}
+		}
+	}
+
+
+	
 	public abstract class AssetResource<T> where T : UnityEngine.Object
 	{
 		public T[] Asset { get; protected set; }
@@ -51,41 +144,41 @@ namespace Framework.Core
 		public string AssetBundlePath { get; set; }
 		public string AssetName { get; set; }
 		AssetBundle bundle;
-		AssetBundleCreateRequest abcq;
-		AssetBundleRequest abq;
+		AssetBundleCreateRequest abcr;
+		AssetBundleRequest abr;
 		bool isLoading = false;
 
-		Gate abcqGate = new Gate(true);
-		Gate abqGate = new Gate(true);
+		Gate abcrGate = new Gate(true);
+		Gate abrGate = new Gate(true);
 
 		const float FileLoadPercentage = 0.35f;
 
 		public AssetResourceFromABPath() : base()
 		{
-			abcqGate.OnExit += () =>
+			abcrGate.OnExit += () =>
 			{
-				this.Progress = abcq.progress * FileLoadPercentage;
-				if (abcq.isDone)
+				this.Progress = abcr.progress * FileLoadPercentage;
+				if (abcr.isDone)
 				{
-					abcqGate.Close();
-					bundle = abcq.assetBundle;
+					abcrGate.Close();
+					bundle = abcr.assetBundle;
 					if (bundle == null)
 					{
 						IsDone = true;
 						OnLoadingEvent_Failed(this, "{0} / {1} bundle error".FormatEx(AssetBundlePath, AssetName));
 						return;
 					}
-					abq = bundle.LoadAssetAsync<T>(AssetName);
-					abqGate.Open();
+					abr = bundle.LoadAssetAsync<T>(AssetName);
+					abrGate.Open();
 				}
 			};
-			abqGate.OnExit += () =>
+			abrGate.OnExit += () =>
 			{
-				this.Progress = abq.progress * (1 - FileLoadPercentage) + FileLoadPercentage;
-				if (abq.isDone)
+				this.Progress = abr.progress * (1 - FileLoadPercentage) + FileLoadPercentage;
+				if (abr.isDone)
 				{
-					abqGate.Close();
-					Asset = new T[1] { abq.asset as T };
+					abrGate.Close();
+					Asset = new T[1] { abr.asset as T };
 					IsDone = true;
 					if (Asset == null || Asset[0] == null)
 					{
@@ -108,8 +201,8 @@ namespace Framework.Core
 			}
 			isLoading = true;
 			bundle = null;
-			abcq = AssetBundle.LoadFromFileAsync(AssetBundlePath);
-			abcqGate.Open();
+			abcr = AssetBundle.LoadFromFileAsync(AssetBundlePath);
+			abcrGate.Open();
 		}
 
 		public override void LoadSync()
@@ -128,8 +221,8 @@ namespace Framework.Core
 		{
 			if (isLoading)
 			{
-				abcqGate.Execute();
-				abqGate.Execute();
+				abcrGate.Execute();
+				abrGate.Execute();
 			}
 		}
 
@@ -324,12 +417,11 @@ namespace Framework.Core
 		}
 	}
 
-	public sealed class AssetBundleLoader : IABOperation
+	public sealed class AssetBundleLoader : IABOperation, IPoolable
 	{
-		public string AssetBundlePath { get; private set; }
-
+		
 		public float Progress { get { return _progress; } }
-
+		
 		public OperationState State
 		{
 			get
@@ -344,10 +436,28 @@ namespace Framework.Core
 
 		AssetBundleCreateRequest abcq;
 		public AssetLoader AssetLoaderProxy { get; private set; }
+		public string TagName { get; private set; }
+
+
+		private bool allocFromPool { get; set; }
+		private string URI { get; set; }
+		private string[] PreLoadResources = null;
+		private WWW wwwObject = null;
+
+
+
+		public void SetResource(string uri, params string[] preloads)
+		{
+			if (uri.Contains("://"))
+			{
+				//wwwObject = new WWW(uri);
+				//wwwObject.Dispose();
+			}
+			PreLoadResources = preloads;
+		}
 
 		public AssetBundleLoader(string abPath)
 		{
-			AssetBundlePath = abPath;
 			abcqGate.OnExit += () =>
 			{
 				_progress = abcq.progress;
@@ -370,14 +480,19 @@ namespace Framework.Core
 
 		public void LoadAsync()
 		{
-			if (_state == OperationState.Running || _state == OperationState.Done)
+			if (_state == OperationState.Running || _state == OperationState.Done || URI.IsNullOrEmpty())
 			{
 				return;
 			}
 			_state = OperationState.Running;
 			AssetLoaderProxy = null;
 			_progress = 0f;
-			abcq = AssetBundle.LoadFromFileAsync(AssetBundlePath);
+			if (URI.Contains("://"))
+			{
+				wwwObject = new WWW(URI);
+				//wwwObject.Dispose();
+			}
+			abcq = AssetBundle.LoadFromFileAsync(URI);
 			abcqGate.Open();
 		}
 
@@ -387,7 +502,7 @@ namespace Framework.Core
 			{
 				return;
 			}
-			var bundle = AssetBundle.LoadFromFile(AssetBundlePath);
+			var bundle = AssetBundle.LoadFromFile(URI);
 			if (bundle == null)
 			{
 				_state = OperationState.Abort;
@@ -412,6 +527,48 @@ namespace Framework.Core
 			{
 				AssetLoaderProxy.CheckOperation();
 			}
+		}
+
+		public static AssetBundleLoader Allocate()
+		{
+			var obj = ObjectCache.GlobalCache.Allocate<AssetBundleLoader>();
+			obj.allocFromPool = true;
+			obj.URI = null;
+			return obj;
+		}
+		public void Recycle()
+		{
+			if (this.allocFromPool)
+			{
+				Recycle(this);
+			}
+			else
+			{
+				OnRecycled();
+			}
+		}
+
+		public static void Recycle(AssetBundleLoader abc)
+		{
+			if (abc != null && abc.allocFromPool)
+			{
+				ObjectCache.GlobalCache.Recycle(abc);
+			}
+		}
+
+		public void OnAllocated()
+		{
+			//AssetBundle.GetAllLoadedAssetBundles();
+		}
+
+		public void OnRecycled()
+		{
+			TagName = null;
+		}
+
+		public void SetTagName(string name)
+		{
+			TagName = name;
 		}
 	}
 

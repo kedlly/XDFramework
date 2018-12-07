@@ -3,7 +3,7 @@ using UnityEngine;
 using UnityEditor;
 using UnityEditor.Build;
 
-namespace Assets.Editor.ProjectBuilder
+namespace XDDQFrameWork.Editor.ProjectBuilder
 {
 	public interface IProjectBuilder
 #if !UNITY_2018

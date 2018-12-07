@@ -9,9 +9,20 @@ namespace Framework.Library.ObjectPool
 	{
 		private readonly Dictionary<Type, IMemoryPool> _objectPools = new Dictionary<Type, IMemoryPool>();
 
+
+		private static ObjectCache _globalCache = new ObjectCache();
+		public static ObjectCache GlobalCache { get { return _globalCache; } }
+
 		public T Allocate<T>() where T : class
 		{
 			return this.GetOrCreateObjectPool<T>().Allocate();
+		}
+
+		public T Allocate<T, TFactory>()
+			where T : class
+			where TFactory : IObjectFactory<T>, new()
+		{
+			return this.GetOrCreateObjectPool<T, TFactory>().Allocate();
 		}
 
 		public void Recycle<T>(T obj) where T : class
@@ -19,7 +30,7 @@ namespace Framework.Library.ObjectPool
 			this.GetOrCreateObjectPool<T>().Recycle(obj); // the return value is always true (or succeed) that because use stack memory by default.
 		}
 
-		public void RegisterCustomObjectPool<T>(IObjectPool<T> objectPool)
+		public void RegisterCustomObjectPool<T>(IObjectPool<T> objectPool) where T : class
 		{
 			if (objectPool != null)
 			{
@@ -27,7 +38,7 @@ namespace Framework.Library.ObjectPool
 			}
 		}
 
-		public void RemoveExistObjectPool<T>()
+		public void RemoveExistObjectPool<T>() where T : class
 		{
 			if (!ContainsPool<T>())
 			{
@@ -83,6 +94,21 @@ namespace Framework.Library.ObjectPool
 			if (!this._objectPools.TryGetValue(key, out objPool))
 			{
 				var newPool = CreateObjectPool<T>(null);
+				RegisterCustomObjectPool(newPool);
+				objPool = newPool;
+			}
+			return (IObjectPool<T>)objPool;
+		}
+
+		private IObjectPool<T> GetOrCreateObjectPool<T, TFactory>() 
+			where T : class
+			where TFactory : IObjectFactory<T>, new()
+		{
+			Type key = typeof(T);
+			IMemoryPool objPool = null;
+			if (!this._objectPools.TryGetValue(key, out objPool))
+			{
+				var newPool = CreateObjectPool(new TFactory());
 				RegisterCustomObjectPool(newPool);
 				objPool = newPool;
 			}

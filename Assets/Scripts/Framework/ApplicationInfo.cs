@@ -1,7 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
+﻿
+using Framework.Misc.Paths;
 
 namespace Framework
 {
@@ -10,6 +8,7 @@ namespace Framework
 		string ServerURL { get; }
 		string Copyright { get; }
 		string Version { get; }
+		string LogPath { get; }
 		string[] AppArgs { get; }
 	}
 
@@ -32,6 +31,16 @@ namespace Framework
 			get
 			{
 				return System.Environment.GetCommandLineArgs();
+			}
+		}
+
+		const string C_LogPath = "Logs";
+		private string _logPath = System.IO.Path.Combine(DevicePath.PersistentDataPath, C_LogPath);
+		string IAppConfigure.LogPath
+		{
+			get
+			{
+				return _logPath;
 			}
 		}
 	}

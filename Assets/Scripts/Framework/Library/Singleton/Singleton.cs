@@ -96,7 +96,13 @@ namespace Framework.Library.Singleton
 		public void Dispose()
 		{
 			OnDispose();
+			if (OnEventDispose != null)
+			{
+				OnEventDispose();
+			}
 		}
+
+		public event Action OnEventDispose;
 
 		protected abstract void OnSingletonInit();
 

@@ -16,14 +16,31 @@ namespace Framework.Library.ObjectPool
 
 		public int TotalObjectCount { get { return ((IObjectPool<T>)implementPool).TotalObjectCount; }	}
 
+		public int ReserveDeepth
+		{
+			get	{return ((IObjectPool<T>)implementPool).ReserveDeepth;	}
+
+			set	{((IObjectPool<T>)implementPool).ReserveDeepth = value;}
+		}
+
+		public int MaxDeepth { get { return ((IObjectPool<T>)implementPool).MaxDeepth; } set { ((IObjectPool<T>)implementPool).MaxDeepth = value; } }
+
+		public IObjectFactory<T> ObjectFactory
+		{
+			get
+			{
+				return ((IObjectPool<T>)implementPool).ObjectFactory;
+			}
+		}
+
 		public ObjectPool(IObjectFactory<T> factory = null)
 		{
 			implementPool = (BufferPolicy<T> )Activator.CreateInstance(typeof(U), factory);
 		}
 
-		public virtual T Allocate()
+		public virtual T Allocate( T template = null)
 		{
-			return ((IObjectPool<T>)implementPool).Allocate();
+			return ((IObjectPool<T>)implementPool).Allocate(template);
 		}
 
 		public virtual bool Recycle(T obj)
@@ -46,9 +63,9 @@ namespace Framework.Library.ObjectPool
 	{
 		public PoolableObjectPool(IObjectFactory<T> factory = null) : base (factory){  }
 
-		public override T Allocate ()
+		public override T Allocate (T template)
 		{
-			T allocated = base.Allocate();
+			T allocated = base.Allocate(template);
 			if (allocated != null)
 			{
 				allocated.OnAllocated();

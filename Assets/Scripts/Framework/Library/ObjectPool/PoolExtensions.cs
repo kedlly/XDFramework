@@ -38,6 +38,11 @@ namespace Framework.Library.ObjectPool
 				return new ObjectPool<TObject, TBufferPolicy>(factory);
 			}
 		}
+
+		public static IObjectPool<T> CreateSharedPool<T>(this IObjectFactory<T> factory) where T : class
+		{
+			return new SharedObjectPool<T, SharedBufferPolicy<T>>(factory);
+		}
 	}
 
 }

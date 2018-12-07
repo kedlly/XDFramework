@@ -1,8 +1,5 @@
 ﻿using UnityEngine;
-using Framework.Core.Attributes;
 using Framework.Library.Singleton;
-using Framework.Library.Log;
-using System.IO;
 using Framework.Utils.Extensions;
 using System;
 
@@ -11,62 +8,23 @@ namespace Framework.Core
 	[PathInHierarchy("/[Game]/Application"), DisallowMultipleComponent]
 	public sealed class ApplicationManager : ToSingletonBehavior<ApplicationManager>, IApplication
 	{
-		event Action IApplication.LowMemory
-		{
-			add
-			{
-				_LowMemoryCallback += value;
-			}
+		public event Action LowMemory;
 
-			remove
-			{
-				_LowMemoryCallback -= value;
-			}
-		}
+		public event Action OnQuit;
 
-		private event Action _LowMemoryCallback;
+		public event Func<bool> WantsToQuit;
 
-		event Action IApplication.OnQuit
-		{
-			add
-			{
-				_OnAppQuit += value;
-			}
-
-			remove
-			{
-				_OnAppQuit -= value;
-			}
-		}
-
-		private event Action _OnAppQuit;
-
-		event Func<bool> IApplication.WantsToQuit
-		{
-			add
-			{
-				_WantsToQuit += value;
-			}
-
-			remove
-			{
-				_WantsToQuit -= value;
-			}
-		}
-
-		private event Func<bool> _WantsToQuit;
-
+		private int _mainThreadId = -1;
 		private void Awake()
 		{
-			Debug.Log("AM.Awake");
+			Debug.Log("ApplicationManager.Awake");
+			_mainThreadId = System.Threading.Thread.CurrentThread.ManagedThreadId;
 			//初始化日志
-			ApplicationLogger.Instance.Init();
-			_helper = ApplicationLogger.Instance;
 			Application.lowMemory += delegate ()
 			{
-				if (_LowMemoryCallback != null)
+				if (LowMemory != null)
 				{
-					_LowMemoryCallback();
+					LowMemory();
 				}
 			};
 #if UNITY_2018_1_OR_NEWER
@@ -75,21 +33,14 @@ namespace Framework.Core
 
 			Application.quitting += delegate ()
 			{
-				if (_OnAppQuit != null)
+				if (OnQuit != null)
 				{
-					_OnAppQuit();
+					OnQuit();
 				}
 				UnityEngine.Debug.Log("-><-");
 			};
 
-			Application.wantsToQuit += delegate ()
-			{
-				if (_WantsToQuit != null)
-				{
-					return _WantsToQuit();
-				}
-				return true;
-			};
+			Application.wantsToQuit += CheckQuitCondition;
 #else
 #endif
 		}
@@ -97,33 +48,42 @@ namespace Framework.Core
 #if !UNITY_2018_1_OR_NEWER
 		private void OnApplicationQuit()
 		{
-			if (_OnAppQuit != null)
+			if (OnQuit != null)
 			{
-				_OnAppQuit();
+				OnQuit();
 			}
 			Debug.Log("OnApplicationQuit");
 		}
 #endif
 
+		private bool CheckQuitCondition()
+		{
+			if (WantsToQuit != null)
+			{
+				return WantsToQuit();
+			}
+			return true;
+		}
+
 		private void OnDestroy()
 		{
 			Dispose();
+			Destroy(this.gameObject);
 		}
 
 		protected override void OnDispose()
 		{
 			base.OnDispose();
-			if (_console != null)
+			ApplicationLogger.Instance.Dispose();
+			if (Console != null)
 			{
-				GameConsole.Instance.Dispose();
-				_console = null;
+				Console.Dispose();
+				Destroy(Console as GameConsole);
+				Console = null;
 			}
-			if (_helper != null)
-			{
-				ApplicationLogger.Instance.Dispose();
-				_helper = null;
-			}
-			Debug.Log("AM.OnDestroy");
+			AppConfigure = null;
+			GamePlay.Dispose();
+			Debug.Log("ApplicationManager.OnDestroy");
 		}
 
 		protected override void OnSingletonInit() // after awake called
@@ -131,37 +91,62 @@ namespace Framework.Core
 			base.OnSingletonInit();
 		}
 
-		private IAppConfigure itf_configure = null;
 
-		IConsole _console = null;
-		IConsole IApplication.Console { get { return _console; } }
-		ILoggerHelper _helper = null;
+		public IConsole Console { get; internal set; }
 
-		IAppConfigure IApplication.AppConfigure	{ get { return itf_configure; } }
+		public IAppConfigure AppConfigure	{ get; private set; }
 
-		ILoggerHelper IApplication.Logger
+		ILoggerHelper IApplication.Logger	{	get	{	return ApplicationLogger.Instance;	}	}
+
+		public int MainThreadId
 		{
 			get
 			{
-				return _helper;
+				return _mainThreadId;
 			}
 		}
 
 		void IApplication.Initialize(IAppConfigure configure)
 		{
-			itf_configure = configure;
+			AppConfigure = configure;
+			//Initialize Application's Logger
+			ApplicationLogger.Instance.Init(AppConfigure.LogPath);
+			Console = this.gameObject.AddComponent<GameConsole>();
+			(Console as GameConsole).Initlize();
 		}
 
 		void IApplication.InitGamePlay(int frameRate)
 		{
 			Application.targetFrameRate = frameRate;
-			GameManager.Instance.Initalize();
-			if (_console == null)
+			GamePlay = new GamePlay();
+			GamePlay.Initalize();
+		}
+
+		public IGamePlay GamePlay	{ get; private set; }
+
+		private void Update()
+		{
+			if (GamePlay != null)
 			{
-				GameConsole.Instance.Initlize();
-				_console = GameConsole.Instance;
+				GamePlay.Update();
 			}
 		}
 
+		public void Exit(int retCode = 0)
+		{
+
+#if !UNITY_2018_1_OR_NEWER
+			if (!CheckQuitCondition())
+			{
+				return;
+			}
+#endif
+
+#if UNITY_EDITOR
+			UnityEditor.EditorApplication.isPlaying = false;
+#else
+			Application.Quit();
+#endif
+		}
 	}
 }

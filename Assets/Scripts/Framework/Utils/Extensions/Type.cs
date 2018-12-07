@@ -131,68 +131,80 @@ namespace Framework.Utils.Extensions
 			return methodInfos.SelectMany(method => method.GetCustomAttributes(false)).OfType<ToStringableAttribute>().Any();
 		}
 
-		#endregion
-
-
-#region AppDomain 扩展
-
-		private static Assembly[] GetLegalAssemblies(this AppDomain aAppDomain)
+		public static FieldInfo GetPublicStaticFieldInfo(this Type type, string name)
 		{
-			var assemblies = aAppDomain.GetAssemblies();
-			return assemblies.Where(assembly =>
-				(assembly.FullName.StartsWith("Mono.")) ||
-				(assembly.FullName.StartsWith("UnityScript")) ||
-				(assembly.FullName.StartsWith("Boo.Lan")) ||
-				(assembly.FullName.StartsWith("System")) ||
-				(assembly.FullName.StartsWith("I18N")) ||
-				(assembly.FullName.StartsWith("UnityEngine")) ||
-				(assembly.FullName.StartsWith("UnityEditor")) ||
-				(assembly.FullName.StartsWith("mscorlib")) ||
-				(assembly.FullName.StartsWith("Unity.")) ||
-				(assembly.FullName.StartsWith("Accessibility")) ||
-				(assembly.FullName.StartsWith("ExCSS.")) ||
-				(assembly.FullName.StartsWith("nunit.")) ||
-				(assembly.FullName.StartsWith("SyntaxTree.")) ? false : true
-			).ToArray();
-		}
-
-		public static Type[] GetAllDerivedTypes(this AppDomain aAppDomain, Type aType)
-		{
-			var result = new List<Type>();
-			foreach(var assembly in aAppDomain.GetLegalAssemblies() )
-			{ 
-				var types = assembly.GetTypes();
-				foreach (var type in types)
-				{
-					if (type.IsSubclassOf(aType))
-						result.Add(type);
-				}
-			}
-			return result.ToArray();
-		}
-
-		public static Type[] GetAllDerivedTypes<T>(this AppDomain aAppDomain)
-		{
-			return aAppDomain.GetAllDerivedTypes(typeof(T));
-		}
-
-		public static Type[] GetAllTypesImplementsInterface<T> (this AppDomain aAppDomain)
-		{
-			var result = new List<Type>();
-			foreach (var assembly in aAppDomain.GetLegalAssemblies())
+			var fields = type.GetFields(BindingFlags.Static | BindingFlags.Public).Where(it => it.Name == name);
+			if (fields.Count() > 0)
 			{
-				var types = assembly.GetTypes();
-				foreach (var type in types)
-				{
-					if (type.ImplementsInterface<T>())
-						result.Add(type);
-				}
+				return fields.Single();
 			}
-			return result.ToArray();
+			return null;
 		}
 
-#endregion
-#region  Attribute 扩展
+		public static T GetPublicStaticField<T>(this Type clsType, string name) where T : class
+		{
+			var fi = clsType.GetPublicStaticFieldInfo(name);
+			if (fi == null)
+			{
+				return null;
+			}
+			return fi.GetValue(null) as T;
+		}
+
+		#endregion
+		#region AppDomain 扩展
+
+		private static Assembly[] CurrentAppDomain { get; set; }
+
+
+		static ExtensionUtils()
+		{
+			CurrentAppDomain = AppDomain.CurrentDomain.LegalAssemblies().ToArray();
+		}
+
+		private static IEnumerable<Assembly> LegalAssemblies(this AppDomain aAppDomain)
+		{
+			return aAppDomain.GetAssemblies().Where(assembly =>
+						//-------------------------Base Assembly-----------------------
+						(assembly.FullName.StartsWith("Mono.")) ||
+						(assembly.FullName.StartsWith("UnityScript")) ||
+						(assembly.FullName.StartsWith("Boo.Lang")) ||
+						(assembly.FullName.StartsWith("System")) ||
+						(assembly.FullName.StartsWith("I18N")) ||
+						(assembly.FullName.StartsWith("UnityEngine")) ||
+						(assembly.FullName.StartsWith("UnityEditor")) ||
+						(assembly.FullName.StartsWith("mscorlib")) ||
+						(assembly.FullName.StartsWith("Unity.")) ||
+						(assembly.FullName.StartsWith("Accessibility")) ||
+						(assembly.FullName.StartsWith("ExCSS.")) ||
+						(assembly.FullName.StartsWith("nunit.")) ||
+						//-------------------------Plugins-----------------------------
+						(assembly.FullName.StartsWith("Newtonsoft.")) ||
+						(assembly.FullName.StartsWith("protobuf")) ||
+						(assembly.FullName.StartsWith("SyntaxTree.")) ? false : true
+					);
+		}
+
+		public static IEnumerable<Type> GetAllTypesDerivedFrom(this AppDomain aAppDomain, Type aType)
+		{
+			var itor = AppDomain.CurrentDomain == aAppDomain ? CurrentAppDomain : aAppDomain.LegalAssemblies();
+			return itor.SelectMany(it => it.GetTypes()).Where(it => it.IsSubclassOf(aType));
+		}
+
+		public static IEnumerable<Type> GetAllTypesDerivedFrom<T>(this AppDomain aAppDomain)
+		{
+			return aAppDomain.GetAllTypesDerivedFrom(typeof(T));
+		}
+
+		public static IEnumerable<Type> GetAllTypesImplementsInterface<T>(this AppDomain aAppDomain, bool ifContainsAbstract = false)
+		{
+			var itor = AppDomain.CurrentDomain == aAppDomain ? CurrentAppDomain : aAppDomain.LegalAssemblies();
+			return itor.SelectMany(it => it.GetTypes()).Where(
+				it => it.ImplementsInterface<T>() && (ifContainsAbstract || !it.IsAbstract));
+		}
+
+		#endregion
+		#region  Attribute 扩展
 		public static T[] GetCustomAttributes<T>(this Type type, bool inherit = false)
 		{
 			return type.GetCustomAttributes(typeof(T), inherit) as T[];

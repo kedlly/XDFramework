@@ -5,7 +5,7 @@ using UnityEditor;
 using UnityEngine;
 using UnityEditor.Callbacks;
 
-namespace Assets.Editor.ProjectBuilder
+namespace XDDQFrameWork.Editor.ProjectBuilder
 { 
     public static partial class BuildFunctions {
 

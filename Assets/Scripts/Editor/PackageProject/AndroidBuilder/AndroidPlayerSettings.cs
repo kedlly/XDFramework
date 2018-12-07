@@ -1,5 +1,5 @@
 ﻿
-namespace Assets.Editor.ProjectBuilder
+namespace XDDQFrameWork.Editor.ProjectBuilder
 {
 
 }

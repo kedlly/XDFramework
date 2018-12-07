@@ -1,0 +1,66 @@
+<scxml xmlns="http://www.w3.org/2005/07/scxml" version="1.0">
+	<FSM name="FSM1" entry="reset" exit="n" any="stateAny">
+
+		<state name="reset"> 
+			<transition event="watch.start"   target="running"/> 
+			<transition event="look" condition="threeParam" param1="threeParam2232" param2="100" target="running"/>
+			<transition event="at" condition="getfunc3" param1="At getfunc3" param2="100" param3="false" target=""/>
+		</state>
+
+		<state name="running"> 
+			<transition event="watch.split"   target="paused"/> 
+			<transition event="watch.stop"    target="stopped"/> 
+			<transition event="watch.reset" target="pause2d"/>>
+		</state> 
+
+		<state name="paused"> 
+			<transition event="watch.unsplit" target="running"/> 
+			<transition event="watch.stop"    target="stopped"/> 
+		</state>
+
+		<FSM name="pause2d" entry="A" exit="exit" any="B0">
+
+			<state name="A" onEnter="onEntry" onExit="onExit">
+				<transition event="watch.unsplit" target="B"/>
+			</state>
+
+			<state name="B0">
+				<transition event="watch.reset" target="exit"/>
+			</state>
+
+			<state name="B">
+				<transition event="watch.unsplit" target="C"/>
+			</state>
+
+			<state name="C">
+				<transition event="watch.unsplit" target="D"/>
+			</state>
+
+			<state name="test" />
+
+			<state name="D">
+				<transition event="watch.unsplit" target="E"/>
+			</state>
+			<state name="E">
+				<transition event="watch.reset" target="reset"/>
+				<!--transition event="watch.start"   target="running"/ -->
+				<transition target="F"/>
+			</state>
+			<state name="F">
+				<transition event="watch.reset" target="reset"/>
+				<!--transition event="watch.start"   target="running"/ -->
+				<transition target="exit"/>
+			</state>
+
+			<state name="exit">
+				<transition event="watch.reset" target="reset"/>
+				<!--transition event="watch.start"   target="running"/ -->
+				<transition target="running"/>
+			</state>
+		</FSM>
+
+		<state name="stopped" script="">
+			<transition event="watch.start"   target="running"/>
+		</state> 
+	</FSM>
+</scxml>

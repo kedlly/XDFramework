@@ -273,7 +273,7 @@ public abstract class AAsyncConnector
 
 }
 
-namespace Framework.System.Network.TCP
+namespace Framework._System.Network.TCP
 {
 
 	public class ATcpConnector 

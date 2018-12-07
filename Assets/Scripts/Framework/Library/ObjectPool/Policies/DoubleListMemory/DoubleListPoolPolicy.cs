@@ -16,7 +16,7 @@ namespace Framework.Library.ObjectPool.Policies.DoubleListMemory
 
 		public DoubleListPolicy(IObjectFactory<T> factory = null) : base (factory) {}
 
-		protected override T OnAllocate()
+		protected override T OnAllocate(T template)
 		{
 			T obj = null;
 			if(openSet.Count > 0)
@@ -27,6 +27,7 @@ namespace Framework.Library.ObjectPool.Policies.DoubleListMemory
 			else
 			{
 				obj = ObjectFactory.Create();
+				ObjectFactory.Copy(obj, template);
 			}
 			closeSet.Add(obj);
 			return obj;
@@ -44,10 +45,18 @@ namespace Framework.Library.ObjectPool.Policies.DoubleListMemory
 			return result;
 		}
 
-		protected override void OnReleaseUnusedObjects()
+		protected override void OnReleaseUnusedObjects(int count)
 		{
-			openSet.ForEach(item => ObjectFactory.Release(item));
-			openSet.Clear();
+			if (count == -1 || openSet.Count < count)
+			{
+				count = openSet.Count;
+			}
+			for (int i = 0; i < count; ++i)
+			{
+				var item = openSet[0];
+				ObjectFactory.Release(item);
+				openSet.RemoveAt(0);
+			}
 		}
 
 		protected override void OnReleaseAllObjects()

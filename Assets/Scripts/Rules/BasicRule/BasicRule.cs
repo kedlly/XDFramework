@@ -3,7 +3,7 @@ using System.Reflection;
 using UnityEngine;
 using Framework.Core.GameRule;
 
-namespace Assets
+namespace XDDQFrameWork
 {
 	public class BasicGameRule : AGameRule
 	{
